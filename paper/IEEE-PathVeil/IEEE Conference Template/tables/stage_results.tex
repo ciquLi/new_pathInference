@@ -1,0 +1,30 @@
+\begin{table*}[t]
+\centering
+\caption{Stage diagnostics against distinct ordered BGP references.
+$C_1$ averages the reference-path first-hop coverage within each pair,
+then equally over pairs. $R$ is the percentage of selected, observed
+neighbors represented by at least one admitted path. $U$ is complete
+ordered observation support among admitted paths with reference-covered
+pairs. An unobserved path is not thereby proven unreal.}
+\label{tab:stage_results}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}rrrrrrrrrr@{}}
+\toprule
+& \multicolumn{3}{c}{2026-02-01} & \multicolumn{3}{c}{2026-03-01} & \multicolumn{3}{c}{2026-04-01}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
+Source AS & $C_1$ (\%) & $R$ (\%) & $U$ (\%) & $C_1$ (\%) & $R$ (\%) & $U$ (\%) & $C_1$ (\%) & $R$ (\%) & $U$ (\%)\\
+\midrule
+16552 & 86.07 & 95.00 & 99.08 & 87.99 & 100.00 & 96.84 & 87.86 & 95.24 & 97.82\\
+19529 & 100.00 & 50.00 & 81.48 & 100.00 & 100.00 & 68.58 & 100.00 & 100.00 & 93.90\\
+32590 & 73.73 & 100.00 & 98.97 & 77.43 & 100.00 & 97.63 & 76.05 & 100.00 & 98.51\\
+34927 & 87.91 & 90.48 & 97.35 & 87.46 & 90.48 & 97.32 & 87.70 & 90.48 & 97.91\\
+42473 & 66.56 & 94.74 & 97.84 & 58.67 & 88.89 & 95.56 & 58.53 & 94.44 & 97.44\\
+49544 & 74.58 & 95.24 & 99.00 & 73.92 & 95.24 & 98.37 & 73.58 & 95.24 & 98.94\\
+58057 & 93.77 & 94.74 & 96.24 & 93.72 & 100.00 & 87.46 & 93.50 & 94.74 & 85.67\\
+199524 & 75.13 & 95.24 & 99.36 & 73.49 & 95.24 & 98.64 & 63.31 & 100.00 & 99.07\\
+328840 & 99.99 & 50.00 & 5.93 & 99.99 & 100.00 & 26.00 & 99.99 & 66.67 & 2.79\\
+398465 & 93.62 & 85.71 & 88.66 & 93.68 & 90.48 & 71.56 & 93.89 & 85.71 & 84.84\\
+\bottomrule
+\end{tabular}
+\end{table*}

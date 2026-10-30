@@ -1,0 +1,42 @@
+% Earlier frozen-model Web diagnostics retained for provenance.
+% Removed from the main narrative on 2026-10-20; these numbers do not
+% describe the current model in tab:web_jaccard_current.
+% Optional working material, not included by pathveil.tex.
+
+\paragraph{Earlier full-trace diagnostics.}
+We retain the earlier frozen model's full-trace diagnostics separately from
+the completed comparison above. Unknown or private hops remain gaps in these
+diagnostics; scores use only observed AS mappings. Table~\ref{tab:web_results}
+reports protocol-specific means over usable predictions from this earlier
+model and KnownPath. Its node scores do not describe the improved model in
+Table~\ref{tab:web_jaccard_current}.
+
+\begin{table}[t!]
+\centering
+\caption{Earlier frozen-model diagnostics against AS-level traceroute observations. Percentages are means over usable predictions; ``Avail.'' counts returned predictions. These are separate from the improved model's results in Table~\ref{tab:web_jaccard_current}.}
+\label{tab:web_results}
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{2.4pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrrrrrrr}
+\toprule
+\textbf{Proto.} & \textbf{Method} & \textbf{Avail.} & \textbf{Node P} & \textbf{Node R} & \textbf{Node F1} & \textbf{Interm. F1} & \textbf{Edge F1} & \textbf{Order} \\
+\midrule
+TCP & KnownPath & 380,234 & 58.65\% & 90.23\% & 69.08\% & 59.39\% & 31.13\% & 87.01\% \\
+TCP & \textbf{\sys} & 380,821 & 56.38\% & 90.11\% & 67.34\% & 56.70\% & 28.08\% & 86.90\% \\
+ICMP & KnownPath & 237,153 & 62.40\% & 85.70\% & 70.70\% & 59.55\% & 28.89\% & 82.12\% \\
+ICMP & \textbf{\sys} & 237,644 & 60.35\% & 85.47\% & 69.16\% & 57.24\% & 25.25\% & 81.91\% \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The earlier model returns an endpoint-valid prediction (the predicted source and destination ASes agree with the trace mapping) for 98.02\% of TCP targets and 97.71\% of Paris-traceroute targets. Its node recall is 90.11\% for TCP and 85.47\% for ICMP; KnownPath has higher node precision, recall, and F1 in both protocols. These diagnostics therefore show broader prediction availability but lower agreement with observed AS sets for the earlier model. Intermediate-hop and edge scores are lower in these partially observed traces. No record in either protocol has a continuous, fully mapped TTL sequence from the first hop through the destination, so a strict complete-path exact-match ratio is not estimable from the raw traces.
+
+Using the same assumption-based subset of 2,198 paths, the earlier frozen
+model exactly matches 215 ordered sequences (9.78\%), compared with 492
+(22.38\%) for KnownPath. The respective pair-wise any-observed-path match
+rates are 11.38\% and 26.03\%. These earlier-model sequence diagnostics are
+distinct from both the current model's AS-set Jaccard and the empty fully
+mapped raw-trace subset.
+

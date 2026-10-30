@@ -1,0 +1,468 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{33}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter does
+%%% not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+\makeatletter
+\@ifundefined{NAT@parse@date}{}{\let\NAT@parse@date@orig\NAT@parse@date}
+\@ifundefined{NAT@parse@date}{}{\def\NAT@parse@date#1#2#3#4#5#6@@{\NAT@parse@date@orig#1#2#3#4#5#6@@\def\NAT@tempyear{0000}\def\NAT@tempexlab{{?}}\ifx\NAT@year\NAT@tempyear\ifx\NAT@exlab\NAT@tempexlab\def\NAT@date{[n.\,d.]}\else\edef\NAT@date{[n.\,d.]\NAT@exlab}\fi\fi}}
+\makeatother
+
+\bibitem[CAI(2023)]%
+        {CAIDA}
+ \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{Center for {A}pplied {I}nternet {D}ata {A}nalysis}.
+\newblock \bibinfo{howpublished}{\url{https://www.caida.org/}}.
+\newblock
+
+
+\bibitem[Augustin et~al\mbox{.}(2006)]%
+        {ParisTraceroute}
+\bibfield{author}{\bibinfo{person}{Brice Augustin}, \bibinfo{person}{Xavier
+  Cuvellier}, \bibinfo{person}{Benjamin Orgogozo}, \bibinfo{person}{Fabien
+  Viger}, \bibinfo{person}{Timur Friedman}, \bibinfo{person}{Matthieu Latapy},
+  \bibinfo{person}{Cl\'{e}mence Magnien}, {and} \bibinfo{person}{Renata
+  Teixeira}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Avoiding traceroute anomalies with Paris
+  traceroute}. In \bibinfo{booktitle}{\emph{Proceedings of Internet Measurement
+  Conference}}. \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{153--158}.
+\newblock
+\href{https://doi.org/10.1145/1177080.1177100}{doi:\nolinkurl{10.1145/1177080.1177100}}
+
+
+\bibitem[{CAIDA}(0000a)]%
+        {caidaASRelationships}
+\bibfield{author}{\bibinfo{person}{{CAIDA}}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{a}.
+\newblock \bibinfo{title}{{AS Relationships}}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.caida.org/catalog/datasets/as-relationships/}}.
+\newblock
+\newblock
+\shownote{Accessed: 2026-10-24}.
+
+
+\bibitem[{CAIDA}(0000b)]%
+        {caidaRouteviewsPfx2AS}
+\bibfield{author}{\bibinfo{person}{{CAIDA}}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{b}.
+\newblock \bibinfo{title}{{Routeviews Prefix to AS mappings Dataset for IPv4
+  and IPv6}}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.caida.org/catalog/datasets/routeviews-prefix2as/}}.
+\newblock
+\newblock
+\shownote{Accessed: 2026-10-24}.
+
+
+\bibitem[CAIDA(2023)]%
+        {caidaASrank}
+\bibfield{author}{\bibinfo{person}{CAIDA}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{{AS} {R}ank}.
+\newblock \bibinfo{howpublished}{\url{http://as-rank.caida.org/}}.
+\newblock
+
+
+\bibitem[Gao(2001)]%
+        {gao2001inferring}
+\bibfield{author}{\bibinfo{person}{Lixin Gao}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{On inferring autonomous system relationships in the
+  Internet}.
+\newblock \bibinfo{journal}{\emph{IEEE/ACM Trans. Netw.}} \bibinfo{volume}{9},
+  \bibinfo{number}{6} (\bibinfo{year}{2001}), \bibinfo{pages}{733--745}.
+\newblock
+
+
+\bibitem[Habib et~al\mbox{.}(2025)]%
+        {habib2025dependence}
+\bibfield{author}{\bibinfo{person}{Rumaisa Habib}, \bibinfo{person}{Kimberly
+  Ruth}, \bibinfo{person}{Gautam Akiwate}, {and} \bibinfo{person}{Zakir
+  Durumeric}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Formalizing Dependence of {Web} Infrastructure}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the ACM SIGCOMM 2025 Conference}}.
+  \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{1132--1153}.
+\newblock
+\href{https://doi.org/10.1145/3718958.3750492}{doi:\nolinkurl{10.1145/3718958.3750492}}
+
+
+\bibitem[Huffaker et~al\mbox{.}(2023)]%
+        {huffaker2023importance}
+\bibfield{author}{\bibinfo{person}{Bradley Huffaker}, \bibinfo{person}{Romain
+  Fontugne}, \bibinfo{person}{Alexander Marder}, {and} \bibinfo{person}{{kc}
+  {claffy}}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{On the Importance of Being an {AS}: An Approach to
+  Country-Level {AS} Rankings}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  2023 ACM Internet Measurement Conference}}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{numpages}{14}~pages.
+\newblock
+\href{https://doi.org/10.1145/3618257.3624798}{doi:\nolinkurl{10.1145/3618257.3624798}}
+
+
+\bibitem[Jacobson(1988)]%
+        {tracerouteJacobson}
+\bibfield{author}{\bibinfo{person}{Van Jacobson}.}
+  \bibinfo{year}{1988}\natexlab{}.
+\newblock \bibinfo{title}{Traceroute}.
+\newblock \bibinfo{howpublished}{\url{ftp://ftp.ee.lbl.gov/traceroute.tar.gz.}}
+\newblock
+
+
+\bibitem[Jin et~al\mbox{.}(2025)]%
+        {11044440}
+\bibfield{author}{\bibinfo{person}{Zitong Jin}, \bibinfo{person}{Xingang Shi},
+  \bibinfo{person}{Qiang Ma}, \bibinfo{person}{Letong Sun},
+  \bibinfo{person}{Zhiliang Wang}, \bibinfo{person}{Xia Yin}, {and}
+  \bibinfo{person}{Jianping Wu}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Which way to go? Inferring Fine-Grained AS Paths
+  with PathRadar}. In \bibinfo{booktitle}{\emph{IEEE INFOCOM 2025 - IEEE
+  Conference on Computer Communications}}. \bibinfo{pages}{1--10}.
+\newblock
+\href{https://doi.org/10.1109/INFOCOM55648.2025.11044440}{doi:\nolinkurl{10.1109/INFOCOM55648.2025.11044440}}
+
+
+\bibitem[Kashaf et~al\mbox{.}(2020)]%
+        {kashaf2020dependencies}
+\bibfield{author}{\bibinfo{person}{Aqsa Kashaf}, \bibinfo{person}{Vyas Sekar},
+  {and} \bibinfo{person}{Yuvraj Agarwal}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Analyzing Third Party Service Dependencies in
+  Modern {Web} Services: Have We Learned from the {Mirai-Dyn} Incident?}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the ACM Internet Measurement
+  Conference}}. \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{634--647}.
+\newblock
+\href{https://doi.org/10.1145/3419394.3423664}{doi:\nolinkurl{10.1145/3419394.3423664}}
+
+
+\bibitem[Ke et~al\mbox{.}(2017)]%
+        {ke2017lightgbm}
+\bibfield{author}{\bibinfo{person}{Guolin Ke}, \bibinfo{person}{Qi Meng},
+  \bibinfo{person}{Thomas Finley}, \bibinfo{person}{Taifeng Wang},
+  \bibinfo{person}{Wei Chen}, \bibinfo{person}{Weidong Ma},
+  \bibinfo{person}{Qiwei Ye}, {and} \bibinfo{person}{Tie-Yan Liu}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{{LightGBM}: A Highly Efficient Gradient Boosting
+  Decision Tree}. In \bibinfo{booktitle}{\emph{Advances in Neural Information
+  Processing Systems}}, Vol.~\bibinfo{volume}{30}. \bibinfo{publisher}{Curran
+  Associates, Inc.}, \bibinfo{pages}{3146--3154}.
+\newblock
+\urldef\tempurl%
+\url{https://proceedings.neurips.cc/paper_files/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Koch et~al\mbox{.}(2021)]%
+        {koch2021anycast}
+\bibfield{author}{\bibinfo{person}{Thomas Koch}, \bibinfo{person}{Ke Li},
+  \bibinfo{person}{Calvin Ardi}, \bibinfo{person}{Ethan Katz-Bassett},
+  \bibinfo{person}{Matt Calder}, {and} \bibinfo{person}{John Heidemann}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Anycast in Context: A Tale of Two Systems}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the ACM SIGCOMM 2021 Conference}}.
+  \bibinfo{publisher}{ACM}, \bibinfo{address}{New York, NY, USA},
+  \bibinfo{pages}{398--417}.
+\newblock
+\href{https://doi.org/10.1145/3452296.3472891}{doi:\nolinkurl{10.1145/3452296.3472891}}
+
+
+\bibitem[Kumar et~al\mbox{.}(2026)]%
+        {kumar2026steering}
+\bibfield{author}{\bibinfo{person}{Rashna Kumar},
+  \bibinfo{person}{Fabi{\'a}n~E. Bustamante}, {and} \bibinfo{person}{Marcel
+  Flores}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{Who Holds the Steering Wheel? Opacity and
+  Consolidation in {CDN} Replica Selection}. In \bibinfo{booktitle}{\emph{1st
+  New Ideas in Networked Systems (NINeS 2026)}} \emph{(\bibinfo{series}{Open
+  Access Series in Informatics (OASIcs)}, Vol.~\bibinfo{volume}{139})}.
+  \bibinfo{publisher}{Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+  \bibinfo{address}{Dagstuhl, Germany}, \bibinfo{pages}{23:1--23:23}.
+\newblock
+\href{https://doi.org/10.4230/OASIcs.NINeS.2026.23}{doi:\nolinkurl{10.4230/OASIcs.NINeS.2026.23}}
+
+
+\bibitem[Le~Pochat et~al\mbox{.}(2019)]%
+        {lepochat2019tranco}
+\bibfield{author}{\bibinfo{person}{Victor Le~Pochat}, \bibinfo{person}{Tom
+  Van~Goethem}, \bibinfo{person}{Samaneh Tajalizadehkhoob},
+  \bibinfo{person}{Maciej Korczy{\'n}ski}, {and} \bibinfo{person}{Wouter
+  Joosen}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{{Tranco}: A Research-Oriented Top Sites Ranking
+  Hardened Against Manipulation}. In \bibinfo{booktitle}{\emph{Proceedings of
+  the Network and Distributed System Security Symposium}}.
+\newblock
+\href{https://doi.org/10.14722/ndss.2019.23386}{doi:\nolinkurl{10.14722/ndss.2019.23386}}
+
+
+\bibitem[Li et~al\mbox{.}(2020)]%
+        {probinfer}
+\bibfield{author}{\bibinfo{person}{Xionglve Li}, \bibinfo{person}{Zhiping Cai},
+  \bibinfo{person}{Bingnan Hou}, \bibinfo{person}{Ning Liu},
+  \bibinfo{person}{Fang Liu}, {and} \bibinfo{person}{Jieren Cheng}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{ProbInfer: Probability-Based {AS} Path Inference
+  from Multigraph Perspective}.
+\newblock \bibinfo{journal}{\emph{Computer Networks}}  \bibinfo{volume}{180}
+  (\bibinfo{year}{2020}), \bibinfo{pages}{107377}.
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2025)]%
+        {li2024realizing}
+\bibfield{author}{\bibinfo{person}{Xionglve Li}, \bibinfo{person}{Chengyu
+  Wang}, \bibinfo{person}{Tao Yang}, \bibinfo{person}{Ao Shen},
+  \bibinfo{person}{Zhenyu Qiu}, \bibinfo{person}{Bingnan Hou}, {and}
+  \bibinfo{person}{Zhiping Cai}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Realizing Personalized and Adaptive Inference of
+  {AS} Paths With a Generative and Measurable Process}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Networking}}
+  \bibinfo{volume}{33}, \bibinfo{number}{2} (\bibinfo{year}{2025}),
+  \bibinfo{pages}{729--744}.
+\newblock
+\href{https://doi.org/10.1109/TNET.2024.3506156}{doi:\nolinkurl{10.1109/TNET.2024.3506156}}
+
+
+\bibitem[Li et~al\mbox{.}(2024)]%
+        {li2024internet}
+\bibfield{author}{\bibinfo{person}{Xionglve Li}, \bibinfo{person}{Chengyu
+  Wang}, \bibinfo{person}{Yifan Yang}, \bibinfo{person}{Changsheng Hou},
+  \bibinfo{person}{Bingnan Hou}, {and} \bibinfo{person}{Zhiping Cai}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Internet Inter-Domain Path Inferring: Methods,
+  Applications, and Future Directions}.
+\newblock \bibinfo{journal}{\emph{Computers, Materials and Continua}}
+  \bibinfo{volume}{81}, \bibinfo{number}{1} (\bibinfo{year}{2024}),
+  \bibinfo{pages}{53--78}.
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2023)]%
+        {li2023realizing}
+\bibfield{author}{\bibinfo{person}{Xionglve Li}, \bibinfo{person}{Tongqing
+  Zhou}, \bibinfo{person}{Zhiping Cai}, {and} \bibinfo{person}{Jinshu Su}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Realizing Fine-Grained Inference of {AS} Path With
+  a Generative Measurable Process}.
+\newblock \bibinfo{journal}{\emph{IEEE/ACM Transactions on Networking}}
+  \bibinfo{volume}{31}, \bibinfo{number}{6} (\bibinfo{year}{2023}),
+  \bibinfo{pages}{3112--3127}.
+\newblock
+\href{https://doi.org/10.1109/TNET.2023.3270565}{doi:\nolinkurl{10.1109/TNET.2023.3270565}}
+
+
+\bibitem[Luckie(2010)]%
+        {scamper2010}
+\bibfield{author}{\bibinfo{person}{Matthew Luckie}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Scamper: A Scalable and Extensible Packet Prober
+  for Active Measurement of the Internet}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 10th ACM SIGCOMM Conference on
+  Internet Measurement}}. \bibinfo{publisher}{ACM}, \bibinfo{pages}{239--245}.
+\newblock
+\urldef\tempurl%
+\url{https://users.caida.org/~mjl/pubs/scamper.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Madhyastha et~al\mbox{.}(2006)]%
+        {madhyastha2006iplane}
+\bibfield{author}{\bibinfo{person}{Harsha~V Madhyastha}, \bibinfo{person}{Tomas
+  Isdal}, \bibinfo{person}{Michael Piatek}, \bibinfo{person}{Colin Dixon},
+  \bibinfo{person}{Thomas Anderson}, \bibinfo{person}{Arvind Krishnamurthy},
+  {and} \bibinfo{person}{Arun Venkataramani}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{i{P}lane: An information plane for distributed
+  services}. In \bibinfo{booktitle}{\emph{Proceedings of the USENIX Symposium
+  on Operating Systems Design and Implementation}}.
+  \bibinfo{publisher}{USENIX}, \bibinfo{pages}{367--380}.
+\newblock
+
+
+\bibitem[Madhyastha et~al\mbox{.}(2009)]%
+        {madhyastha2009iplane}
+\bibfield{author}{\bibinfo{person}{Harsha~V Madhyastha}, \bibinfo{person}{Ethan
+  Katz-Bassett}, \bibinfo{person}{Thomas~E Anderson}, \bibinfo{person}{Arvind
+  Krishnamurthy}, {and} \bibinfo{person}{Arun Venkataramani}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{i{P}lane Nano: Path Prediction for Peer-to-Peer
+  Applications.}. In \bibinfo{booktitle}{\emph{Proceedings of the USENIX
+  Symposium on Networked Systems Design and Implementation}},
+  Vol.~\bibinfo{volume}{9}. \bibinfo{publisher}{USENIX},
+  \bibinfo{pages}{137--152}.
+\newblock
+
+
+\bibitem[Mao et~al\mbox{.}(2003)]%
+        {mao2003AStraceroute}
+\bibfield{author}{\bibinfo{person}{Zhuoqing~Morley Mao},
+  \bibinfo{person}{Jennifer Rexford}, \bibinfo{person}{Jia Wang}, {and}
+  \bibinfo{person}{Randy~H. Katz}.} \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{Towards an Accurate {AS}-Level Traceroute Tool}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the ACM SIGCOMM 2003 Conference}}.
+  \bibinfo{publisher}{ACM}, \bibinfo{pages}{365--378}.
+\newblock
+\urldef\tempurl%
+\url{https://conferences.sigcomm.org/sigcomm/2003/papers/p365-mao.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[{PeeringDB}(2026)]%
+        {PeeringDB}
+\bibfield{author}{\bibinfo{person}{{PeeringDB}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{PeeringDB: The Interconnection Database}.
+\newblock \bibinfo{howpublished}{\url{https://www.peeringdb.com/}}.
+\newblock
+\newblock
+\shownote{Accessed: 2026-07-19}.
+
+
+\bibitem[Qiu and Gao(2006)]%
+        {qiu2005path}
+\bibfield{author}{\bibinfo{person}{Jian Qiu} {and} \bibinfo{person}{Lixin
+  Gao}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{{AS} Path Inference by Exploiting Known {AS}
+  Paths}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE Global
+  Telecommunications Conference}}. \bibinfo{publisher}{IEEE},
+  \bibinfo{pages}{1--5}.
+\newblock
+\href{https://doi.org/10.1109/GLOCOM.2006.27}{doi:\nolinkurl{10.1109/GLOCOM.2006.27}}
+
+
+\bibitem[Rekhter et~al\mbox{.}(2006)]%
+        {rfc4271}
+\bibfield{author}{\bibinfo{person}{Yakov Rekhter}, \bibinfo{person}{Tony Li},
+  {and} \bibinfo{person}{Susan Hares}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{A Border Gateway Protocol 4 ({BGP-4})}}.
+\newblock \bibinfo{type}{RFC} 4271. \bibinfo{institution}{RFC Editor}.
+\newblock
+\href{https://doi.org/10.17487/RFC4271}{doi:\nolinkurl{10.17487/RFC4271}}
+
+
+\bibitem[{RIPE NCC}(0000a)]%
+        {RIPEAtlasResultFormat}
+\bibfield{author}{\bibinfo{person}{{RIPE NCC}}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{a}.
+\newblock \bibinfo{title}{{RIPE Atlas}: Measurement Result Format, Version
+  5000}.
+\newblock
+  \bibinfo{howpublished}{\url{https://atlas.ripe.net/docs/apis/measurement-result-format/version-5000/}}.
+\newblock
+\newblock
+\shownote{Accessed: 2026-10-24}.
+
+
+\bibitem[{RIPE NCC}(0000b)]%
+        {RIPEAtlas}
+\bibfield{author}{\bibinfo{person}{{RIPE NCC}}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{b}.
+\newblock \bibinfo{title}{{RIPE Atlas}: User-defined Measurements}.
+\newblock
+  \bibinfo{howpublished}{\url{https://atlas.ripe.net/docs/getting-started/user-defined-measurements/}}.
+\newblock
+\newblock
+\shownote{Accessed: 2026-10-24}.
+
+
+\bibitem[{RIPE NCC}(2026)]%
+        {RIPERIS}
+\bibfield{author}{\bibinfo{person}{{RIPE NCC}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Routing Information Service (RIS)}}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/}}.
+\newblock
+\newblock
+\shownote{Accessed: 2026-07-30}.
+
+
+\bibitem[Schomp et~al\mbox{.}(2020)]%
+        {schomp2020akamai}
+\bibfield{author}{\bibinfo{person}{Kyle Schomp}, \bibinfo{person}{Onkar
+  Bhardwaj}, \bibinfo{person}{Eymen Kurdoglu}, \bibinfo{person}{Mashooq
+  Muhaimen}, {and} \bibinfo{person}{Ramesh~K. Sitaraman}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{{Akamai DNS}: Providing Authoritative Answers to
+  the World's Queries}. In \bibinfo{booktitle}{\emph{Proceedings of the ACM
+  SIGCOMM 2020 Conference}}. \bibinfo{publisher}{ACM}, \bibinfo{address}{New
+  York, NY, USA}, \bibinfo{pages}{465--478}.
+\newblock
+\href{https://doi.org/10.1145/3387514.3405881}{doi:\nolinkurl{10.1145/3387514.3405881}}
+
+
+\bibitem[Singh et~al\mbox{.}(2021)]%
+        {singh2021predictroute}
+\bibfield{author}{\bibinfo{person}{Rachee Singh}, \bibinfo{person}{David
+  Tench}, \bibinfo{person}{Phillipa Gill}, {and} \bibinfo{person}{Andrew
+  McGregor}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{{PredictRoute}: A Network Path Prediction Toolkit}.
+\newblock \bibinfo{journal}{\emph{Proceedings of the ACM on Measurement and
+  Analysis of Computing Systems}} \bibinfo{volume}{5}, \bibinfo{number}{2},
+  Article \bibinfo{articleno}{23} (\bibinfo{year}{2021}),
+  \bibinfo{numpages}{24}~pages.
+\newblock
+\href{https://doi.org/10.1145/3460090}{doi:\nolinkurl{10.1145/3460090}}
+
+
+\bibitem[{University of Oregon}(2026)]%
+        {RouteViews}
+\bibfield{author}{\bibinfo{person}{{University of Oregon}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{Route Views Project}}.
+\newblock \bibinfo{howpublished}{\url{https://www.routeviews.org/routeviews/}}.
+\newblock
+\href{https://doi.org/10.7264/1y7v-2d90}{doi:\nolinkurl{10.7264/1y7v-2d90}}
+\newblock
+\shownote{Accessed: 2026-07-30}.
+
+
+\bibitem[Wu et~al\mbox{.}(2022)]%
+        {wang2022routeinfer}
+\bibfield{author}{\bibinfo{person}{Tianhao Wu}, \bibinfo{person}{Jessie~Hui
+  Wang}, \bibinfo{person}{Jilong Wang}, {and} \bibinfo{person}{Shuying
+  Zhuang}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{RouteInfer: Inferring Interdomain Paths by
+  Capturing ISP Routing Behavior Diversity and Generality}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the International Conference on
+  Passive and Active Measurement}}. \bibinfo{publisher}{Springer},
+  \bibinfo{address}{Berlin, Heidelberg}, \bibinfo{pages}{216--244}.
+\newblock
+\href{https://doi.org/10.1007/978-3-030-98785-5_10}{doi:\nolinkurl{10.1007/978-3-030-98785-5_10}}
+
+
+\end{thebibliography}

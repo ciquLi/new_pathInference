@@ -1,0 +1,49 @@
+\begin{algorithm}[t]
+\caption{Prefix-Anchored Tail Stitching and Admission}
+\label{alg:path_synthesis}
+\footnotesize
+\begin{algorithmic}[1]
+\Require Source $s$, public topology $G$, independent tails $\mathcal T$
+\Require Neighbor heads $g$, conditional ranker $g_c$, path scorer $h_\theta$
+\Require Root budget $\kappa$ ($21$ in the evaluated protocol)
+\Ensure Prefix tree $\mathcal T_s$ and admitted library $\mathcal L_s$, or unresolved
+\If{$b_1(s)=0$}
+  \State \Return unresolved
+\EndIf
+\State $\rho\gets b_2(s)/b_1(s)^2$
+\State $K\gets\operatorname{Top}_3(g_{\rm pub}(s))\cup\operatorname{Top}_3(g_{\rm str}(s))$
+\If{$\rho\leq1$}
+  \State $N\gets\Call{ProtectedSupportPrefix}{s,K,\kappa,0.7}$
+\Else
+  \State $N\gets K$
+\EndIf
+\State $Q\gets\emptyset$
+\ForAll{$n\in N$}
+  \State $q\gets(s,n)$; $c\gets\Call{UsableTailCount}{q,\mathcal T,300}$
+  \If{$\rho\leq1$ and $c>0$}
+    \State $Q\gets Q\cup\{q\}$
+  \EndIf
+  \If{$\rho>1$ or $c<300$}
+    \State $A\gets\Call{SupportedTopK}{g_c(s,q),10}$
+    \ForAll{$a\in A$ with $a\notin q$}
+      \State $q'\gets q\mathbin{\|}(a)$
+      \If{$\rho>1$ or $\Call{UsableTailCount}{q',\mathcal T,1}>0$}
+        \State $Q\gets Q\cup\{q'\}$
+      \EndIf
+    \EndFor
+  \EndIf
+\EndFor
+\State $\mathcal T_s\gets\Call{PreservePrefixPhaseStates}{Q,G}$
+\State $\mathcal B\gets\{q\oplus t:q\in Q,\ t\in\mathcal T_{\mathrm{last}(q)},\ \Call{ValidJoin}{q,t}\}$
+\State $\mathcal B\gets\Call{ConstructionRepresentatives}{\mathcal B}$
+\State $\mathcal B\gets\Call{ProtectedDestinationBudget}{\mathcal B}$
+\State $(\mathcal B,q)\gets\Call{DeduplicateAndScore}{\mathcal B,h_\theta}$
+\If{$|\mathcal B|<1000$ or $q_{(1000)}\leq0$}
+  \State \Return unresolved \Comment{retain failure provenance}
+\EndIf
+\State $\widetilde q(P)\gets q(P)/\max_{P'\in\mathcal B}q(P')$
+\State $\tau\gets\min\{0.75,\widetilde q_{(1000)}\}$
+\State $\mathcal L_s\gets\{P\in\mathcal B:\widetilde q(P)\geq\tau\}$
+\State \Return $\mathcal T_s,\mathcal L_s$ \Comment{retain all cutoff ties and path provenance}
+\end{algorithmic}
+\end{algorithm}

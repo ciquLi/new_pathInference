@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "date": "20260401",
+  "mode": "bgp",
+  "routing_date": "20260401",
+  "auxiliary_dates": {
+    "asrank": "20260401",
+    "relationships": "20260401",
+    "peeringdb": "20260401"
+  },
+  "files_root": "/run/media/lxl/data/asinfer/files",
+  "test_sources": [
+    "16552",
+    "19529",
+    "32590",
+    "34927",
+    "42473",
+    "49544",
+    "58057",
+    "199524",
+    "328840",
+    "398465"
+  ],
+  "common9": [
+    "16552",
+    "19529",
+    "32590",
+    "34927",
+    "49544",
+    "58057",
+    "199524",
+    "328840",
+    "398465"
+  ],
+  "raw_inputs": [
+    {
+      "id": "asrank_asns",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/asrank/asns20260401.jsonl",
+        "{files_root}/data/ASRank/asns20260401.jsonl"
+      ],
+      "required": true,
+      "snapshot_date": "20260401",
+      "download": {
+        "kind": "asns",
+        "date": "20260401",
+        "expected_count": null
+      }
+    },
+    {
+      "id": "asrank_asnLinks",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/asrank/20260401links.jsonl",
+        "{files_root}/data/ASRank/20260401links.jsonl"
+      ],
+      "required": true,
+      "snapshot_date": "20260401",
+      "download": {
+        "kind": "asnLinks",
+        "date": "20260401",
+        "expected_count": null
+      }
+    },
+    {
+      "id": "relationships",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/20260401.as-rel.txt"
+      ],
+      "required": true,
+      "snapshot_date": "20260401"
+    },
+    {
+      "id": "peeringdb",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/peeringdb/peeringdb_2_dump_2026_04_01.json"
+      ],
+      "required": true,
+      "snapshot_date": "20260401"
+    },
+    {
+      "id": "bgp_riperis",
+      "type": "directory",
+      "candidates": [
+        "/mnt/56DAEA7BDAEA56B1/pathInference/bgp/20260401/riperis",
+        "{files_root}/data/raw_data/bgp/20260401/riperis"
+      ],
+      "required": false,
+      "snapshot_date": "20260401",
+      "purpose": "archive_only"
+    },
+    {
+      "id": "bgp_routeviews",
+      "type": "directory",
+      "candidates": [
+        "/mnt/56DAEA7BDAEA56B1/pathInference/bgp/20260401/routeviews",
+        "{files_root}/data/raw_data/bgp/20260401/routeviews"
+      ],
+      "required": false,
+      "snapshot_date": "20260401",
+      "purpose": "archive_only"
+    }
+  ],
+  "derived_inputs": [
+    {
+      "id": "training_paths",
+      "type": "directory",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/path_without_prefix/train"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "test_paths",
+      "type": "directory",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/path_without_prefix/test"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "graph",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/RL_Graph/edge_frequency.json"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_frequency",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/AS_frequency.json"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_features",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/RL_Graph/AS_Feature.json"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "node2vec",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/RL_Graph/20260401_246_embeddings_collectedPath.emb"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_embedding",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20260401/RL_Graph/ASEmbedding_collectedPath_256.txt"
+      ],
+      "snapshot_date": "20260401",
+      "reusable_only_with_provenance": true
+    }
+  ],
+  "source_policy": {
+    "allow_nearest_date": false,
+    "external_data_read_only": true,
+    "derived_output": "{run_dir}/data/files"
+  },
+  "notes": [
+    "The per-date original top-10 cohort is explicit. common9 is the fixed intersection for cross-date comparisons."
+  ],
+  "method_config": "configs/method_full_sources.json",
+  "workflow_id": "pats_rho_v1",
+  "workflow_config": "configs/workflow_pats.json",
+  "upstream_cache": "runs/20260401/unified255/full_sources_20261024T1029",
+  "baseline_workflow": "rho_prefix_v1",
+  "full_tree_cache_workflow": "rho_adaptive_v1"
+}

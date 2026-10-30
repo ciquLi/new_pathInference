@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering
+\caption{Public evidence at AS, transition, and path levels, complemented
+by destination context and uncertainty indicators.}
+\label{tab:method_features}
+\small
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+Level & Representation and use\\
+\midrule
+AS and AS pair & Network size and transit role; graph connectivity and
+overlap; shared PeeringDB locations. Used to rank possible neighbors.\\
+Transition & Preceding, current, and next AS; directed commercial roles,
+local support, and prefix-phase compatibility. Used for exploration and
+prefix assessment.\\
+Complete path & Ordered edge and segment support, prefix reliability,
+actual third AS, and continuation evidence. Used to score constructed
+routes.\\
+Destination context & Donor agreement toward the same destination, with
+incoming-role conditioning and equal donor-source weighting; evaluated
+at the first hop and stitching boundary.\\
+Uncertainty & Missing metadata, unknown or conflicting roles, absent
+donor coverage, and the end of a construction boundary.\\
+\bottomrule
+\end{tabularx}
+\end{table}

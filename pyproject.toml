@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pathveil-research"
+version = "1.0.0"
+description = "Date-bound routing evidence construction and path inference experiments"
+requires-python = ">=3.9"
+
+[project.scripts]
+pathveil = "pathveil.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]

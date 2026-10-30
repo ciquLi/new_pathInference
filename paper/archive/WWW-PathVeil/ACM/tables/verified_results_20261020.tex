@@ -1,0 +1,56 @@
+% INTERNAL HISTORICAL WORKING TABLES. Do not include in the manuscript.
+% Internal version comparisons have been removed from pathveil.tex.
+% Working tables prepared from verified result artifacts on 2026-10-20.
+% Standalone working tables. The Web comparison has also been integrated
+% into pathveil.tex as tab:web_results. BGP and stage results are integrated
+% there as tab:bgp_results and tab:stage_results; this file is standalone.
+% Provenance: ../../title_and_evaluation_scope_2026-10-20.txt.
+
+\begin{table}[t]
+\centering
+\caption{Verified March 2026 BGP results. Destination ASes represent potential
+Web-service locations; their Web-service status is not measured. The two rows
+use different evidence-construction versions; both downstream runs are complete.
+Support is exact ordered-path agreement among constructed paths whose AS pairs
+occur in the held-out reference; Jaccard uses all 685,765 fixed test pairs.}
+\label{tab:bgp_verified_20261020}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xrrr@{}}
+\toprule
+\textbf{Version} & \shortstack{\textbf{Evidence}\\\textbf{paths}}
+& \shortstack{\textbf{Path}\\\textbf{support}}
+& \textbf{Jaccard} \\
+\midrule
+Completed corrected pipeline & 190,863 & 65.18\% & 78.97\% \\
+Rule-based refinement v2 & 141,277 & 75.54\% & 79.41\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Web-endpoint validation from AS63835. All methods use the same 1,890
+AS-pair queries derived from 2,198 deduplicated traceroute AS sequences under
+the same-AS gap-removal assumption. Scores are mean AS-set Jaccard over all
+queries; missing or invalid predictions score zero. KnownPath predictions are
+frozen from the prior run. This experiment uses one source and one paired seed.}
+\label{tab:web_jaccard_verified_20261020}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xrr@{}}
+\toprule
+\textbf{Method} & \shortstack{\textbf{Valid}\\\textbf{predictions}}
+& \textbf{Jaccard} \\
+\midrule
+KnownPath (frozen) & 1,866/1,890 & 69.19\% \\
+\sys: corrected control & 1,837/1,890 & 61.05\% \\
+\sys: improved construction & 1,837/1,890 & 70.63\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% The Web improvement is 9.58 percentage points over the paired corrected
+% control and 1.45 points over frozen KnownPath, for this one-source experiment.
+% Do not combine the new Web model's Jaccard with the old full-trace node P/R/F1.
+% Do not combine rule-v2's 75.54% support with the completed pipeline's 78.97%.

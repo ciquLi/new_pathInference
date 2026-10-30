@@ -1,0 +1,48 @@
+\begin{table*}[t]
+\centering
+\caption{External data and their roles. Monthly snapshots refer to
+February 1, March 1, and April 1, 2026. Evidence and final reference labels
+have separate consumers.}
+\label{tab:data_sources}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}p{3.0cm}p{2.7cm}X@{}}
+\toprule
+Source & Snapshot / period & Contents and use\\
+\midrule
+Route Views / RIPE RIS~\cite{RouteViews,RIPERIS}
+& Three monthly dates; Oct.\ 15
+& Public AS paths for topology, observed segments, and separately
+partitioned upstream supervision. Designated source routes label the
+fixed BGP query cohorts. Inherited graph-feature provenance is discussed
+in the evaluation protocol.\\
+CAIDA relationships~\cite{caidaASRelationships}
+& Three monthly dates; Oct.\ 1
+& Directed provider--customer and peer roles for AS/prefix/path features
+and commercial-phase checks. Missing roles remain unknown.\\
+CAIDA ASRank~\cite{caidaASrank}
+& Three monthly dates; Oct.\ 1
+& AS and link attributes, including rank, degree, and customer-cone size,
+for neighbor ranking and public graph representation.\\
+PeeringDB~\cite{PeeringDB}
+& Three monthly dates; Oct.\ 14
+& Network attributes and IXP/facility memberships for candidate retrieval
+and co-location features; shared presence does not establish adjacency.\\
+\midrule
+Tranco N26XW~\cite{lepochat2019tranco}
+& Oct.\ 14
+& Frozen one-million-domain list for the independent endpoint dataset.\\
+DNS resolution (this study)
+& Oct.\ 15
+& 911,257 resolved domains; 388,491 unique IPv4 probe targets.\\
+CAIDA prefix-to-AS~\cite{caidaRouteviewsPfx2AS}
+& Oct.\ 13, 10:00 UTC
+& Longest-prefix origin mapping for endpoints and responding hops;
+ambiguous mappings do not become certain labels.\\
+Traceroute (this study)
+& Oct.\ 15--16
+& AS63835: 388,491 TCP and 243,207 ICMP Paris records. Filtering yields
+2,198 distinct ordered AS paths over 1,890 pairs for evaluation only.\\
+\bottomrule
+\end{tabularx}
+\end{table*}

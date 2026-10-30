@@ -1,0 +1,203 @@
+{
+  "audited_utc": "2026-10-29T10:40:09.091727+00:00",
+  "numerical_code_edited": false,
+  "experiment_launched": false,
+  "paper_metric": "independent evaluation jaccard_accuracy_rounded3; pair weighted unless AS mean specified",
+  "runs": [
+    {
+      "date": "20260201",
+      "run": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_cf932b9afbd4c57b",
+      "status": "COMPLETED",
+      "selection_policy": {
+        "algorithm_name": "prefix_anchor_tail_stitching",
+        "augmentation": "source tree plus original TRAIN donor tails; existing 255-column scorer",
+        "final_model": "unchanged normal-history Huber GMPI; source pair-disjoint validation",
+        "high_recursion": "expand every selected root independent of tail capacity",
+        "high_root_selection": "dual raw-ranker Top3 union only; no score-based additions",
+        "low_recursion": "original valid-tail gate; recurse with the same fixed top-k",
+        "low_root_limit": 21,
+        "low_root_limit_provenance": "User-designated 0201 original TRAIN K80 P90=21",
+        "low_root_selection": "dual Top3 protection, original combined score and mean-support threshold",
+        "low_valid_tail_count_min": 300,
+        "maximum_full_path_AS_count": 20,
+        "maximum_prefix_AS_count": 3,
+        "new_mass_prediction": false,
+        "path_constructor": "PATS",
+        "pathgen_test_threads": 4,
+        "pathgen_train_threads": 4,
+        "quality": {
+          "minimum_paths": 1000,
+          "semantics": "Source candidate pool relative quality threshold; no neighbor-first splice protocol",
+          "source_threshold": 0.75
+        },
+        "quantity_cap": null,
+        "query_capacity": 200,
+        "query_tree": "same complete selected source tree for training and queries",
+        "recursion_topk": 10,
+        "rho_threshold": 1.0,
+        "source_rho_only": true,
+        "training_generators": {
+          "high": "Tree B + PATS",
+          "low": "Tree B + PATS"
+        },
+        "unknown_is_not_absence": true,
+        "version": "pats_rho_v1"
+      },
+      "artifact_sha256": {
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_cf932b9afbd4c57b/PROTOCOL.json": "410e726f201f16196a212c24656889b83007bdc71ef5542a341bbc3396ba200d",
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_cf932b9afbd4c57b/RESULTS.csv": "b4567f8efa631ba9ae8f39d6361cd56e7e2a467ecb4b6d0e46ae6ee515f173fc",
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_cf932b9afbd4c57b/STATUS.json": "bbbd1698ee1e3afbe545184d3601f606601e21b4a2689f706e2f3305816aaec6"
+      }
+    },
+    {
+      "date": "20260301",
+      "run": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260301/pats_rho_v1/run_2d82cdb1345fc099",
+      "status": "COMPLETED",
+      "selection_policy": {
+        "algorithm_name": "prefix_anchor_tail_stitching",
+        "augmentation": "source tree plus original TRAIN donor tails; existing 255-column scorer",
+        "final_model": "unchanged normal-history Huber GMPI; source pair-disjoint validation",
+        "high_recursion": "expand every selected root independent of tail capacity",
+        "high_root_selection": "dual raw-ranker Top3 union only; no score-based additions",
+        "low_recursion": "original valid-tail gate; recurse with the same fixed top-k",
+        "low_root_limit": 21,
+        "low_root_limit_provenance": "User-designated 0201 original TRAIN K80 P90=21",
+        "low_root_selection": "dual Top3 protection, original combined score and mean-support threshold",
+        "low_valid_tail_count_min": 300,
+        "maximum_full_path_AS_count": 20,
+        "maximum_prefix_AS_count": 3,
+        "new_mass_prediction": false,
+        "path_constructor": "PATS",
+        "pathgen_test_threads": 4,
+        "pathgen_train_threads": 4,
+        "quality": {
+          "minimum_paths": 1000,
+          "semantics": "Source candidate pool relative quality threshold; no neighbor-first splice protocol",
+          "source_threshold": 0.75
+        },
+        "quantity_cap": null,
+        "query_capacity": 200,
+        "query_tree": "same complete selected source tree for training and queries",
+        "recursion_topk": 10,
+        "rho_threshold": 1.0,
+        "source_rho_only": true,
+        "training_generators": {
+          "high": "Tree B + PATS",
+          "low": "Tree B + PATS"
+        },
+        "unknown_is_not_absence": true,
+        "version": "pats_rho_v1"
+      },
+      "artifact_sha256": {
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260301/pats_rho_v1/run_2d82cdb1345fc099/PROTOCOL.json": "824ae58ac570ad5aa39049af7d01991de8eed67aa205f13ebc3b7965ef20a82d",
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260301/pats_rho_v1/run_2d82cdb1345fc099/RESULTS.csv": "78300327ac1bbc0d6caff947cca7e0ed1ab7c0eae78b68415c724b78144738f8",
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260301/pats_rho_v1/run_2d82cdb1345fc099/STATUS.json": "e610013bf7533d2498c482f11085f6de8a302e1325ef04e9975f3f63d058b9b3"
+      }
+    },
+    {
+      "date": "20260401",
+      "run": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260401/pats_rho_v1/run_12be8f5a0097356e",
+      "status": "COMPLETED",
+      "selection_policy": {
+        "algorithm_name": "prefix_anchor_tail_stitching",
+        "augmentation": "source tree plus original TRAIN donor tails; existing 255-column scorer",
+        "final_model": "unchanged normal-history Huber GMPI; source pair-disjoint validation",
+        "high_recursion": "expand every selected root independent of tail capacity",
+        "high_root_selection": "dual raw-ranker Top3 union only; no score-based additions",
+        "low_recursion": "original valid-tail gate; recurse with the same fixed top-k",
+        "low_root_limit": 21,
+        "low_root_limit_provenance": "User-designated 0201 original TRAIN K80 P90=21",
+        "low_root_selection": "dual Top3 protection, original combined score and mean-support threshold",
+        "low_valid_tail_count_min": 300,
+        "maximum_full_path_AS_count": 20,
+        "maximum_prefix_AS_count": 3,
+        "new_mass_prediction": false,
+        "path_constructor": "PATS",
+        "pathgen_test_threads": 4,
+        "pathgen_train_threads": 4,
+        "quality": {
+          "minimum_paths": 1000,
+          "semantics": "Source candidate pool relative quality threshold; no neighbor-first splice protocol",
+          "source_threshold": 0.75
+        },
+        "quantity_cap": null,
+        "query_capacity": 200,
+        "query_tree": "same complete selected source tree for training and queries",
+        "recursion_topk": 10,
+        "rho_threshold": 1.0,
+        "source_rho_only": true,
+        "training_generators": {
+          "high": "Tree B + PATS",
+          "low": "Tree B + PATS"
+        },
+        "unknown_is_not_absence": true,
+        "version": "pats_rho_v1"
+      },
+      "artifact_sha256": {
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260401/pats_rho_v1/run_12be8f5a0097356e/PROTOCOL.json": "b21b6ea4366babc80b3c86eac0d93c7507930dcc65eb7426ebf4573b56f4319b",
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260401/pats_rho_v1/run_12be8f5a0097356e/RESULTS.csv": "920f11e083cb6b6f6a9252099adb34f57dbce7a1c635c0d068df11f721f39a66",
+        "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260401/pats_rho_v1/run_12be8f5a0097356e/STATUS.json": "4158477786513f897929b88f9f621f08997bc26bf4de94b660647132585b5436"
+      }
+    }
+  ],
+  "new_active_run_at_audit": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_f23ac237b99e5f9d",
+  "new_active_policy": {
+    "algorithm_name": "prefix_anchor_tail_stitching",
+    "augmentation": "source tree plus original TRAIN donor tails; existing 255-column scorer",
+    "final_model": "unchanged normal-history Huber GMPI; source pair-disjoint validation",
+    "high_recursion": "expand every selected root independent of tail capacity",
+    "high_root_selection": "dual raw-ranker Top3 union only; no score-based additions",
+    "low_recursion": "original valid-tail gate; recurse with the same fixed top-k",
+    "low_root_limit": 35,
+    "low_root_limit_provenance": "User-designated 0201 original TRAIN K80 P90=21",
+    "low_root_selection": "dual Top3 protection, original combined score and mean-support threshold",
+    "low_valid_tail_count_min": 300,
+    "maximum_full_path_AS_count": 20,
+    "maximum_prefix_AS_count": 3,
+    "new_mass_prediction": false,
+    "path_constructor": "PATS",
+    "pathgen_test_threads": 4,
+    "pathgen_train_threads": 4,
+    "quality": {
+      "minimum_paths": 1000,
+      "semantics": "Source candidate pool relative quality threshold; no neighbor-first splice protocol",
+      "source_threshold": 0.75
+    },
+    "quantity_cap": null,
+    "query_capacity": 200,
+    "query_tree": "same complete selected source tree for training and queries",
+    "recursion_topk": 5,
+    "rho_threshold": 1.0,
+    "source_rho_only": true,
+    "training_generators": {
+      "high": "Tree B + PATS",
+      "low": "Tree B + PATS"
+    },
+    "unknown_is_not_absence": true,
+    "version": "pats_rho_v1"
+  },
+  "not_yet_reported": [
+    "PATS traceroute evaluation",
+    "matched-baseline results",
+    "component ablations",
+    "novel-join-only support"
+  ],
+  "source_isolation_boundary": "Task-origin supervised labels and final route labels are isolated. Legacy graph and AS representation original origin-level construction provenance unavailable.",
+  "manuscript_sha256": {
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/pathveil.tex": "c7b092fe31c74d64ae34912a363c93dfdb348d40f86644ed3dad9a5a1b19f515",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/pathveil.pdf": "b372d46b9b1754a16fad66b96ff20b3ee2a56a4e4a0ba1d986a032dce7516c71",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/sections/method.tex": "18b9ae8b9a7480ee90af134226edfd19e67e3dca7efc608106591d589f5d4122",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/algorithms/path_augmentation.tex": "64ff9467fbbb771043e02f5d0dc69bd28a3755eb1be85165212a8f51afcab1b0",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/tables/bgp_results.tex": "029b3707dfed691c0eceb727ab80fe61aa73169b738299d8747943acbe4cc435",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/tables/data_sources.tex": "0d3f059275b555b18638ad2fe0360e29327a8d61e53609d3f6239706886df848",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/tables/method_features.tex": "e7e4b538b6c560ce9a50bbcf771945e64aa0d1a793057c322a5b246435a036f7",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/tables/per_source_results.tex": "2d0c550ca21aaebb317e37384cf1032945c44471dc914c0c517d7f58fceaa932",
+    "/run/media/lxl/data/asinfer/MetaGMPI/paper/IEEE-PathVeil/IEEE Conference Template/tables/stage_results.tex": "067e52935490b0e647d891f20c3d77832a0d204567076784e1fbbcac80b2848c"
+  },
+  "build": {
+    "class": "IEEEtran conference",
+    "pages": 10,
+    "undefined_references": false,
+    "overfull_boxes": false
+  }
+}

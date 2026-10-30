@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "date": "20261015",
+  "mode": "traceroute",
+  "routing_date": "20261015",
+  "auxiliary_dates": {
+    "asrank": "20261001",
+    "relationships": "20261001",
+    "peeringdb": "20261014"
+  },
+  "files_root": "/run/media/lxl/data/asinfer/files",
+  "test_sources": [
+    "63835"
+  ],
+  "common9": [],
+  "raw_inputs": [
+    {
+      "id": "asrank_asns",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/asrank/asns20261001.jsonl",
+        "{files_root}/data/ASRank/asns20261001.jsonl"
+      ],
+      "required": true,
+      "snapshot_date": "20261001",
+      "download": {
+        "kind": "asns",
+        "date": "20261001",
+        "expected_count": null
+      }
+    },
+    {
+      "id": "asrank_asnLinks",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/asrank/20261001links.jsonl",
+        "{files_root}/data/ASRank/20261001links.jsonl"
+      ],
+      "required": true,
+      "snapshot_date": "20261001",
+      "download": {
+        "kind": "asnLinks",
+        "date": "20261001",
+        "expected_count": null
+      }
+    },
+    {
+      "id": "relationships",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/20261001.as-rel.txt"
+      ],
+      "required": true,
+      "snapshot_date": "20261001"
+    },
+    {
+      "id": "peeringdb",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/peeringdb/peeringdb_2_dump_2026_10_14.json"
+      ],
+      "required": true,
+      "snapshot_date": "20261014"
+    },
+    {
+      "id": "bgp_riperis",
+      "type": "directory",
+      "candidates": [
+        "/mnt/56DAEA7BDAEA56B1/pathInference/bgp/20261015/riperis",
+        "{files_root}/data/raw_data/bgp/20261015/riperis"
+      ],
+      "required": false,
+      "snapshot_date": "20261015",
+      "purpose": "archive_only"
+    },
+    {
+      "id": "bgp_routeviews",
+      "type": "directory",
+      "candidates": [
+        "/mnt/56DAEA7BDAEA56B1/pathInference/bgp/20261015/routeviews",
+        "{files_root}/data/raw_data/bgp/20261015/routeviews"
+      ],
+      "required": false,
+      "snapshot_date": "20261015",
+      "purpose": "archive_only"
+    },
+    {
+      "id": "trace_truth",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/traceroute/20261015/measurement/as_paths_path_inference.csv"
+      ],
+      "required": true,
+      "snapshot_date": "20261015"
+    },
+    {
+      "id": "web_targets",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/traceroute/20261015/inputs/web_targets.csv"
+      ],
+      "required": true,
+      "snapshot_date": "20261015"
+    },
+    {
+      "id": "source_holdout",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/path_without_prefix/source_holdout.json"
+      ],
+      "required": true,
+      "snapshot_date": "20261015"
+    }
+  ],
+  "derived_inputs": [
+    {
+      "id": "training_paths",
+      "type": "directory",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/path_without_prefix/train"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "graph",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/RL_Graph/edge_frequency.json"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_frequency",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/AS_frequency.json"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_features",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/RL_Graph/AS_Feature.json"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "node2vec",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/RL_Graph/20261015_246_embeddings_collectedPath.emb"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_embedding",
+      "type": "file",
+      "candidates": [
+        "{files_root}/data/aspath/path_by_vantage/20261015/RL_Graph/ASEmbedding_collectedPath_256.txt"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    }
+  ],
+  "source_policy": {
+    "allow_nearest_date": false,
+    "external_data_read_only": true,
+    "derived_output": "{run_dir}/data/files"
+  },
+  "notes": [
+    "ASRank and AS relationships are explicitly bound to 20261001; PeeringDB is bound to 20261014.",
+    "Traceroute labels are evaluation-only. The strict no-unknown-hop truth file is empty; aligned paths use the recorded same-AS-gap rule."
+  ],
+  "method_config": "configs/method_full_sources.json"
+}

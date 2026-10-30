@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "date": "20261015",
+  "mode": "bgp",
+  "routing_date": "20261015",
+  "auxiliary_dates": {
+    "asrank": "20261001",
+    "relationships": "20261015",
+    "peeringdb": "20261014"
+  },
+  "files_root": "/run/media/lxl/data/asinfer/files",
+  "test_sources": [
+    "16552",
+    "19529",
+    "32590",
+    "34927",
+    "42473",
+    "49544",
+    "58057",
+    "199524",
+    "328840",
+    "398465"
+  ],
+  "common9": [
+    "16552",
+    "19529",
+    "32590",
+    "34927",
+    "49544",
+    "58057",
+    "199524",
+    "328840",
+    "398465"
+  ],
+  "raw_inputs": [
+    {
+      "id": "asrank_asns",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/asrank/asns20261001.jsonl",
+        "/run/media/lxl/data/asinfer/files/data/ASRank/asns20261001.jsonl"
+      ],
+      "required": true,
+      "snapshot_date": "20261001",
+      "download": {
+        "kind": "asns",
+        "date": "20261001",
+        "expected_count": null
+      }
+    },
+    {
+      "id": "asrank_asnLinks",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/asrank/20261001links.jsonl",
+        "/run/media/lxl/data/asinfer/files/data/ASRank/20261001links.jsonl"
+      ],
+      "required": true,
+      "snapshot_date": "20261001",
+      "download": {
+        "kind": "asnLinks",
+        "date": "20261001",
+        "expected_count": null
+      }
+    },
+    {
+      "id": "relationships",
+      "type": "file",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/20261015.as-rel.txt"
+      ],
+      "required": true,
+      "snapshot_date": "20261015"
+    },
+    {
+      "id": "peeringdb",
+      "type": "file",
+      "candidates": [
+        "{project_root}/data/peeringdb/peeringdb_2_dump_2026_10_14.json"
+      ],
+      "required": true,
+      "snapshot_date": "20261014"
+    },
+    {
+      "id": "bgp_riperis",
+      "type": "directory",
+      "candidates": [
+        "/mnt/56DAEA7BDAEA56B1/pathInference/bgp/20261015/riperis",
+        "/run/media/lxl/data/asinfer/files/data/raw_data/bgp/20261015/riperis"
+      ],
+      "required": false,
+      "snapshot_date": "20261015",
+      "purpose": "archive_only"
+    },
+    {
+      "id": "bgp_routeviews",
+      "type": "directory",
+      "candidates": [
+        "/mnt/56DAEA7BDAEA56B1/pathInference/bgp/20261015/routeviews",
+        "/run/media/lxl/data/asinfer/files/data/raw_data/bgp/20261015/routeviews"
+      ],
+      "required": false,
+      "snapshot_date": "20261015",
+      "purpose": "archive_only"
+    }
+  ],
+  "derived_inputs": [
+    {
+      "id": "training_paths",
+      "type": "directory",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/path_without_prefix/train"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "test_paths",
+      "type": "directory",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/path_without_prefix/test"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "graph",
+      "type": "file",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/RL_Graph/edge_frequency.json"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_frequency",
+      "type": "file",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/AS_frequency.json"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_features",
+      "type": "file",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/RL_Graph/AS_Feature.json"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "node2vec",
+      "type": "file",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/RL_Graph/20261015_246_embeddings_collectedPath.emb"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    },
+    {
+      "id": "as_embedding",
+      "type": "file",
+      "candidates": [
+        "/run/media/lxl/data/asinfer/files/data/aspath/path_by_vantage/20261015/RL_Graph/ASEmbedding_collectedPath_256.txt"
+      ],
+      "snapshot_date": "20261015",
+      "reusable_only_with_provenance": true
+    }
+  ],
+  "source_policy": {
+    "allow_nearest_date": false,
+    "external_data_read_only": true,
+    "derived_output": "{run_dir}/data/files"
+  },
+  "notes": [
+    "20261015 carried-forward public snapshots: ASRank=20261001, PeeringDB=20261014 (same-date 20261015 snapshots unavailable); relationships use the routing-date 20261015.as-rel.txt.",
+    "The per-date original top-10 cohort is explicit. common9 is the fixed intersection for cross-date comparisons.",
+    "Auxiliary carried-forward is explicit provenance, not implicit nearby-snapshot selection; PATS validate_assets now admits on-or-before snapshots (no future snapshots)."
+  ],
+  "method_config": "configs/method_full_sources.json"
+}

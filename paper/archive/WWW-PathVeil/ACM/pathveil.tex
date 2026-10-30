@@ -1,0 +1,674 @@
+\documentclass[sigconf,anonymous,review]{acmart}
+
+% Anonymous review version; publication metadata is assigned after acceptance.
+\setcopyright{none}
+\settopmatter{printacmref=true}
+\acmDOI{}
+\acmISBN{}
+\acmConference[WWW '27]{The ACM Web Conference 2027}{May 10--14, 2027}{Dublin, Ireland}
+\acmYear{2027}
+\copyrightyear{2027}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{cleveref}
+\crefname{section}{\S}{\S\S}
+\Crefname{section}{\S}{\S\S}
+\newcommand{\sys}{\mbox{WebRouteMap}\xspace}
+
+\begin{document}
+\title[WebRouteMap: Which Networks Carry Your Web Traffic?]{WebRouteMap: Which Networks Carry Your Web Traffic?}
+\author{Anonymous Author(s)}
+
+\begin{abstract}
+Web access depends on intermediary networks that are difficult for users and
+content providers to see. A path view could help users inspect transit
+dependencies and providers compare access to serving locations, but direct
+measurements require vantage points in the relevant user networks. We present
+\sys, a tool that estimates the autonomous-system (AS) paths behind Web access
+without measurements from every target user network. Given a user network and
+a selected website endpoint, it combines public routing observations with
+interconnection metadata to rank possible exits, extend branches with sparse
+continuations, and score complete paths using destination-specific propagation
+evidence. A shared selected path library supports training and candidate
+generation; an existing ranker then answers individual path queries. We evaluate a controlled BGP
+source-withholding experiment, whose destinations represent potential
+Web-service locations, and independent traceroutes to domain-derived endpoints.
+The three-snapshot BGP benchmark obtains approximately 80\% AS-set Jaccard,
+using ten source ASes per date. The single-source Web experiment obtains 69.96\% over 1,890 pairs,
+compared with 69.19\% for KnownPath. The evaluations quantify network-path agreement for Web access.
+\end{abstract}
+
+\ccsdesc[500]{Networks~Network measurement}
+\keywords{Web access, network-path visibility, public routing evidence, AS-level routing}
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+
+\emph{Which networks carry a user's traffic when visiting websites?} Domain
+names identify services but reveal little about the intermediary networks
+connecting users to their serving endpoints. A user reading news, shopping,
+and streaming video may depend on a common transit network despite visiting
+different services (Figure~\ref{fig:motivation}). At the autonomous-system
+(AS) level, visibility into these paths could help users inspect their
+exposure to intermediary networks and help content providers compare how
+user networks reach candidate serving locations. This view complements
+studies of hosting, DNS, and certificate
+dependencies~\cite{kashaf2020dependencies,habib2025dependence} by examining
+the networks connecting users to Web services.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig1_scenario.pdf}
+\caption{Network paths behind Web access. For each externally supplied
+serving AS $d_i$, \sys joins an estimated prefix with an observed segment to
+estimate the user's route. Dashed and solid arrows distinguish the two
+sources of evidence. The diagram shows AS connectivity, not geography.}
+\Description{A user in access AS s visits news, shopping, and video services.
+Dashed prefixes connect s to n1 and n2; solid publicly observed segments
+continue to serving ASes. Both branches can reach the shopping service.
+Another source AS supplies indirect observations.}
+\label{fig:motivation}
+\end{figure}
+
+Obtaining this visibility across user networks is difficult. Traceroute
+observes paths from deployed probes, so coverage depends on suitable
+vantage points~\cite{tracerouteJacobson,RIPEAtlas}. Public BGP collectors add
+routing observations from participating networks, but their coverage is
+incomplete~\cite{RouteViews,RIPERIS,huffaker2023importance}. Path inference
+extends these observations. Graph-based methods can generate routes without
+source-originated measurements, yet simplified policy rules cannot fully
+capture source-specific routing behavior~\cite{qiu2005path,11044440}.
+Stitching methods reuse observed segments, but composition alone cannot
+construct a route when suitable source-connected segments are
+absent~\cite{probinfer}. Hybrid methods improve coverage, while uneven
+observations remain a challenge across source networks~\cite{11044440}.
+
+The shortage of source observations creates a cold-start problem for
+learning-based inference. For example, GMPI trains a source-specific model
+using observed paths rooted at the source AS~\cite{li2023realizing}; few or no such paths leave
+insufficient supervision for learning its routing
+behavior~\cite{li2024internet}. PA-GMPI introduces adaptive training and
+warm-start mechanisms~\cite{li2024realizing}.
+We ask: \emph{Can we make the network paths behind Web access visible to users
+and content providers, without requiring path measurements from every user
+network?} To address this cold start, we use public interconnection
+information to connect the source to route segments observed from other
+networks. This path augmentation provides plausible source-rooted training
+paths for learning routes from user networks to website endpoints.
+
+Constructing these training paths presents three challenges.
+\textbf{First, how should likely forwarding branches be identified and
+explored?} Well-observed neighbors can supply many reusable paths, whereas
+poorly observed neighbors require further exploration. When a source has
+few neighbors, important routing choices may lie beyond its first hop.
+Neighbor selection and recursive exploration must therefore determine
+which branches to follow and where usable observations become available.
+\textbf{Second, how should paths be generated and selected?} Graph search
+or stitching can produce paths the source would not use. Construction must
+be coupled with reliability assessment and selection that preserves
+important neighbors.
+\textbf{Third, how can public evidence inform these decisions without AS
+configurations or direct source measurements?} BGP paths, AS relationships,
+and interconnection metadata describe different aspects of routing and have
+uneven coverage. Their information requires representations of ASes,
+forwarding transitions, and complete paths that account for source and
+destination context while preserving missing or uncertain evidence.
+
+We present \textbf{\sys}, a Web-path visibility framework that estimates
+routes from user networks to selected website endpoints using public routing
+observations and interconnection metadata.
+
+\textbf{To address the first challenge,} we combine learned neighbor
+ranking with evidence-guided recursive exploration. A source-level ranker
+prioritizes neighbors through which the source is likely to forward
+traffic. For each selected neighbor, we count observed continuations that
+can form structurally admissible training paths. Sufficient evidence
+allows direct reuse; otherwise, a local ranker identifies supported next
+hops for bounded prefix expansion. We retain prefixes with usable
+continuations alongside their extensions, preserving sparse evidence
+while exploring routing choices beyond the source's immediate neighbors.
+
+\textbf{To address the second challenge,} we combine observed-path
+stitching with learned complete-path scoring and neighbor-aware selection.
+Observed BGP paths encode routing choices made by real networks, so
+reusing intact segments reduces how much of a training path must be
+inferred. We connect the source to segments rooted at selected neighbors
+or recursively reached ASes, preserving their direction and order. A
+learned scorer estimates observation support for the complete candidate.
+Selection reserves available samples through important neighbors before
+filling the remaining budget with high-scoring alternatives, keeping
+important forwarding branches represented in the training library.
+
+\textbf{To address the third challenge,} we build a multilevel
+representation of public routing and interconnection evidence. AS
+features describe network roles, connectivity, and PeeringDB co-location;
+transition features capture directed commercial relationships and local
+routing support; path features summarize prefix reliability and observed
+segment support. Destination-specific evidence measures agreement among
+other source networks under comparable incoming commercial roles.
+Per-source normalization and equal source weighting limit dominance by
+prolific observers, while explicit missingness and conflict indicators
+preserve uncertainty. These representations support neighbor ranking,
+recursive exploration, and complete-path assessment without private AS
+configurations.
+
+Our implementation uses GMPI for path inference, with the selected library
+supplying training paths and evidence for candidate generation in
+user-to-website queries such as those in Figure~\ref{fig:motivation}.
+
+We make three contributions:
+\begin{itemize}
+\item We present \sys, a framework that estimates AS-level paths from user
+networks to selected website endpoints without requiring path measurements
+from the target user network.
+\item We develop an evidence-guided path-augmentation method for ASes
+without source-originated measurements. Using multilevel public evidence,
+it combines learned neighbor selection, recursive exploration, and
+observed-segment stitching with complete-path scoring and sample safeguards
+for important neighbors.
+\item We validate \sys in two complementary settings: a controlled BGP
+source-withholding benchmark across three snapshots and an independent
+traceroute experiment toward domain-derived endpoints. Stage-wise
+evaluation measures neighbor coverage and augmented-path observation
+support, alongside final AS-set Jaccard.
+\end{itemize}
+
+\section{Background and Related Work}
+\label{sec:background}
+
+\subsection{Web Access and Interdomain Routes}
+
+A user's route to a website depends on its access network and serving
+endpoint. DNS steering can select different server addresses, while anycast
+can reach different serving instances at the same
+address~\cite{schomp2020akamai,koch2021anycast,kumar2026steering}.
+Mapping the endpoint prefix to an AS defines an interdomain query, although
+prefixes within that AS may follow different routes. This view complements
+Web-dependency research~\cite{kashaf2020dependencies,habib2025dependence}
+by examining the networks connecting users to selected endpoints.
+
+BGP distinguishes learning a route from a neighbor, selecting it under
+local policy, and exporting it to other neighbors~\cite{rfc4271}.
+Route Views and RIPE RIS expose paths advertised by participating
+networks~\cite{RouteViews,RIPERIS}. CAIDA relationships, ASRank, and
+PeeringDB add commercial roles, network attributes, and shared IXP or
+facility presence~\cite{CAIDA,caidaASrank,PeeringDB}. These sources
+constrain possible routes, but do not disclose all private preferences.
+Co-location does not establish a connection, and valley-free compatibility
+does not establish that a network uses a particular
+route~\cite{gao2001inferring}.
+
+\subsection{Direct Path Measurement}
+
+Traceroute varies the IP time-to-live to collect replies from forwarding
+hops~\cite{tracerouteJacobson}. Its output describes an observation from
+a particular source toward a target at the measurement time. Classic
+traceroute can combine replies from different paths under load balancing;
+Paris traceroute controls flow identifiers to reduce per-flow
+artifacts~\cite{ParisTraceroute}. It does not eliminate every form of
+load balancing or measurement uncertainty. Scamper supports parallel,
+rate-controlled probing, while RIPE Atlas provides distributed probes for
+user-defined measurements~\cite{scamper2010,RIPEAtlas}.
+
+These tools support large-scale measurement, but directly observing paths
+from a user AS requires an available vantage point there~\cite{RIPEAtlas}.
+Repeated probing consumes measurement resources. Unresponsive hops and filtering can
+leave gaps~\cite{RIPEAtlasResultFormat}, and converting IP replies into AS
+sequences introduces mapping uncertainty~\cite{mao2003AStraceroute}. BGP paths
+provide control-plane evidence and need not match a traceroute's
+data-plane sequence. Direct measurement and inference are complementary:
+measurements supply observations, while inference estimates paths from
+user networks without a suitable source probe.
+
+\subsection{AS Path Inference}
+
+AS-path inference estimates unmeasured routes from available
+evidence~\cite{li2024internet}.
+\textbf{KnownPath} exploits AS paths already present in BGP tables to infer
+routes from a source AS to a destination prefix~\cite{qiu2005path}.
+\textbf{ProbInfer} represents observed path segments in a multigraph and
+combines segment composition with probability-based candidate evaluation,
+using public passive measurement data~\cite{probinfer}.
+
+\textbf{GMPI} combines heuristic candidate-path generation with a neural
+evaluation model. It integrates topology and AS attributes with related
+observed paths through path representations and dual
+attention~\cite{li2023realizing}.
+\textbf{PA-GMPI} extends this approach with personalized path generation
+and adaptive model training using information specific to individual
+ASes. It introduces a graph-kernel-based training warm starter and an AS
+representation learner based on observed walks~\cite{li2024realizing}.
+These works address candidate generation, evidence integration, and
+source-specific inference; we reuse the existing GMPI-based downstream
+ranking stage.
+
+\textbf{PathRadar} distinguishes core and shell ASes according to routing
+complexity and observation adequacy, combining policy-based and
+stitching-based inference. Its progressive learning process propagates and
+evaluates candidate routes; it also addresses prefix-specific paths,
+multiple paths per AS pair, and selected non-valley-free path
+patterns~\cite{11044440}.
+
+Other systems provide complementary perspectives: iPlane composes observed
+segments to predict paths and their properties~\cite{madhyastha2006iplane,madhyastha2009iplane};
+PredictRoute combines historical data- and control-plane evidence with
+probabilistic path prediction~\cite{singh2021predictroute}; and RouteInfer
+models diversity and commonality in ISP routing
+behavior~\cite{wang2022routeinfer}. Our focus is source-specific evidence
+construction for Web-path queries when paths originating from the user
+network are unavailable. We combine learned neighbor selection, expansion
+of evidence-poor branches, and complete-path support scoring to produce
+one selected library for both training and candidate generation. This
+construction complements the downstream inference model.
+
+\section{Problem Setting}
+\label{sec:problem}
+
+\subsection{Web-Path Queries and Scope}
+
+A query supplies a source AS $s$, destination AS $d$ obtained from a selected
+website endpoint, and routing snapshot $t$. The tool returns an ordered
+forward AS sequence $\widehat P_{s,d}$ or reports that no usable candidate is
+available. The same snapshot allows evidence to be reused across endpoint
+queries. This is the tool's output;
+constructed paths used to answer the queries are intermediate evidence.
+
+The AS-pair abstraction groups prefixes and endpoints within the same AS.
+It estimates interdomain connectivity, not routers, geography, the return
+path, or the forwarding path of every Web request. The BGP experiment models
+destination ASes as potential Web-service networks; it does not establish
+that every such AS hosts a website. The domain-endpoint experiment separately
+tests destinations obtained by resolving a popular-domain list.
+
+\subsection{Public Evidence and Reusable Path Segments}
+
+Let $\mathcal P$ be the collected AS paths available at a snapshot, excluding
+paths that start at the target source. The source may occur internally in a
+path from another network. We build a graph $\mathcal G$ from adjacent ASes
+and use archived relationship and network-metadata bundles.
+Table~\ref{tab:notation} defines the principal symbols.
+
+\begin{table}[t]
+\centering
+\caption{Query inputs and intermediate evidence.}
+\label{tab:notation}
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+Symbol & Meaning\\
+\midrule
+$s,d$ & User-network and selected endpoint AS\\
+$\mathcal P,\mathcal G$ & Public path corpus and its AS graph\\
+$\Gamma(u),\rho(u,v)$ & Graph neighbors and directed AS relationship\\
+$\mathcal N_s,\mathcal A_{s,n}$ & Admitted first hops and recursive anchors\\
+$T_{z,j}(P),F(T)$ & Directed segment rooted at $z$, and its frequency\\
+$\mathcal U_s,\mathcal K_s$ & Augmentation shortlist and observed source-rooted suffixes\\
+$\mathcal R_s,\pi_s(n)$ & Selected path library and predicted first-hop importance\\
+$\mathcal C_{s,d},\widehat P_{s,d}$ & Query candidates and returned route estimate\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+For $P=(v_0,\ldots,v_\ell)\in\mathcal P$ with $z=v_i$, a reusable segment is
+\begin{equation}
+T_{z,j}(P)=(v_i,\ldots,v_j),\qquad i<j\leq\ell.
+\label{eq:collected_tail}
+\end{equation}
+Segments in~\eqref{eq:collected_tail} retain their observed direction and
+interior AS sequence; their endpoint may be internal to the parent path.
+The special case $z=s$ and $j=\ell$ yields a complete source-rooted suffix
+when $s$ occurs internally. We denote these original-terminal suffixes by
+$\mathcal K_s$. We never reverse an observation to manufacture a forward
+route.
+
+\subsection{Training Library and Inference Objective}
+
+We seek a source-specific library $\mathcal R_s$ that supplies training
+paths for learning the source's routing behavior without measurements
+originating from $s$. The library contains augmented paths and eligible
+observed suffixes from $\mathcal K_s$, retaining examples through important
+forwarding neighbors. The same library supports model training and local
+candidate generation. Given a candidate set $\mathcal C_{s,d}$, the query
+objective is to select
+\begin{equation}
+\widehat P_{s,d}
+=\underset{P\in\mathcal C_{s,d}}{\arg\max}\; f_{\theta_s}(P,H_{s,d}),
+\label{eq:downstream_inference}
+\end{equation}
+where $H_{s,d}$ is the available query-specific path history and
+$f_{\theta_s}$ is a learned source-specific path score. Library construction
+provides reusable supervision; query inference chooses one route for the
+requested endpoint. Scores express relative preference among candidates.
+
+\input{sections/method}
+
+\section{Evaluation}
+\label{sec:evaluation}
+
+\subsection{Research Questions}
+
+We evaluate the tool in two complementary settings: a BGP experiment that
+withholds source-originated paths, and traceroute measurements toward
+domain-derived endpoints. The BGP setting represents destination ASes as
+potential Web-service networks. The domain-endpoint setting provides
+data-plane observations toward actual resolved destinations.
+
+The evaluation asks three questions:
+\textbf{RQ1}, how accurately does the tool estimate routes from a user network
+to a serving network; \textbf{RQ2}, do selected first hops and anchors cover
+the observed routing choices; and \textbf{RQ3}, do constructed paths represent
+the selected neighbors and have complete-path observation support?
+
+\subsection{Data and Source Withholding}
+
+Table~\ref{tab:data_sources} lists data sources, dates, scales, and roles.
+
+\input{tables/data_sources}
+
+\paragraph{Controlled BGP setting.}
+We use three monthly Route Views and RIPE RIS RIB
+snapshots: February 1, March 1, and April 1, 2026, at 08:00 UTC.
+For each date, ten sources were selected by the largest original per-source
+path files. All distinct source--destination pairs form the fixed query sets.
+The March snapshot included 52 Route Views and 23 RIS collectors. After
+removing prefixes and duplicate AS sequences, its construction graph
+contained 74,781 ASes and 537,872 edges. Its sources were 16552, 19529,
+32590, 34927, 42473, 49544, 58057, 199524, 328840, and 398465.
+
+Before constructing the graph or source-specific evidence, paths starting
+at these sources were withheld. Other sources' paths could still contain
+them internally and provide forward suffixes.
+
+\paragraph{Domain-endpoint setting.}
+We resolved the frozen Tranco list to IPv4 targets on October 15 and probed
+from AS63835 through October 16. We retained the earliest TCP observation
+per destination and used ICMP Paris traceroute for targets not reached by
+TCP. The 631,698 records are measurements, not independent AS-pair queries.
+
+We mapped hop addresses using the dated CAIDA prefix-to-AS snapshot and
+collapsed consecutive copies of an ASN. Under the same-AS gap assumption,
+an unknown run bounded by that ASN was removed; gaps between different ASes or at
+an endpoint were not filled. Eligibility required reaching the target, a
+single destination-origin mapping, matching endpoints, no remaining unknown
+hop, and no AS loop. The resulting 1,890 AS pairs include one same-AS pair.
+No raw record had a fully mapped continuous TTL sequence without this
+assumption. The endpoints were domain-derived, not individually verified
+HTTP services.
+
+All available October 15 BGP evidence was used; AS63835 had no originating
+path in that corpus. Traceroute paths were excluded from graph construction,
+augmentation inputs, training, and checkpoint selection. They supplied the
+reference observations for scoring the fixed queries.
+
+\subsection{Implementation Settings}
+\label{sec:implementation}
+
+We used the GMPI ranker with 256-dimensional AS representations and a hidden
+size of 512. The BGP benchmark includes KnownPath~\cite{qiu2005path} and
+PathRadar~\cite{11044440} as reference methods.
+For the domain-endpoint experiment, we used batch size 64,
+Adam learning rate 0.001, and a maximum of 30 training epochs. A stable 10\%
+split of construction-derived training pairs provided internal validation,
+with early stopping after three non-improving epochs. This experiment used
+random seed 20261015. Reference paths were excluded from model training and checkpoint
+selection. For the domain-endpoint queries, we compared with
+KnownPath~\cite{qiu2005path}, which extends known AS paths under routing
+constraints. Both methods were scored on the same query pairs.
+
+The final Jaccard scores were calculated from returned path sequences
+against the reference observations, including queries handled by same-AS
+and direct-edge rules.
+
+\subsection{Metrics at Each Stage}
+\label{sec:metrics}
+
+\paragraph{Final query agreement.}
+We retain AS-set Jaccard as the primary end-to-end metric. Let $S(P)$ be the
+set of ASes in route $P$, including endpoints, and let $\mathcal T(q)$ contain
+the distinct reference paths for fixed query $q$:
+\begin{equation}
+\begin{split}
+J(P,T)&=\frac{|S(P)\cap S(T)|}{|S(P)\cup S(T)|},\\
+\mathrm{Acc}_J&=\frac{1}{|Q|}\sum_{q\in Q}
+\operatorname{round}_3
+\left(\max_{T\in\mathcal T(q)}J(\widehat P_q,T)\right).
+\end{split}
+\label{eq:jaccard}
+\end{equation}
+Missing or endpoint-invalid predictions contribute zero to
+\eqref{eq:jaccard}. Each fixed pair has equal weight, regardless of domain
+aliases or observation multiplicity. Jaccard measures AS-set agreement;
+it does not establish AS order, exact routes, or routing correctness for
+every prefix.
+
+\paragraph{Neighbor and anchor selection.}
+First-hop coverage $C_1$ is the fraction of reference routes whose first
+neighbor is selected, averaged within each pair and then across eligible
+pairs. Same-AS paths have no first hop and are excluded.
+Fixed-sparse anchor coverage $C_2$ uses sources of graph degree at most ten
+and reference paths with at least three ASes and a selected first hop. It
+checks whether the third AS is an admitted, enabled anchor. Selected branches
+with no anchor, exhausted budgets, or disabled recursion score zero. The Web
+diagnostic further conditions on branches flagged to attempt recursion, and
+is named trigger-conditional anchor coverage. Both average within a pair and
+then over eligible pairs. Their denominators are reported separately.
+
+\paragraph{Branch representation.}
+Let $\mathcal O_s$ be the forward first-hop neighbors witnessed in the
+reference paths, and $\mathcal S_s=\mathcal N_s\cap\mathcal O_s$.
+For each selected-and-witnessed neighbor, we report whether
+any constructed path was generated and whether at least one generated path
+matched a complete ordered reference. The two coverage denominators are
+$\sum_s|\mathcal S_s|$; zero-output branches remain included.
+An admitted neighbor absent from the reference is marked unverified,
+rather than false. Equal generated counts are not required, and neither
+the observed nor generated distribution is interpreted as traffic volume.
+
+\paragraph{Complete-path observation support.}
+Let $\mathcal R_Q$ contain distinct constructed paths whose endpoint pairs
+occur in $Q$. The support rate is
+\begin{equation}
+U=\frac{|\{P\in\mathcal R_Q:P\in\mathcal T(\operatorname{pair}(P))\}|}
+{|\mathcal R_Q|}.
+\label{eq:path_support}
+\end{equation}
+Equation~\eqref{eq:path_support} requires complete ordered equality,
+not Jaccard equal to one. Paths outside $Q$ lack a reference and are reported
+separately. We also recompute support after excluding constructed paths
+already present as full source-rooted sequences in $\mathcal K_s$.
+An unmatched path is unsupported by this finite reference, not proven
+nonexistent.
+
+\subsection{BGP Path-Visibility Results}
+
+\paragraph{RQ1: Returned path views.}
+Table~\ref{tab:bgp_results} summarizes path-estimation results across three
+monthly BGP snapshots. The stage-wise assessment below examines the
+685,765 query pairs in the March snapshot.
+
+\begin{table}[t]
+\centering
+\caption{Path-estimation results across three monthly BGP snapshots.
+KnownPath uses 10,000 sampled pairs per date; PathRadar and \sys use
+the full query sets.}
+\label{tab:bgp_results}
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llrr@{}}
+\toprule
+Date & Method & Scored pairs & Jaccard\\
+\midrule
+2026-02-01 & KnownPath & 10,000 & 72.10\%\\
+ & PathRadar & 685,820 & 68.73\%\\
+ & \sys & 685,820 & 80.02\%\\
+\midrule
+2026-03-01 & KnownPath & 10,000 & 70.43\%\\
+ & PathRadar & 685,765 & 68.46\%\\
+ & \sys & 685,765 & 78.99\%\\
+\midrule
+2026-04-01 & KnownPath & 10,000 & 72.15\%\\
+ & PathRadar & 688,302 & 68.44\%\\
+ & \sys & 688,302 & 80.31\%\\
+\midrule
+Mean & KnownPath & 10,000 & 71.56\%\\
+ & PathRadar & 686,629 & 68.54\%\\
+ & \sys & 686,629 & 79.77\%\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\paragraph{RQ2: Exit and anchor coverage.}
+Selected first hops covered 84.52\% of the observed routes under pair-balanced
+aggregation. On the sparse-source cohort of 137,394 eligible pairs, anchor
+coverage $C_2$ was 85.10\%. These metrics assess the inferred prefix
+separately from the complete route: a covered exit does not establish that
+every continuation through that exit is used by the source.
+
+\paragraph{RQ3: Branch representation and complete-path support.}
+Table~\ref{tab:stage_results} reports the evidence-construction results.
+Of 152 admitted source--neighbor relations, 143 were witnessed in the
+reference paths. Constructed paths represented 142 of these branches
+(99.30\%); 135 branches (94.41\%) had at least one constructed path matching
+a complete ordered reference. The branch from AS328840 to AS328913
+produced no admissible path. The method therefore retained evidence across
+most selected, witnessed neighbors, without guaranteeing coverage of every
+branch.
+
+\begin{table}[t]
+\centering
+\caption{Selection and constructed-path assessment for the BGP setting.
+Branch coverage uses the 143 selected-and-witnessed neighbors. Complete-path
+support uses the 140,762 constructed paths with reference-covered AS pairs.}
+\label{tab:stage_results}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xr@{}}
+\toprule
+Metric & \sys\\
+\midrule
+Admitted source--neighbor relations & 152\\
+Selected, reference-witnessed neighbors & 143\\
+Witnessed branches with generated paths & 142/143\\
+Witnessed branches with complete-path support & 135/143\\
+First-hop coverage $C_1$ & 84.52\%\\
+Sparse-source anchor coverage $C_2$ & 85.10\%\\
+Distinct constructed paths & 141,277\\
+Reference-evaluable constructed paths & 140,762\\
+Ordered supported paths & 106,326\\
+Complete-path support $U$ & 75.54\%\\
+Support excluding known full sequences & 74.54\%\\
+Paths without a reference pair & 515\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Among the 140,762 evaluable constructed paths, 106,326 matched a complete
+ordered reference sequence, giving 75.54\% support. After excluding paths
+already available as known full source-rooted sequences, support was
+74.54\% (98,420 of 132,028 paths). This distinguishes support for assembled
+routes from reuse of known complete routes. The 515 paths without a
+reference pair were not assigned a support score.
+
+\subsection{Domain-Endpoint Results}
+\label{sec:web_validation}
+
+The domain-endpoint experiment evaluated the network paths behind Web access
+from AS63835. Table~\ref{tab:web_results} reports the same fixed-pair Jaccard
+metric for \sys and KnownPath.
+
+\begin{table}[t]
+\centering
+\caption{Path estimates toward domain-derived endpoints from AS63835.
+Both methods are scored on the same 1,890 AS pairs, with missing predictions
+contributing zero. Reference sequences use the same-AS gap-removal assumption.}
+\label{tab:web_results}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\columnwidth}{@{}Xrr@{}}
+\toprule
+Method & Valid outputs & Jaccard\\
+\midrule
+KnownPath & 1,866 & 69.19\%\\
+\sys & 1,837 & 69.96\%\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\sys obtained 69.96\% Jaccard, compared with 69.19\% for KnownPath.
+KnownPath returned more valid outputs, while \sys had higher mean
+AS-set agreement over the full query set. This result concerns the
+single measured source and the selected endpoint mappings.
+
+The selected first hop was AS4134, with $C_1=99.09\%$ over 1,889 cross-AS
+pairs. Recursive anchors AS1299, AS2914, and AS3356 gave trigger-conditional
+anchor coverage of 58.37\% over 1,879 eligible pairs. This illustrates the
+single-neighbor setting: knowing the first hop leaves choices about the
+continuation beyond that neighbor.
+
+The construction produced 12,849 distinct paths. Of these, 744 had a
+reference-covered AS pair, and 395 matched a complete ordered reference,
+giving 53.09\% support on the evaluable subset. The remaining 12,105 paths
+lacked a reference pair and were not scored as either supported or false.
+Consequently, 53.09\% describes the reference-covered subset, not all
+constructed paths.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{What the path view could support.}
+A user could compare estimated routes to news, shopping, and video endpoints
+to identify recurring transit networks or inspect networks of concern.
+A content provider could issue the same queries from several user ASes
+toward candidate serving ASes and examine differences in estimated network
+dependencies. The tool supplies routing information for such analysis.
+It does not itself steer traffic around an AS, select a deployment, or
+measure the resulting performance or security benefit. AS-set agreement
+also does not validate an individual AS-avoidance decision.
+
+\paragraph{Network and measurement scope.}
+The ten BGP sources were selected for their large original path files.
+Withholding their paths does not make them representative of poorly observed
+access networks. The Web measurement adds one measurement vantage, not
+global user coverage. Endpoint mapping, prefix-specific policies, intra-AS
+routing, and routing drift limit the AS-pair view. The same-AS gap assumption
+can conceal an unobserved detour, and incomplete traceroute responses do not
+establish a packet-perfect route.
+
+\paragraph{Evidence and validation limits.}
+Compatibility checks and learned observation-support scores cannot prove
+that a constructed path is selected for a particular prefix. The BGP cohort also informed
+method development; its results do not establish generalization to unseen
+dates. The domain-endpoint experiment adds a complementary measurement
+setting, but uses one source and one random seed. Broader source and date
+coverage, repeated training, score calibration, and sensitivity to library
+selection remain limitations of the present evaluation.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+We have presented \sys, a tool for estimating the networks behind Web access
+from shared public evidence. It constructs reusable source-specific paths
+through learned neighbor selection, evidence-capacity expansion, and
+complete-path scoring, then uses an existing ranker to answer
+user-network--endpoint queries. The three-snapshot BGP benchmark obtains approximately 80\% AS-set Jaccard, and the single-source
+Web experiment obtains 69.96\%.
+Stage-wise evaluation distinguishes selected exits, represented branches,
+and supported complete paths, exposing limitations hidden by a final
+aggregate score. The resulting view supports further study of Web routing
+dependencies; deployment and security benefits require direct evaluation.
+
+\clearpage
+\balance
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{ref}
+\end{document}

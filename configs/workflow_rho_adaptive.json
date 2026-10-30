@@ -1,0 +1,41 @@
+{
+  "firsthop_limit": 21,
+  "method_status": "FROZEN_USER_SPECIFIED_20261028",
+  "model_policy": "Reuse independently verified same-date upstream heads and existing 255-column scorer; fit one normal-history Huber GMPI per AS",
+  "parameter_selection": "Frozen after 0201; no 0301/0401 final route labels select parameters",
+  "selection_policy": {
+    "augmentation": "source's own unified tree plus original TRAIN donor tails; existing 255-column scorer",
+    "final_model": "unchanged normal-history Huber GMPI; source pair-disjoint validation",
+    "high_recursion": "expand every selected root independent of tail capacity; only S-N-A leaves",
+    "high_root_selection": "dual raw-ranker Top3 union only; no score-based additions",
+    "high_secondhop_formula": "3 + floor(log2(rho)/2 + 0.5)",
+    "high_secondhop_limit": "min(formula, evidence-admissible unvisited ranked candidates)",
+    "low_recursion": "unchanged valid_tail_count_min=300, max_prefix_AS_count=3, next_hop_topk=10",
+    "low_root_limit": 21,
+    "low_root_limit_provenance": "User-designated 0201 original TRAIN K80 P90=21; fixed engineering count, not per-target route selection",
+    "low_root_selection": "unchanged dual Top3 protection, scores and mean-support threshold; max_k=21",
+    "maximum_full_path_AS_count": 20,
+    "maximum_prefix_AS_count": 3,
+    "new_mass_prediction": false,
+    "quality": {
+      "high_minimum_paths": 1000,
+      "high_threshold": 0.75,
+      "low_minimum_paths": 1000,
+      "low_threshold": 0.75,
+      "semantics": "All candidates are source pools: use original source q0.75/min1000. Neighbor q0.90 applies only to the removed neighbor-first splice protocol."
+    },
+    "quantity_cap": null,
+    "query_tree": "high: full selected source tree also used for augmentation; low: original S-N Tree B+PG",
+    "training_generators": {
+      "high": "Tree B + PG",
+      "low": "PG"
+    },
+    "unknown_is_not_absence": true,
+    "version": "rho_adaptive_v1"
+  },
+  "training_generators": {
+    "high": "Tree B + PG",
+    "low": "PG"
+  },
+  "workflow_id": "rho_adaptive_v1"
+}

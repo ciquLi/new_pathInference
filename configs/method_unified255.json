@@ -1,0 +1,73 @@
+{
+  "conditional_candidate_cap": 512,
+  "construction": {
+    "destination_budget": 5000,
+    "direct_sparse_max": 1000,
+    "per_neighbor_destination_length_cap": 2,
+    "reserve": 50
+  },
+  "features": {
+    "destination": 33,
+    "original": 222,
+    "total": 255
+  },
+  "folds": 5,
+  "frontier": {
+    "max_prefix_AS_count": 3,
+    "next_hop_topk": 10,
+    "valid_tail_count_min": 300
+  },
+  "future_inputs": "reject",
+  "method_date": "20261024",
+  "method_id": "unified255_v1",
+  "path_model_parameters": {
+    "deterministic": true,
+    "force_col_wise": true,
+    "learning_rate": 0.04,
+    "max_depth": 7,
+    "min_child_samples": 80,
+    "n_estimators": 300,
+    "n_jobs": 4,
+    "num_leaves": 31,
+    "objective": "binary",
+    "random_state": 20261023,
+    "reg_lambda": 5.0,
+    "verbosity": -1
+  },
+  "protocol": "date_local_source_disjoint_v1",
+  "pure_selection": {
+    "branch_strength": 0.0,
+    "budget": 1000,
+    "conditional_strength": 0.0,
+    "destination_repeat_strength": 0.1,
+    "joint_strength": 0.0,
+    "length_strength": 0.0,
+    "major_minimum_paths": 50,
+    "major_minimum_ratio": 0.5,
+    "major_probability": 0.1,
+    "major_topk": 3,
+    "minimum_branch_paths": 1,
+    "minimum_novel_paths": 1000,
+    "minimum_paths": 1000,
+    "minimum_score": 0.0,
+    "novel_reserve": 0,
+    "probability_floor": 1e-12
+  },
+  "quantity_failure": "record_without_dropping_source_or_retuning",
+  "release_order": "selected_pure_in_original_order_then_external_numeric_AS_order",
+  "root_candidate_cap": 4096,
+  "root_selection": {
+    "alpha": 0.5,
+    "max_k": 32,
+    "method": "zscore",
+    "threshold": 0.7,
+    "top3_union": true,
+    "weight_v1": 0.0
+  },
+  "seed": 20261021,
+  "semantic_llm_review": false,
+  "unified_selection": {
+    "budget": "same_date_pure_selected_count",
+    "minimum_novel_paths": 0
+  }
+}

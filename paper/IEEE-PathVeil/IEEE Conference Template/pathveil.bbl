@@ -1,0 +1,151 @@
+\begin{thebibliography}{10}
+
+\bibitem{li2024internet}
+X.~Li, C.~Wang, Y.~Yang, C.~Hou, B.~Hou, and Z.~Cai, ``Internet inter-domain
+  path inferring: Methods, applications, and future directions,'' {\em
+  Computers, Materials and Continua}, vol.~81, no.~1, pp.~53--78, 2024.
+
+\bibitem{tracerouteJacobson}
+V.~Jacobson, ``Traceroute.'' \url{ftp://ftp.ee.lbl.gov/traceroute.tar.gz.},
+  1988.
+
+\bibitem{RIPEAtlas}
+{RIPE NCC}, ``{RIPE Atlas}: User-defined measurements.''
+  \url{https://atlas.ripe.net/docs/getting-started/user-defined-measurements/}.
+\newblock Accessed: 2026-10-24.
+
+\bibitem{RouteViews}
+{University of Oregon}, ``{Route Views Project}.''
+  \url{https://www.routeviews.org/routeviews/}, 2026.
+\newblock Accessed: 2026-07-30.
+
+\bibitem{RIPERIS}
+{RIPE NCC}, ``{Routing Information Service (RIS)}.''
+  \url{https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/},
+  2026.
+\newblock Accessed: 2026-07-30.
+
+\bibitem{qiu2005path}
+J.~Qiu and L.~Gao, ``{AS} path inference by exploiting known {AS} paths,'' in
+  {\em Proceedings of the IEEE Global Telecommunications Conference}, pp.~1--5,
+  IEEE, 2006.
+
+\bibitem{11044440}
+Z.~Jin, X.~Shi, Q.~Ma, L.~Sun, Z.~Wang, X.~Yin, and J.~Wu, ``Which way to go?
+  inferring fine-grained as paths with pathradar,'' in {\em IEEE INFOCOM 2025 -
+  IEEE Conference on Computer Communications}, pp.~1--10, 2025.
+
+\bibitem{probinfer}
+X.~Li, Z.~Cai, B.~Hou, N.~Liu, F.~Liu, and J.~Cheng, ``Probinfer:
+  Probability-based {AS} path inference from multigraph perspective,'' {\em
+  Computer Networks}, vol.~180, p.~107377, 2020.
+
+\bibitem{li2023realizing}
+X.~Li, T.~Zhou, Z.~Cai, and J.~Su, ``Realizing fine-grained inference of {AS}
+  path with a generative measurable process,'' {\em IEEE/ACM Transactions on
+  Networking}, vol.~31, no.~6, pp.~3112--3127, 2023.
+
+\bibitem{li2024realizing}
+X.~Li, C.~Wang, T.~Yang, A.~Shen, Z.~Qiu, B.~Hou, and Z.~Cai, ``Realizing
+  personalized and adaptive inference of {AS} paths with a generative and
+  measurable process,'' {\em IEEE Transactions on Networking}, vol.~33, no.~2,
+  pp.~729--744, 2025.
+
+\bibitem{rfc4271}
+Y.~Rekhter, T.~Li, and S.~Hares, ``A border gateway protocol 4 ({BGP-4}),'' RFC
+  4271, RFC Editor, Jan. 2006.
+
+\bibitem{caidaASRelationships}
+{CAIDA}, ``{AS Relationships}.''
+  \url{https://www.caida.org/catalog/datasets/as-relationships/}.
+\newblock Accessed: 2026-10-24.
+
+\bibitem{caidaASrank}
+CAIDA, ``{AS} {R}ank.'' \url{http://as-rank.caida.org/}, 2023.
+
+\bibitem{PeeringDB}
+{PeeringDB}, ``Peeringdb: The interconnection database.''
+  \url{https://www.peeringdb.com/}, 2026.
+\newblock Accessed: 2026-07-19.
+
+\bibitem{gao2001inferring}
+L.~Gao, ``On inferring autonomous system relationships in the internet,'' {\em
+  IEEE/ACM Trans. Netw.}, vol.~9, no.~6, pp.~733--745, 2001.
+
+\bibitem{ParisTraceroute}
+B.~Augustin, X.~Cuvellier, B.~Orgogozo, F.~Viger, T.~Friedman, M.~Latapy,
+  C.~Magnien, and R.~Teixeira, ``Avoiding traceroute anomalies with paris
+  traceroute,'' in {\em Proceedings of Internet Measurement Conference}, (New
+  York, NY, USA), pp.~153--158, ACM, 2006.
+
+\bibitem{scamper2010}
+M.~Luckie, ``Scamper: A scalable and extensible packet prober for active
+  measurement of the internet,'' in {\em Proceedings of the 10th ACM SIGCOMM
+  Conference on Internet Measurement}, pp.~239--245, ACM, 2010.
+
+\bibitem{RIPEAtlasResultFormat}
+{RIPE NCC}, ``{RIPE Atlas}: Measurement result format, version 5000.''
+  \url{https://atlas.ripe.net/docs/apis/measurement-result-format/version-5000/}.
+\newblock Accessed: 2026-10-24.
+
+\bibitem{mao2003AStraceroute}
+Z.~M. Mao, J.~Rexford, J.~Wang, and R.~H. Katz, ``Towards an accurate
+  {AS}-level traceroute tool,'' in {\em Proceedings of the ACM SIGCOMM 2003
+  Conference}, pp.~365--378, ACM, 2003.
+
+\bibitem{madhyastha2006iplane}
+H.~V. Madhyastha, T.~Isdal, M.~Piatek, C.~Dixon, T.~Anderson, A.~Krishnamurthy,
+  and A.~Venkataramani, ``i{P}lane: An information plane for distributed
+  services,'' in {\em Proceedings of the USENIX Symposium on Operating Systems
+  Design and Implementation}, pp.~367--380, USENIX, 2006.
+
+\bibitem{madhyastha2009iplane}
+H.~V. Madhyastha, E.~Katz-Bassett, T.~E. Anderson, A.~Krishnamurthy, and
+  A.~Venkataramani, ``i{P}lane nano: Path prediction for peer-to-peer
+  applications.,'' in {\em Proceedings of the USENIX Symposium on Networked
+  Systems Design and Implementation}, vol.~9, pp.~137--152, USENIX, 2009.
+
+\bibitem{singh2021predictroute}
+R.~Singh, D.~Tench, P.~Gill, and A.~McGregor, ``{PredictRoute}: A network path
+  prediction toolkit,'' {\em Proceedings of the ACM on Measurement and Analysis
+  of Computing Systems}, vol.~5, no.~2, 2021.
+
+\bibitem{wang2022routeinfer}
+T.~Wu, J.~H. Wang, J.~Wang, and S.~Zhuang, ``Routeinfer: Inferring interdomain
+  paths by capturing isp routing behavior diversity and generality,'' in {\em
+  Proceedings of the International Conference on Passive and Active
+  Measurement}, (Berlin, Heidelberg), pp.~216--244, Springer, 2022.
+
+\bibitem{schomp2020akamai}
+K.~Schomp, O.~Bhardwaj, E.~Kurdoglu, M.~Muhaimen, and R.~K. Sitaraman,
+  ``{Akamai DNS}: Providing authoritative answers to the world's queries,'' in
+  {\em Proceedings of the ACM SIGCOMM 2020 Conference}, (New York, NY, USA),
+  pp.~465--478, ACM, 2020.
+
+\bibitem{koch2021anycast}
+T.~Koch, K.~Li, C.~Ardi, E.~Katz-Bassett, M.~Calder, and J.~Heidemann,
+  ``Anycast in context: A tale of two systems,'' in {\em Proceedings of the ACM
+  SIGCOMM 2021 Conference}, (New York, NY, USA), pp.~398--417, ACM, 2021.
+
+\bibitem{lepochat2019tranco}
+V.~Le~Pochat, T.~Van~Goethem, S.~Tajalizadehkhoob, M.~Korczy{\'n}ski, and
+  W.~Joosen, ``{Tranco}: A research-oriented top sites ranking hardened against
+  manipulation,'' in {\em Proceedings of the Network and Distributed System
+  Security Symposium}, 2019.
+
+\bibitem{caidaRouteviewsPfx2AS}
+{CAIDA}, ``{Routeviews Prefix to AS mappings Dataset for IPv4 and IPv6}.''
+  \url{https://www.caida.org/catalog/datasets/routeviews-prefix2as/}.
+\newblock Accessed: 2026-10-24.
+
+\bibitem{CAIDA}
+``Center for {A}pplied {I}nternet {D}ata {A}nalysis.''
+  \url{https://www.caida.org/}, 2023.
+
+\bibitem{ke2017lightgbm}
+G.~Ke, Q.~Meng, T.~Finley, T.~Wang, W.~Chen, W.~Ma, Q.~Ye, and T.-Y. Liu,
+  ``{LightGBM}: A highly efficient gradient boosting decision tree,'' in {\em
+  Advances in Neural Information Processing Systems}, vol.~30, pp.~3146--3154,
+  Curran Associates, Inc., 2017.
+
+\end{thebibliography}

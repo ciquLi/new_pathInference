@@ -1,0 +1,122 @@
+{
+  "extraction": "numerical APIs only; historical CLIs and registrations excluded",
+  "modules": {
+    "public_prefix_tree": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/public_prefix_tree.py",
+      "origin_sha256": "0dbf0e7137ea713baf7d17d0be82a7fe35e7e8e7c56a4a68a4e3e6a7a628db99",
+      "numerical_symbols_ast_sha256": {
+        "_read": "b83d7009a3fb16dd734d8a584b647b4f0af8bda21ae4d04f8e4dd0ccf98afaba",
+        "_write": "0f7291469f50bf2f5e56b880094c96c32ff4f2f505863e50ec74ac47a1c905a7",
+        "_asn": "921b72bd1c535f6eba36941ce2015766f394527e908dbccf1e02175324886edc",
+        "_number": "32cd942a30c6b3e6ce582ed4c9e69813f13e629bc5dd72546545cb629aecfeeb",
+        "_roles": "b34a4b6a99efa5a55fcc987f4bc698d9eb6a29d7d05e933656b86528e296da01",
+        "_reverse_mask": "5c89f6fea9249090f37ac331adf7353d5d026d126083fea07b9eb8082547bf48",
+        "commercial_phases": "1bda08fd347bb66c64d030eafe029fb5b548c9a3534e7912505f18e1141c11ac",
+        "PublicPrefixTopology": "3a506f82914f0021d02617f93ec62ab761d874493b3bf9d930cabccc58a13bc7"
+      },
+      "constant_assignments_ast_sha256": {
+        "ROLE_DEGREE": "490aba0415b971430b68670c86e77bec85c48d8920b5274615b125259d7e6138",
+        "SHAPE_FIELDS": "07c4fa4180feca8a9275f179f89b52b62b0e121d688899f7f0329008fa6da4b4",
+        "BITS": "068ff79731574ed4eee2aa402bca0e8bc3dd75532b02f3cf15ca4e7b7f36ac48",
+        "SOURCE_FEATURE_NAMES": "8c4364573631de35e3b1e3253b1b12180505783c3efbf07d9113a1c954883d0d",
+        "VERSION": "5ee5f86b6269f0bd614009e0dcc3cdf1e1f18aacea58fd61a87f90f9187cf7e4",
+        "INVERSE": "0d8119e10b10f9a055df1ce88a8a6fc8641c49930434bf69bf5d3aa379f44d4c",
+        "ROLES": "1ae98a1d7068684f728777d7ea30fbda96c310adbc792d475f9602388044255e",
+        "MAX_PREFIX_AS_COUNT": "0f2cf14bbc9f8ef9807c2a5d05224a4b550115be3de16772c7b7b67b4c89864d",
+        "NODE_NUMERIC_FIELDS": "81ef30cd3b4a40a023cced852f6c86eb79b4571832fdd8671062c3e5756e986b"
+      }
+    },
+    "public_head_admission": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/public_head_admission.py",
+      "origin_sha256": "c6f240ca9b6a09305ed013bc8c0a775edd48f1b190cf26c223e98a7ae8dd4269",
+      "numerical_symbols_ast_sha256": {
+        "classify_prefix": "67a2944a06652d5d86cdcd0aee7cda7fbfe1e30891ecdfce8cdae6cae580e924"
+      },
+      "constant_assignments_ast_sha256": {
+        "INCOMPATIBLE": "63432cd8b7f28b3e14cc0a50ca5904ae67b59ccf6653a3f7b2969924be60c4ba",
+        "UNKNOWN": "f356c83b41716a86e94d237b6a82104ba920633df3a95d42fc49af40c33125ad",
+        "HIGH": "30e3c67fb8fe077834b7b2c704b5ccc60f198f038b24df1674235f5d99c499a5"
+      }
+    },
+    "public_tree_spec": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/public_tree_spec.py",
+      "origin_sha256": "4ae03a906a2f56d5b7ac34e612923825871d7eb8d8410be068b31cb5b019b75b",
+      "numerical_symbols_ast_sha256": {
+        "read": "600f2e6f6968f8209e30f1e2fe6aea89f4a9a73d62d98f47071fd2817039e823",
+        "sha": "a2ee798808700f9c971ae5d145a4a2dafc8f457abbd9dd10b6132baabc8711cb",
+        "content_sha": "6000618273ff7941c68d1fc0f6afaba9276bc03788f074b016081fb5ca64b7c0",
+        "signature": "a2fcf1047b329b897a2b07d1322aea7fb1c09cc184cad634fd26bd79804758a5",
+        "verify": "6212f71fee7062ef3716e0424a4228a747ce761ccf9039e37731a6af86c12f1e",
+        "write": "ea94ca4808f91e4978f6aeebcd175e9855b205a11a2c5b040572cfa7b0caab2b",
+        "asn": "38e70bce6b3ea826cf9688baf8f318035e8c4580e2a2a72478fa2828074d26d2",
+        "phase_traces": "2ae5abdb9fafd67b49ff5ace640b930edd44b1a02f86c080a083e2581ee346d9",
+        "_leaf_records": "36d222dc167dafef56959e086eb626c2aabce07f582a7f141ed9cdc228c76030",
+        "build_spec": "d7c5477b148d426550c857793e8138bda8548a1797db6e1a7f9bda2d1b640c6a"
+      },
+      "constant_assignments_ast_sha256": {
+        "VERSION": "ab7caea9a2cb6a48902a1ec4bdeef3167c590d34a9d6c665e3687434cd598a08",
+        "CONFIG": "9b72de752e1c16a7aeb1512b1f9200334f0ee97af88cca52a5c2c577ed6901d8"
+      }
+    },
+    "prefix_tree_pathgen": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/prefix_tree_pathgen.py",
+      "origin_sha256": "26d4c777ed14bdcdb0bab92217c5748f8f2e9d8167d309b3fbf32476c8f59f1d",
+      "numerical_symbols_ast_sha256": {
+        "path_set_signature": "d02903108f6c04cccafe9c460dc8c3d674666fe847bd4fd4b8f825b7cddee30b",
+        "valid_path": "74dc8ad2969eab8cddded7cd57a2fc863ed4d2282b2249df615a99956f3791cb",
+        "balanced_candidates": "ee9d8af6730763f8069a727eac45f032330dee9e0d19f598155002433bd8cae4"
+      },
+      "constant_assignments_ast_sha256": {}
+    },
+    "public_head_selector": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/public_head_selector.py",
+      "origin_sha256": "0df953c1031583b5ab30c356281ce65beb92f0336493224437968ac3b8a6a318",
+      "numerical_symbols_ast_sha256": {
+        "_sha": "cf7546d871132c697d18414bbf647a263a7f3a14fa7018d38d09f773114f1a25",
+        "_object_sha": "c9fa0538c67ecd201ab08eb3d8b52b72f00a9e759bfc9a3027f2d49afd324fff",
+        "_digest": "f3146b83be33d95c861f4fc399b55a8fcf619f432fd0b1afbd344b5698a4710e",
+        "_path": "3577cd3cd0fe14b1e513684e408998cc44ce3476fa0bfc915f761ebcf9c1baf0",
+        "QuerySelection": "082ed27bffdcb6a9f044f3bb38a85098cc4acaef35be5501fa98becc3b59a565",
+        "PublicHeadSelector": "6a6c7e512490bb761c14a5d49e6933dc72f04125759f82c62d8d4ab58a771381",
+        "QueryTierBank": "2a0fd460471e1019a6b65bf6720e2883f2e73a91a745ebac2375d78386b8dd6b"
+      },
+      "constant_assignments_ast_sha256": {
+        "INCOMPATIBLE": "cd7a63fa251cba8d6c45713da1d5be5310ce3abbb4ee80189e57f2a92656ab4e",
+        "VERSION": "7858efde4db4508fb76c2f798f14af31543b43e4a721504bdde7379e69647761",
+        "HIGH": "742f8a295873b090b7f4b6f830856e13e0ff3c27a0b0e7d92ac81bd39bf2d612",
+        "TIERS": "a7ea984f8ef814908b4d8c98f01c47a5bcd9059566d4dfac0f04b3e3911e4386",
+        "UNKNOWN": "ee601993cb284e6dce04a638d6de5d0802eba12951c5db715f220136f3a9fc40",
+        "_TIER_NAMES": "ff709314d305618b9fdf7e69298c52bb86cee94ea466aec578ae53de1c219a1d"
+      }
+    },
+    "public_tree_pathgen": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/public_tree_pathgen.py",
+      "origin_sha256": "44e550e08b104ba1e4533e9f98c0666f37dd0317185cd57d9dce4a25455af6fb",
+      "numerical_symbols_ast_sha256": {
+        "require": "15632274fd26781de204e0403df85f67afc8a14cfc2c2ef7850d2a1d4711142b",
+        "memory_record": "445c82392f2d9323d8ed2dbcc2eb1f0b9b65f3d4dfd64b20596f4c14f60f4bc6",
+        "Heartbeat": "b456f7bae5bb304fe52965bec476a420ea752a23710247963b4d64feceecfdf0",
+        "checked_leaves": "660cd0b19a70cbc8e992444b55416e507b56a4aac0335da5f19815337bc23059",
+        "generate_public_candidates": "c32d04f15e0356541ec1315087bdaae93acab725028ae92973ca5cfe3cb85920"
+      },
+      "constant_assignments_ast_sha256": {
+        "VERSION": "0206be6db28dc21f5739b34e1954edf6d4e0c92a288c314cf8af04182efecd3a"
+      }
+    },
+    "public_tree_observed_pathgen": {
+      "origin": "/run/media/lxl/data/asinfer/MetaGMPI/runs/experimental_workspaces/rho_tree_pg_wg_20261026/src/pathveil/observed_prefix/_frozen/public_tree_observed_pathgen.py",
+      "origin_sha256": "5e4a66b1bce00590753870cd4d1ab2a2a4a6632c908e5db85a1f7ef9efbb885b",
+      "numerical_symbols_ast_sha256": {
+        "require": "5a24f87d9e7fcf8658263d9e0fb734624b355ec9f2df802c57aba85113264073",
+        "canonical_asn": "d531fe630a1177ece18ed76b2371cc079176a710022b0186e6bdf7935ecd24b4",
+        "normalize_tail": "5554270612b33d878cb76a98c26125258071dd5c2028e720da1b72c113530c0c",
+        "NormalizedTailIndex": "1e7e81333b21f59662d1ede5fe22d69cf309ff23c7ba30ad1610e330ebc6e70b",
+        "generate_public_candidates": "cc4f162cb54b41fcf687e9dabe6dffab206a03f2cce211681ebb360beecce482"
+      },
+      "constant_assignments_ast_sha256": {
+        "VERSION": "d1fcab047f2a181bdb54a94bedc069e149a6c42eb8161a5043551d3a7fd3875e"
+      }
+    }
+  },
+  "ast_identity": "canonical executable AST; excludes locations, docstrings, null and empty optional fields; Index wrapper normalized"
+}

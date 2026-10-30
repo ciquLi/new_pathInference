@@ -1,0 +1,33 @@
+\begin{table}[t]
+\centering
+\caption{Evidence representations and their computational roles. Missing
+and conflicting observations remain explicit.}
+\label{tab:method_features}
+\footnotesize
+\begin{tabularx}{\columnwidth}{@{}lX@{}}
+\toprule
+Representation & Features and use\\
+\midrule
+AS pair & Public adjacency and commercial roles; ASRank degree, cone,
+and network attributes; PeeringDB IXP/facility overlap and population;
+independent edge support. Neighbor retrieval and ranking.\\
+Graph structure & Common-neighbor overlap, Adamic--Adar,
+resource allocation, role-conditioned bridges; source first- and
+second-layer size. Structural ranking and $\rho(s)$.\\
+Prefix/transition & Preceding, current, and next AS; local rank and
+presence scores; edge provenance and possible commercial phases.
+Conditional exploration and prefix-state tracking.\\
+Path evidence (181) & Ordered path, suffix, edge and destination
+support; AS count and commercial-role sequence; public endpoint context.
+Base features for complete-path scoring.\\
+Prefix reliability (32) & Support/missingness across added edges,
+inferred-edge fraction, feasible phase states, and soft first-hop
+transit-role evidence.\\
+Actual next hop (9) & Conditional support, rank, missingness, and
+phase status of the candidate's actual third AS.\\
+Destination context (33) & Donor-source agreement and equally weighted
+route fractions at the first hop and stitching boundary, with incoming-role
+conditioning and explicit absent-boundary indicator.\\
+\bottomrule
+\end{tabularx}
+\end{table}

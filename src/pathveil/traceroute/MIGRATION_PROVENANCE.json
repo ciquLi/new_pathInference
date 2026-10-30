@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "source": "archived 20261015 Web adapter implementation",
+  "original_files": {
+    "experiments/web_20261015/train_bgp.py": {
+      "sha256": "320ffa21a7d1ca1063d87485ade9581489a29c29241ead040fa086a91397a4cb",
+      "bytes": 6049
+    },
+    "experiments/web_20261015/predict_web.py": {
+      "sha256": "6280059342e0735e05ee056a55373a75f66c6bf19fdf103604a35a34eae6bbbe",
+      "bytes": 13533
+    },
+    "experiments/web_20261015/evaluate_aligned_paths.py": {
+      "sha256": "bd1ef65c622960a37095ab19174dbcaedf5226c0a7c38d9a273ec262bb25c17d",
+      "bytes": 14710
+    },
+    "result/20261015/web_top1m_63835_allbgp/web_predictions/attempt_002/pair_predictions.jsonl": {
+      "sha256": "53545ceccab3ac7840305ee30fb196bb6b7d3d454fdb588feb04ca5aec9895e6",
+      "bytes": 7722455
+    },
+    "result/20261015/web_top1m_63835_allbgp/aligned_path_evaluation_v2/summary.json": {
+      "sha256": "a7adb28e0d09d9af1bd461bfbb77c4f5db0cfc42a4f93e4bf940f09100513683",
+      "bytes": 6552
+    }
+  },
+  "numerical_scope": {
+    "training": "Original GMPI architecture, SmoothL1 objective, generated-row schema, BGP-pair validation and checkpoint selection retained; actual canonical training not executed.",
+    "prediction": "Candidate tensorization/history arguments remain input semantics v2; local knowledge restricted to admitted augmentation_only pool.",
+    "score": "All 22 common fields exactly equal the archived independent scorer on frozen predictions."
+  },
+  "scorer_equivalence": {
+    "truth_pairs": 1890,
+    "unique_truth_paths": 2198,
+    "truth_sha256": "40db9e7f1cfc5228858724701e15e6995cd53d423f9bf776dfee14f69215b254",
+    "common_metrics_exactly_equal": 22,
+    "pair_jaccard_accuracy_rounded3": 0.6147238095238079
+  },
+  "no_formal_training_or_prediction_executed": true
+}

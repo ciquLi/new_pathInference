@@ -1,0 +1,409 @@
+{
+  "AST_extraction_preserves_computations": true,
+  "canonical_sources_sha256": {
+    "src/pathveil/upstream/__init__.py": "a4d29d510f49640e762cb050ed03c1dcbf2f364f111f365f332479679967022c",
+    "src/pathveil/upstream/contracts.py": "e88100654d2e1ed737b15d77150cd70a8c0aa880da7f9307a00bd559419574a2",
+    "src/pathveil/upstream/destination.py": "7be0bb0a4ba99c8ac992499f19a90d02d999268363dc99abaccd229f051f9a50",
+    "src/pathveil/upstream/entry.py": "e15a9d8b09052419e0d3d30171313acde55604220f232fce1ee3aae4edbfff97",
+    "src/pathveil/upstream/evidence.py": "b8c8bdb46b0f43a5af7402ed54ac081de758d7cdccc1cc4c49712cd5cf1144c6",
+    "src/pathveil/upstream/implementation/__init__.py": "537041598855e03fc79402e1255e34ee766127f4fa7443961d4de7dc7e26a10e",
+    "src/pathveil/upstream/implementation/candidates.py": "5939a81634838dec9fa092d69132398ed58e26af118bf1dc37cf04fafd316c65",
+    "src/pathveil/upstream/implementation/construction_budget.py": "7ef858b719af1acd5928d9d22ae7970850a59983096f269774e216ce3c995ab5",
+    "src/pathveil/upstream/implementation/destination_budget.py": "36901cff5fcd26fc9ce5209c2590608def975999501e1eaa6de5d410c97897db",
+    "src/pathveil/upstream/implementation/destination_features.py": "c86f572dd852f7ea3e99f9f73a45c9f6923aed8c98a496d7f97b5e5d99552517",
+    "src/pathveil/upstream/implementation/distribution.py": "dda4a39f5bd192a801552853e83a00374532ca61c866aa10061873891383e837",
+    "src/pathveil/upstream/implementation/donor_stats.py": "70aaac36c56269af23769d7e5695d5a9f999e6e6b02d1b37e3ccc95e8ba5b463",
+    "src/pathveil/upstream/implementation/evidence_index.py": "b3f7d101f61a5109fa7f7da1f2d87b6917f3d758f688cb450caea9d41348a02b",
+    "src/pathveil/upstream/implementation/final_features.py": "eca5a361187874cd21ebfb60ff96a1238ebd82fd55aa0451b92052b5fa2f5d11",
+    "src/pathveil/upstream/implementation/folds.py": "0b1853e4a9b28146a5d9aeb42c6f798ea8a78f80599d48a896b73be81282a7b1",
+    "src/pathveil/upstream/implementation/frontier.py": "574f3fae0a11edf83f16b7a17ee859173753e803b3bec3bedb597d0f0e9c83cc",
+    "src/pathveil/upstream/implementation/frontier_adapter.py": "6dfda9260628dbe8e39139a65230644eb319bd3a7e89515f81d990ecc099403d",
+    "src/pathveil/upstream/implementation/frontier_policy.py": "22d0c96afcb9a8fc144efae0515d0b4b670ed8048454ac227686ca023e5a7270",
+    "src/pathveil/upstream/implementation/joint_labels.py": "3a3f806c190fdc0de96b5f35c8fc5115a956b47b67235192cb1fd68282b1c7c7",
+    "src/pathveil/upstream/implementation/joint_selector.py": "f29d3edd26abfca7444027498599a6703b2bf151bbe8ff06c9b533d5a4ec89b5",
+    "src/pathveil/upstream/implementation/neighbor_features.py": "68454356888f68714996db207bd00ebf61c39047a3d5a840849fd5ecf6700740",
+    "src/pathveil/upstream/implementation/neighbor_fit.py": "96d670a599a71536e11690e9d098a57050ef52d098d9a3c628f42ecc9abbdac6",
+    "src/pathveil/upstream/implementation/neighbor_struct_fit.py": "1ca0ff3b24c6c3deebbfb6426f432504657ea40bd19e07982e42a5ef2fb9c559",
+    "src/pathveil/upstream/implementation/next_features.py": "6aee1da97c33c7efc9cc5cf1c64c27d404569d7ea4890f6557c90bdda0f13a6d",
+    "src/pathveil/upstream/implementation/path_features.py": "c74e6180704cfde55bad86efc6ba2b87e8a6b71bfcc14b864d8e868550d2c28c",
+    "src/pathveil/upstream/implementation/path_labels.py": "69e3ca983b1fcb2a92d71d7cd5f6c3b7ae5fd76a25cc439663086234f32ae5f7",
+    "src/pathveil/upstream/implementation/policy_features.py": "9a1c582e22719a7ec934ed6caa5af2961e6ddf5c565f2f418cd7a0405ddaa84e",
+    "src/pathveil/upstream/implementation/prefix_features.py": "40419966e72cfaa89ae329f06b4398613a395c85c59319d421c9f36cb4ab4781",
+    "src/pathveil/upstream/implementation/prior_interface.py": "856d345d5500fd6879925f31957ce547c861cb2c3ce4846e314798d1c21037fc",
+    "src/pathveil/upstream/implementation/prior_spec.py": "3b8cec33afe0c202d0ee840042251da4c27170930a1bce13f8bd9a7f3e979092",
+    "src/pathveil/upstream/implementation/public.py": "c0edd494cba4eaf6a9fc64f857d3fe0bfdf06446a86be00f6f2b668ecf0eba05",
+    "src/pathveil/upstream/implementation/reference_neighbors.py": "99eb2bd2cd0eb80cb1ccb4945538b80d3c3182ec75019d3e88e13b5d3b100e9c",
+    "src/pathveil/upstream/implementation/retrieval.py": "a80b723f666bfc2cc7f1f4b9213fafc48d669e5e05be25eb24f1022e6473bad4",
+    "src/pathveil/upstream/implementation/role_labels.py": "e5acfef9b8584e9f99dc59730fca294aae7d1480b6b290b02c064c650fb44c5e",
+    "src/pathveil/upstream/implementation/root.py": "f0e5eb0bea6b9fff15156d3364bc2648af50539cca269694aab044db165536d7",
+    "src/pathveil/upstream/method.py": "1a59aaf6cca61673d57aef1d5a674b6d5d888f81f6d25fbc9206e1e83420dc15",
+    "src/pathveil/upstream/neighbor_training.py": "795dee4bbb991d945127e75122f835b013b9a104c2f19f7ae1f9a539975c18d9",
+    "src/pathveil/upstream/neighbors.py": "83ff26b72abe827e06ce0f4b448ad9c6a2b749d86bf593bd3d390bc6f6bf0547",
+    "src/pathveil/upstream/path_pipeline.py": "a94467ce5a9384ebd8fe117d0b634adc9efb5e513d39b214d8344773c294aeb5",
+    "src/pathveil/upstream/pipeline.py": "ffa9098f932959f07b55d84aceaf1c788bcd612ad144393f9395927e7c17cf70",
+    "src/pathveil/upstream/replay.py": "786e39a405d6f7ebd24991a02e777fd42271f4d0a2763e63c6c8b7fac90d76fa",
+    "src/pathveil/upstream/verification.py": "48dcaff747e32751c485d7f8fa607858654d9a8215a4df1881fd65673f9c10c6",
+    "src/pathveil/upstream/witnesses.py": "058d8730ca9cd9969e7ec6596bb19b307100d6026be3f6b68267351be12e2ce8"
+  },
+  "format": {
+    "line_length": 100,
+    "target_version": "py39",
+    "tool": "black"
+  },
+  "method": "unified255_v1",
+  "modules": [
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/joint_labels.py",
+      "canonical_sha256": "3a3f806c190fdc0de96b5f35c8fc5115a956b47b67235192cb1fd68282b1c7c7",
+      "definition_names": [
+        "digest",
+        "parse_reference_line",
+        "read_training_reference",
+        "length_bin",
+        "summarize_context",
+        "source_labels"
+      ],
+      "extracted_AST_sha256": "e361014de546b4726d590cfc3e0648b3ca1b92ee3f2da6958a5a8f646458923e",
+      "module": "joint_labels",
+      "source_sha256": "59771b02a2a0a653ae7d543d9c4aea810a105cfc9c71d1135d1e872fb1e678e7"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/role_labels.py",
+      "canonical_sha256": "e5acfef9b8584e9f99dc59730fca294aae7d1480b6b290b02c064c650fb44c5e",
+      "definition_names": [
+        "role_labels"
+      ],
+      "extracted_AST_sha256": "3c8f13f2b2e44650aef7856977a8f2f8c9dcd9ad97790c5747a3fcd2dbf46536",
+      "module": "role_labels",
+      "source_sha256": "2c7e5532a872dafa6f877411fc2e8c18a7bc103b9ed3b632bf090dbb05776e85"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/folds.py",
+      "canonical_sha256": "0b1853e4a9b28146a5d9aeb42c6f798ea8a78f80599d48a896b73be81282a7b1",
+      "definition_names": [
+        "source_folds"
+      ],
+      "extracted_AST_sha256": "8107e40cfb62673f34c83afc261fa616b069b5af05e7a302eb16694bad98a474",
+      "module": "folds",
+      "source_sha256": "ad031f463399a813199fc28002507ee72cf72e6758b8656ca51967a72aae6f96"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/public.py",
+      "canonical_sha256": "c0edd494cba4eaf6a9fc64f857d3fe0bfdf06446a86be00f6f2b668ecf0eba05",
+      "definition_names": [
+        "_number",
+        "_asn",
+        "_day",
+        "_past_file",
+        "_reverse_role",
+        "_role_relation",
+        "_token",
+        "PublicKnowledge"
+      ],
+      "extracted_AST_sha256": "6b14077f7354ed1d92ebfa16f4cf44133c30964f9ac39c47858d56f0c81da27a",
+      "module": "public",
+      "source_sha256": "df1ac8daaf1a7a76a27110442600a278186edb5e527c45844213bda77cf062a4"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/neighbor_features.py",
+      "canonical_sha256": "68454356888f68714996db207bd00ebf61c39047a3d5a840849fd5ecf6700740",
+      "definition_names": [
+        "dump",
+        "digest",
+        "record",
+        "log",
+        "parse_path",
+        "read_reference",
+        "build_evidence",
+        "FeatureBuilder"
+      ],
+      "extracted_AST_sha256": "edbbb1ecc79e067fb8a50d523e64ee9fef7eb6db47e755c255397e0665a706e3",
+      "module": "neighbor_features",
+      "source_sha256": "4cd02fd085bfd95e13bca3c9ad73619b512ecc2a73c9b10d0736d0b62f7c9fb2"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/retrieval.py",
+      "canonical_sha256": "a80b723f666bfc2cc7f1f4b9213fafc48d669e5e05be25eb24f1022e6473bad4",
+      "definition_names": [
+        "reverse_presence",
+        "PDBRetrievalBuilder"
+      ],
+      "extracted_AST_sha256": "87e7b094a2433ff39a9f89f4cbe760c8b984290ea8ffcd47007961165013081c",
+      "module": "retrieval",
+      "source_sha256": "6c3fc7c5ef77e3ec9aa4361497180331b1fea60ee1ce662b966e9904d77bb03f"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/root.py",
+      "canonical_sha256": "f0e5eb0bea6b9fff15156d3364bc2648af50539cca269694aab044db165536d7",
+      "definition_names": [
+        "zscore",
+        "slate",
+        "record"
+      ],
+      "extracted_AST_sha256": "ab4857a3c14a4379ef16ed97ed9afeee15fa2f175a1763542dabba599bc98dbd",
+      "module": "root",
+      "source_sha256": "380995389bdcccb579d639ce31e7f14867bd9302e8a243b08df31ec42e9d1064"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/neighbor_fit.py",
+      "canonical_sha256": "96d670a599a71536e11690e9d098a57050ef52d098d9a3c628f42ecc9abbdac6",
+      "definition_names": [
+        "add_relative",
+        "source_weights",
+        "fit_one",
+        "predict"
+      ],
+      "extracted_AST_sha256": "8d48479432a8acd2ff11234024c9f90defa705915cd5d2404b62060eaf2088ef",
+      "module": "neighbor_fit",
+      "source_sha256": "c4b0639b0784697b258869c487cf819cd446d6cdb4505baf2f40136c6f8bdae8"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/neighbor_struct_fit.py",
+      "canonical_sha256": "1ca0ff3b24c6c3deebbfb6426f432504657ea40bd19e07982e42a5ef2fb9c559",
+      "definition_names": [
+        "add_relative",
+        "source_weights",
+        "fit_one",
+        "predict"
+      ],
+      "extracted_AST_sha256": "7f451c749cb967b3712ee81ccb41dcf33f9c3d7388470afb3e8241b3d1de5b3e",
+      "module": "neighbor_struct_fit",
+      "source_sha256": "1785d7f3147a791b5fa5968724ef472201edcab909b947ce081b187cce99d1cd"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/frontier.py",
+      "canonical_sha256": "574f3fae0a11edf83f16b7a17ee859173753e803b3bec3bedb597d0f0e9c83cc",
+      "definition_names": [
+        "advance_phases"
+      ],
+      "extracted_AST_sha256": "a49040e3c8757e9fb82ff16f532209d42a10afcb39949b2ed1ae986ff68f934a",
+      "module": "frontier",
+      "source_sha256": "653f49df8ed453583a7579436294a70d11d0102d75b385bb455dabe88f77f06c"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/candidates.py",
+      "canonical_sha256": "5939a81634838dec9fa092d69132398ed58e26af118bf1dc37cf04fafd316c65",
+      "definition_names": [
+        "relation",
+        "valley_compatible",
+        "exact_support",
+        "edge_evidence",
+        "candidate_from_tail",
+        "CandidatePolicy",
+        "evidence_priority",
+        "collect_source"
+      ],
+      "extracted_AST_sha256": "797c8e6b3b5437e3aace19248f1f98235e6e416d9b95b1473112e53601a4a949",
+      "module": "candidates",
+      "source_sha256": "439ee46cdf69c88de038b04bdc6849bd140f50d7ec4cd752dcc4ce44327d5fdc"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/frontier_policy.py",
+      "canonical_sha256": "22d0c96afcb9a8fc144efae0515d0b4b670ed8048454ac227686ca023e5a7270",
+      "definition_names": [
+        "FrontierPolicy",
+        "plan_frontiers"
+      ],
+      "extracted_AST_sha256": "2a46c0db88c963c3527fe7ed0512bf3dcc4f790babd062ede3dc31bc18a57192",
+      "module": "frontier_policy",
+      "source_sha256": "dce77a316482850ea1eca2890d02df9482fa86cb9ad15e775cd20c204bcee926"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/frontier_adapter.py",
+      "canonical_sha256": "6dfda9260628dbe8e39139a65230644eb319bd3a7e89515f81d990ecc099403d",
+      "definition_names": [
+        "SafeFrontierAdapter"
+      ],
+      "extracted_AST_sha256": "1d37d9ce0f4c886bd389646106bd6859ff011dabc4a0a5124229ebe2a8647a3e",
+      "module": "frontier_adapter",
+      "source_sha256": "e1eebd6918d2fab5651b0f6af970c828a8af49e62b10a1d62697aeb583809667"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/destination_budget.py",
+      "canonical_sha256": "36901cff5fcd26fc9ce5209c2590608def975999501e1eaa6de5d410c97897db",
+      "definition_names": [
+        "destination_order"
+      ],
+      "extracted_AST_sha256": "6bdcc1d1f15073b82f9976b587e4e1842949d1e39f7d1de96d1fdc61b093f0df",
+      "module": "destination_budget",
+      "source_sha256": "acf7a5734410691cbd427b4818cfa3a07f495b275f8d4cce3ad6e4f41dbebb23"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/construction_budget.py",
+      "canonical_sha256": "7ef858b719af1acd5928d9d22ae7970850a59983096f269774e216ce3c995ab5",
+      "definition_names": [
+        "select_valid_candidates"
+      ],
+      "extracted_AST_sha256": "2e7b14f415a51374601bb5bd3a3df6df37369dfcaaeabb13e3e55d214f10990a",
+      "module": "construction_budget",
+      "source_sha256": "23c552fa3b08143472ceb1e4aaa9873c793eed05523b462464263cad3d15b8a2"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/path_features.py",
+      "canonical_sha256": "c74e6180704cfde55bad86efc6ba2b87e8a6b71bfcc14b864d8e868550d2c28c",
+      "definition_names": [
+        "_schema",
+        "_number",
+        "_nodes",
+        "_lookup",
+        "PathEvidenceFeatures"
+      ],
+      "extracted_AST_sha256": "2d851a9114048964be1eb125b3a0ce38f26c10ee8fe0df7733797ebbed4d5193",
+      "module": "path_features",
+      "source_sha256": "b572a0e9ba836a76cd4ef8be81d3f974951f8ba4943e8e4343bd3cd94d1ef8b7"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/prefix_features.py",
+      "canonical_sha256": "40419966e72cfaa89ae329f06b4398613a395c85c59319d421c9f36cb4ab4781",
+      "definition_names": [
+        "enrich_prefix_proofs",
+        "_probability",
+        "phase_set",
+        "features"
+      ],
+      "extracted_AST_sha256": "d866f7cb3c9b35c4f149db516703942a535551805d36eee81e06fab612a7225d",
+      "module": "prefix_features",
+      "source_sha256": "8fe40754647af5bde3a5ca77628a2a4415d4bced867f96046122d55896866633"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/next_features.py",
+      "canonical_sha256": "6aee1da97c33c7efc9cc5cf1c64c27d404569d7ea4890f6557c90bdda0f13a6d",
+      "definition_names": [
+        "features"
+      ],
+      "extracted_AST_sha256": "9bd05c0918c41f36305a0d4539e823c6d58d6d7f5b9a48e1d6a3540921657bbf",
+      "module": "next_features",
+      "source_sha256": "8ddd6476b677bbfa3afcf34b6c4be7053672ca67b4a39675817519de6a346e66"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/final_features.py",
+      "canonical_sha256": "eca5a361187874cd21ebfb60ff96a1238ebd82fd55aa0451b92052b5fa2f5d11",
+      "definition_names": [
+        "FinalPathFeatures",
+        "ActualQueryStore"
+      ],
+      "extracted_AST_sha256": "dcaea037f193e8adcdd99f28a13c51e58bb4928838a1672f96d80cc223c90a3e",
+      "module": "final_features",
+      "source_sha256": "2221c65787106b6c8b53c10d80a4dde0621e37e3e9af1204f5e6009aa32bd3a7"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/destination_features.py",
+      "canonical_sha256": "c86f572dd852f7ea3e99f9f73a45c9f6923aed8c98a496d7f97b5e5d99552517",
+      "definition_names": [
+        "public_role",
+        "candidate_queries",
+        "missing_boundary_features",
+        "keys",
+        "popcount",
+        "gather",
+        "feature_matrix"
+      ],
+      "extracted_AST_sha256": "e6ecad8ea6df29486218fcd43884f100c9826faee5cc668c29151bacf99bd9eb",
+      "module": "destination_features",
+      "source_sha256": "d2453867c51bd318ac7021e566c9207f680348dd077bbc649ff1955a8278bca5"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/joint_selector.py",
+      "canonical_sha256": "f29d3edd26abfca7444027498599a6703b2bf151bbe8ff06c9b533d5a4ec89b5",
+      "definition_names": [
+        "SelectionPolicy",
+        "length_aware_representatives",
+        "_probabilities",
+        "_increment",
+        "destination_equal_distribution",
+        "select_joint_budget"
+      ],
+      "extracted_AST_sha256": "6b6b9c303b670468a5853b98351649b6aa294e6d9ef4d8ac18626bb1856d477a",
+      "module": "joint_selector",
+      "source_sha256": "fac56ec94386c48ef11aea54fc430bdb00f0fb688fabd7f4be0edb76d103f391"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/prior_spec.py",
+      "canonical_sha256": "3b8cec33afe0c202d0ee840042251da4c27170930a1bce13f8bd9a7f3e979092",
+      "definition_names": [
+        "prediction_spec"
+      ],
+      "extracted_AST_sha256": "afd4ec8a5e8b50b2a3126134784a191abae15a4f2032592c3b6ded332815e257",
+      "module": "prior_spec",
+      "source_sha256": "1f097d8637b723d17a42488297f576743fe54f474053f61089f868502ece08d8"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/path_labels.py",
+      "canonical_sha256": "69e3ca983b1fcb2a92d71d7cd5f6c3b7ae5fd76a25cc439663086234f32ae5f7",
+      "definition_names": [
+        "reference",
+        "balanced_weights"
+      ],
+      "extracted_AST_sha256": "773ec31c083e9ff76c82f97933457df1bd451ed59fb96abd57c9d9063992a501",
+      "module": "path_labels",
+      "source_sha256": "80202f153e8a65d12fc698bc5847a02543bde21f07997520905357e2277f8794"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/evidence_index.py",
+      "canonical_sha256": "b3f7d101f61a5109fa7f7da1f2d87b6917f3d758f688cb450caea9d41348a02b",
+      "definition_names": [
+        "build_index"
+      ],
+      "extracted_AST_sha256": "d126dcc9ae7fe97d1b8d5c18e3c313bd0fe965a4f2e96247ebf3240b1731efe8",
+      "module": "evidence_index",
+      "source_sha256": "807c09680dd47addbc21165d44377858972272e43074a7bb7c6e315c8b12a439"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/reference_neighbors.py",
+      "canonical_sha256": "99eb2bd2cd0eb80cb1ccb4945538b80d3c3182ec75019d3e88e13b5d3b100e9c",
+      "definition_names": [
+        "top_target"
+      ],
+      "extracted_AST_sha256": "0e70b1cc44ae84228e6b04a4951c03b3e00a176ca5bc588e13828f62dc59c2a3",
+      "module": "reference_neighbors",
+      "source_sha256": "78e893ecd121cd21db65bcf22ced7043ed24c2f1faf7d71367be2de5e55a8291"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/policy_features.py",
+      "canonical_sha256": "9a1c582e22719a7ec934ed6caa5af2961e6ddf5c565f2f418cd7a0405ddaa84e",
+      "definition_names": [
+        "rpsl_features",
+        "PolicyBuilder"
+      ],
+      "extracted_AST_sha256": "817c2cce397b4b38915cfd03291c2225863f7681c841b86541c7cdc35c98d0c0",
+      "module": "policy_features",
+      "source_sha256": "14afaf6ba3d8369bef809ccdcf80c89fb403d9356c66d97951a9a2b4aaa0f4b9"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/distribution.py",
+      "canonical_sha256": "dda4a39f5bd192a801552853e83a00374532ca61c866aa10061873891383e837",
+      "definition_names": [
+        "softmax_queries",
+        "GroupedSoftmaxObjective",
+        "aligned_targets",
+        "select_training_contexts",
+        "context_features",
+        "DistributionHead"
+      ],
+      "extracted_AST_sha256": "ac0879feeeca1172b42908b9d449473fd71fc5b1e45c014f29ef941c97df39de",
+      "module": "distribution",
+      "source_sha256": "ca4e3070e8e5001c1fef8e5dc06009387e85ce4305de8dd2415734ab198e5125"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/prior_interface.py",
+      "canonical_sha256": "856d345d5500fd6879925f31957ce547c861cb2c3ce4846e314798d1c21037fc",
+      "definition_names": [
+        "as_prior"
+      ],
+      "extracted_AST_sha256": "2a2f0c2811c15f0dad59424f935f7e19ab149dd919c426680f400a46f0b28f39",
+      "module": "prior_interface",
+      "source_sha256": "93e8b1e900d73deae46be819f7ce84c94f54f1a842d567afcb9f2bc235aea69d"
+    },
+    {
+      "canonical_relative_path": "src/pathveil/upstream/implementation/donor_stats.py",
+      "canonical_sha256": "70aaac36c56269af23769d7e5695d5a9f999e6e6b02d1b37e3ccc95e8ba5b463",
+      "definition_names": [
+        "parse",
+        "nd_stats"
+      ],
+      "extracted_AST_sha256": "50211c45fe6a6dec927a82b9acf4c7a59741f3fc3364b4d870dc9e45355e6d52",
+      "module": "donor_stats",
+      "source_sha256": "228c0e91a46a6051d9ef8e49bde3bcbde0ddced89d3b3b18640d3f1c46f5be7e"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "workflow_id": "rho_prefix_v1",
+  "upstream_config": "configs/method_full_sources.json",
+  "augmentation": {
+    "rho_threshold": 1.0,
+    "source_threshold": 0.75,
+    "neighbor_threshold": 0.9,
+    "low_minimum_paths": 1000,
+    "maximum_neighbor_prefix_AS_count": 3,
+    "maximum_spliced_prefix_AS_count": 4,
+    "maximum_full_path_AS_count": 20,
+    "quantity_cap": null,
+    "quality_regression_supplement": false
+  },
+  "query_generator": "Tree B + PG",
+  "training_generators": {
+    "low": "PG",
+    "high": "Tree B + PG"
+  },
+  "gmpi": {
+    "seed": 20261015,
+    "hash_seed": 20261015,
+    "k": 200,
+    "hidden_size": 512,
+    "batch_size": 64,
+    "lr": 0.001,
+    "epochs": 30,
+    "patience": 3,
+    "validation_fraction": 0.1,
+    "workers": 0,
+    "observed_path_num": 200
+  },
+  "resources": {
+    "cpu_workers": 8,
+    "gpu_workers": 2,
+    "cpu_ram_gib": 16,
+    "gpu_ram_gib": 16,
+    "metadata_ram_gib": 3,
+    "free_ram_gib": 10,
+    "gpu_worker_mib": 10240,
+    "gpu_free_reserve_mib": 2048,
+    "gmpi_cpu_threads": 4,
+    "score_ram_gib": 6
+  },
+  "training_objective": "normal_history_huber"
+}

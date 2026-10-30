@@ -1,0 +1,40 @@
+\begin{algorithm}[t]
+\caption{Evidence-guided Path Augmentation}
+\label{alg:path_synthesis}
+\footnotesize
+\begin{algorithmic}[1]
+\Require Source $s$, selected neighbors $\mathcal N_s$, importance $\pi_s$
+\Require Observed segments $\mathcal T$, suffixes $\mathcal K_s,\mathcal K_s^{\mathrm{tr}}$
+\Require Next-hop predictor $g$, support scorer $h_\theta$
+\Require $\tau=300$, $D=3$, $k=10$, $B_0=\nu_0=1{,}000$
+\Ensure Selected source-specific library $\mathcal R_s$
+\State $\mathcal B\gets\emptyset$; $W\gets[(s,n):n\in\mathcal N_s]$
+\While{$W\ne\emptyset$}
+  \State $q\gets\Call{Pop}{W}$
+  \State $c\gets\Call{UsableTailCount}{q,\mathcal T,\tau}$
+  \State $E\gets\{q\oplus T:T\in\mathcal T_{\mathrm{last}(q)},\ \Call{Valid}{q,T}\}$
+  \State $\mathcal B\gets\mathcal B\cup E$
+  \If{$c<\tau$ and $|q|<D$}
+    \State $A\gets\Call{SupportedTopK}{g(s,q),k}$
+    \ForAll{$a\in A$ with $a\notin q$}
+      \State \Call{Push}{$W,q\mathbin{\|}(a)$}
+    \EndFor
+  \EndIf
+\EndWhile
+\State $\mathcal B\gets\Call{ConstructionReps}{\mathcal B}$
+\State $\mathcal B\gets\Call{WorkBudget}{\mathcal B,5000}$
+\State \Call{MarkUnavailable}{$\mathcal B,\mathcal T,\mathcal K_s^{\mathrm{tr}}$}
+\State $\mathcal B\gets\Call{ScoreAndRepresent}{\mathcal B,h_\theta}$
+\State $\mathcal U_s\gets\Call{Select}{\mathcal B,\pi_s,B_0,\nu_0}$
+\If{$|\mathcal U_s|<B_0$}
+  \State \Return $\mathcal U_s$ \Comment{record capacity shortfall}
+\EndIf
+\State $\mathcal K'\gets\{P\in\mathcal K_s:\Call{ValidFull}{P},$
+\Statex \hspace{\algorithmicindent}$\qquad \Call{FirstHop}{P}\in\mathcal N_s\cap\Call{FirstHops}{\mathcal U_s}\}$
+\State $\mathcal V\gets\Call{Deduplicate}{\mathcal U_s\cup\mathcal K'}$
+\State \Call{MarkKnown}{$\mathcal V,\mathcal K'$}
+\State $\mathcal V\gets\Call{ScoreAndRepresent}{\mathcal V,h_\theta}$
+\State $\mathcal R_s\gets\Call{Select}{\mathcal V,\pi_s,|\mathcal U_s|,0}$
+\State \Return $\mathcal R_s$ for both training and candidate generation
+\end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,103 @@
+Post-freeze PATS stage audit
+Generated UTC: 2026-10-29T10:32:43.138808+00:00
+
+This audit reads frozen admitted libraries and final references only to report stage diagnostics. It does not optimize the method, alter models, or rerun inference.
+All routes are unique ordered ASN tuples. No reversal is permitted.
+Exact observation support is not a forwarding-reality probability. Absence from this finite reference corpus does not prove a route unreal.
+The support denominator excludes admitted source/destination pairs absent from the reference corpus; excluded counts are disclosed below.
+
+Definitions:
+neighbor_observation_support: Selected first hops appearing as the second ASN of at least one distinct ordered reference path, divided by all selected first hops.
+distinct_firsthop_coverage: Distinct observed first hops that were selected, divided by all distinct observed first hops.
+path_weighted_firsthop_coverage: Distinct ordered reference paths whose first hop was selected, divided by all distinct ordered reference paths.
+selected_observed_neighbor_representation: Selected and observed first hops with at least one admitted augmented path, divided by all selected and observed first hops.
+ordered_support_on_reference_pairs: Admitted unique ordered paths exactly matching a reference path, divided by admitted unique ordered paths whose source/destination pair occurs in the references.
+unsupported_is_not_false: A path absent from finite reference observations is unobserved; not proven unreal or forwarding-invalid.
+no_reversal: No path reversal, completion, or graph inference used in this audit.
+
+Date 20260201
+Frozen run: /run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_cf932b9afbd4c57b
+Exact supported paths / admitted paths on reference pairs: 34841/37884 (91.9676%).
+Total admitted paths: 37916; outside reference pairs: 32.
+Equal-AS observation support: 86.3910%.
+Selected, observed neighbor representation: 156/169 (92.3077%).
+Source | selected observed/all selected | reference path firsthop coverage % | represented selected observed | exact matched/eligible augmented paths | exact support %
+16552 | 20/21 | 86.5309 | 19/20 | 4530/4572 | 99.0814
+19529 | 2/3 | 100.0000 | 1/2 | 1157/1420 | 81.4789
+32590 | 21/21 | 76.3602 | 21/21 | 3651/3689 | 98.9699
+34927 | 21/21 | 90.1436 | 19/21 | 4118/4230 | 97.3522
+42473 | 19/21 | 65.6263 | 18/19 | 3667/3748 | 97.8388
+49544 | 21/21 | 77.6312 | 20/21 | 4243/4286 | 98.9967
+58057 | 19/21 | 93.3721 | 18/19 | 4763/4949 | 96.2417
+199524 | 21/21 | 76.7569 | 20/21 | 4017/4043 | 99.3569
+328840 | 4/4 | 99.9972 | 2/4 | 105/1770 | 5.9322
+398465 | 21/21 | 93.5765 | 18/21 | 4590/5177 | 88.6614
+
+Date 20260301
+Frozen run: /run/media/lxl/data/asinfer/MetaGMPI/runs/20260301/pats_rho_v1/run_2d82cdb1345fc099
+Exact supported paths / admitted paths on reference pairs: 29524/33290 (88.6873%).
+Total admitted paths: 33300; outside reference pairs: 10.
+Equal-AS observation support: 83.7978%.
+Selected, observed neighbor representation: 159/167 (95.2096%).
+Source | selected observed/all selected | reference path firsthop coverage % | represented selected observed | exact matched/eligible augmented paths | exact support %
+16552 | 20/21 | 89.7616 | 20/20 | 3589/3706 | 96.8430
+19529 | 2/4 | 100.0000 | 2/2 | 692/1009 | 68.5828
+32590 | 21/21 | 80.5477 | 21/21 | 3254/3333 | 97.6298
+34927 | 21/21 | 89.7952 | 19/21 | 3420/3514 | 97.3250
+42473 | 18/21 | 57.6830 | 16/18 | 3378/3535 | 95.5587
+49544 | 21/21 | 76.9503 | 20/21 | 4052/4119 | 98.3734
+58057 | 19/21 | 93.3166 | 19/19 | 3612/4130 | 87.4576
+199524 | 21/21 | 75.0131 | 20/21 | 3194/3238 | 98.6411
+328840 | 3/3 | 99.9947 | 3/3 | 266/1023 | 26.0020
+398465 | 21/21 | 93.6732 | 19/21 | 4067/5683 | 71.5643
+
+Interpretation limits:
+Firsthop coverage uses reference path mass, not the number of distinct observed neighbors; the latter denominator is also retained in JSON.
+Representation requires at least one admitted path per selected and observed neighbor; it does not impose uniform distribution or validate every path through that neighbor.
+The inherited legacy graph/AS representations lack complete source-withholding provenance. These diagnostics do not resolve that separate limitation.
+AS328840 has near-complete firsthop coverage but poor complete ordered path support. Correct firsthop selection alone is insufficient.
+
+Additional balanced diagnostics (C1 and planned frontier-prefix Cfront; both percent):
+
+20260201
+16552: C1=86.0740; Cfront=52.3089
+19529: C1=100.0000; Cfront=99.9034
+32590: C1=73.7277; Cfront=40.5245
+34927: C1=87.9100; Cfront=59.8116
+42473: C1=66.5559; Cfront=40.6572
+49544: C1=74.5837; Cfront=36.1837
+58057: C1=93.7711; Cfront=72.1306
+199524: C1=75.1280; Cfront=45.0371
+328840: C1=99.9935; Cfront=75.5376
+398465: C1=93.6170; Cfront=58.8494
+
+20260301
+16552: C1=87.9926; Cfront=52.6660
+19529: C1=100.0000; Cfront=99.8982
+32590: C1=77.4319; Cfront=46.0259
+34927: C1=87.4556; Cfront=61.9527
+42473: C1=58.6685; Cfront=41.3756
+49544: C1=73.9190; Cfront=35.8655
+58057: C1=93.7235; Cfront=75.2298
+199524: C1=73.4873; Cfront=38.7622
+328840: C1=99.9905; Cfront=56.3672
+398465: C1=93.6753; Cfront=54.5483
+
+C1 in the LaTeX table uses pair-balanced coverage. The earlier pathweighted statistics remain separately labelled in JSON.
+Support excluding previously known paths is not reported.
+
+Additional completed April diagnostics:
+/run/media/lxl/data/asinfer/MetaGMPI/runs/20260401/pats_rho_v1/run_12be8f5a0097356e
+Ordered support on referencepairs: 29913/32739 (91.3681%).
+Selected observed neighbor representation: 158/168 (94.0476%).
+Equal-AS balanced C1: 83.4411%.
+16552: selectedobserved=21/21;C1=87.8584;represented=20/21;support=3898/3985(97.8168%)
+19529: selectedobserved=2/4;C1=100.0000;represented=2/2;support=939/1000(93.9000%)
+32590: selectedobserved=21/21;C1=76.0542;represented=21/21;support=3299/3349(98.5070%)
+34927: selectedobserved=21/21;C1=87.6958;represented=19/21;support=3376/3448(97.9118%)
+42473: selectedobserved=18/21;C1=58.5317;represented=17/18;support=3234/3319(97.4390%)
+49544: selectedobserved=21/21;C1=73.5814;represented=20/21;support=3624/3663(98.9353%)
+58057: selectedobserved=19/21;C1=93.4989;represented=18/19;support=3915/4570(85.6674%)
+199524: selectedobserved=21/21;C1=63.3121;represented=21/21;support=3296/3327(99.0682%)
+328840: selectedobserved=3/3;C1=99.9904;represented=2/3;support=28/1005(2.7861%)
+398465: selectedobserved=21/21;C1=93.8878;represented=18/21;support=4304/5073(84.8413%)

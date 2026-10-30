@@ -1,0 +1,49 @@
+\begin{table*}[t]
+\centering
+\caption{Data sources, snapshot dates (2026, month--day), and uses.}
+\label{tab:data_sources}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabularx}{\textwidth}{@{}p{3.0cm}p{2.65cm}X@{}}
+\toprule
+Data source & Snapshot / period & Contents, scale, and use\\
+\midrule
+Route Views / RIPE RIS~\cite{RouteViews,RIPERIS}
+& 02-01, 03-01, 04-01; 10-15
+& Public RIB paths supply the graph, segments, and training evidence.
+Ten withheld sources per month yield 685,820 / 685,765 / 688,302 test pairs;
+October BGP supplies evidence for Web queries.\\
+CAIDA AS Relationships~\cite{caidaASRelationships}
+& 02-01, 03-01, 04-01; 10-01
+& Provider--customer and peer labels for neighbor features and
+routing-policy compatibility checks; missing relationships remain unknown.\\
+CAIDA ASRank~\cite{caidaASrank}
+& 02-01, 03-01, 04-01; 10-01
+& AS and link attributes, including rank, degree, and customer-cone size,
+for neighbor selection and path scoring.\\
+PeeringDB~\cite{PeeringDB}
+& 02-01, 03-01, 04-01; 10-14
+& Network attributes and IXP / facility memberships for candidate retrieval
+and interconnection features; shared presence does not establish adjacency.\\
+\addlinespace
+Tranco N26XW~\cite{lepochat2019tranco}
+& 10-14
+& Frozen list of 1,000,000 ranked domains for selecting Web measurement targets.\\
+DNS resolution (this study)
+& 10-15
+& 911,257 resolved domains yield 388,491 unique IPv4 probe targets and
+domain-to-endpoint associations.\\
+CAIDA prefix-to-AS~\cite{caidaRouteviewsPfx2AS}
+& 10-13, 10:00 UTC
+& 1,126,405 IPv4 prefix-to-origin entries for longest-prefix mapping of
+endpoints and hops; ambiguous origins remain ambiguous.\\
+\addlinespace
+Traceroute (this study)
+& 10-15--10-16
+& AS63835: 388,491 TCP + 243,207 ICMP-Paris records. Under the same-AS
+gap-removal rule, 22,844 eligible records yield 2,198 distinct ordered
+reference paths over 1,890 AS pairs, used only for evaluation.\\
+\bottomrule
+\end{tabularx}
+\end{table*}

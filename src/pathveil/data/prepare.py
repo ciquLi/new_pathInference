@@ -232,7 +232,7 @@ def prepare_date(
         raise ValueError("Required exact-date inputs are missing: " + "; ".join(report["errors"]))
     run = Path(run_dir).resolve()
     root = run / "data/files"
-    source_root = Path(config["files_root"]).resolve()
+    source_root = Path(config.get("routing_files_root", config["files_root"])).resolve()
     if root == source_root or source_root in root.parents:
         raise ValueError("Derived output must not be written inside the external data root")
     source = source_root / "data/aspath/path_by_vantage" / config["routing_date"]

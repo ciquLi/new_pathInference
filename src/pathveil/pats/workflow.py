@@ -65,8 +65,13 @@ def load_method(root,registry,override=None):
 
 
 def validate_assets(date,registry,proto,data,upstream,bundle,model):
-    require(registry["mode"]=="bgp" and registry["date"]==registry["routing_date"]==date,
-            "Adaptive workflow needs an explicitly registered BGP date")
+    require(registry["mode"] in {"bgp", "traceroute"} and data["mode"] == registry["mode"]
+            and registry["date"]==registry["routing_date"]==date,
+            "PATS needs an explicitly registered routing/evaluation mode")
+    if registry["mode"] == "traceroute":
+        from pathveil.traceroute.score import FROZEN_TRUTH_IDENTITIES
+        require(date in FROZEN_TRUTH_IDENTITIES and registry["test_sources"] == ["63835"],
+                "Unregistered independent traceroute source/inventory")
     for name, day in registry["auxiliary_dates"].items():
         require(validate_date(day) <= date, "Future public snapshot: " + name)
     require(proto["date"]==data["date"]==data["routing_date"]==upstream["date"]==bundle["date"]==bundle["model_fit_date"]==model["date"]==model["model_fit_date"]==date,
@@ -82,6 +87,9 @@ def prepare(root,date,requested=None,override=None):
     registry_file=root/"configs/dates"/(date+".json");registry=read_json(registry_file)
     method,method_file=load_method(root,registry,override)
     policy=runtime_policy(method)
+    if registry.get("bootstrap_inputs", False):
+        from .bootstrap import ensure_inputs
+        ensure_inputs(root, date)
     baseline_workflow=registry.get("baseline_workflow","rho_prefix_v1")
     baseline=Path(read_json(root/"runs"/date/baseline_workflow/"current.json")["run_dir"])
     baseline_proto=read_json(baseline/"PROTOCOL.json")
@@ -95,6 +103,8 @@ def prepare(root,date,requested=None,override=None):
     sources=list(map(str,registry["test_sources"]))
     code_paths=list(Path(__file__).parent.glob("*.py")) + [
         root/"src/pathveil/prefix_tree/stage.py",
+        root/"src/pathveil/prefix_tree/public_prefix_tree.py",
+        root/"src/pathveil/prefix_tree/registered_topology.py",
         root/"src/pathveil/prefix_tree/public_tree_pathgen.py",
         root/"src/pathveil/prefix_tree/public_tree_observed_pathgen.py",
         root/"src/pathveil/experiment/compile_queries.py",
@@ -103,6 +113,9 @@ def prepare(root,date,requested=None,override=None):
         root/"src/pathveil/core/getData.py",
         root/"src/pathveil/experiment/worker.py",
     ]
+    if registry["mode"] == "traceroute":
+        code_paths += list((root/"src/pathveil/traceroute").glob("*.py"))
+        code_paths.append(root/"src/pathveil/prefix_tree/traceroute.py")
     code={str(p.resolve()):sha256(p) for p in code_paths}
     statistic=root/"runs/analysis/neighbor_path_mass_20261028/REPORT.md"
     require(statistic.is_file(),"User-designated fixed TRAIN-statistic provenance missing")
@@ -143,7 +156,7 @@ def prepare(root,date,requested=None,override=None):
     freeze(run/"EVALUATION_POLICY_AMENDMENT.json",dict(selection_scope="single_source_generator",
         training_and_selection_unchanged=True,final_scores_used_for_further_training=False))
     manifest=read_json(run/"data/data_manifest.json")
-    from pathveil.prefix_tree.public_prefix_tree import PublicPrefixTopology
+    from pathveil.prefix_tree.registered_topology import RegisteredPublicPrefixTopology as PublicPrefixTopology
     from pathveil.prefix_tree import public_tree_spec
     topology=PublicPrefixTopology.from_manifest(run/"data/data_manifest.json")
     freeze(run/"query_trees/METHOD_FROZEN.json",dict(version=POLICY["version"],date=date,sources=sources,
@@ -252,6 +265,10 @@ def execute(run,device):
         builder=subprocess.Popen(command,env=env,stdout=stream,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,start_new_session=True)
         try:
             require(builder.wait(timeout=None)==0,"Construction dispatcher failed")
+            if read_json(run/"data/data_manifest.json")["mode"] == "traceroute":
+                from .trace import execute as execute_trace
+                execute_trace(run, device)
+                return
             write_progress(run,"batch_path_generation_start",sources=len(proto["sources"]),
                            train_workers=proto["method"]["selection_policy"].get("pathgen_train_threads",2))
             batch_command=[sys.executable,"-B","-m","pathveil.pats.batch_pathgen",

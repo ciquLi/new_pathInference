@@ -11,9 +11,10 @@ import lightgbm as lgb
 import numpy as np
 
 from pathveil.experiment.contracts import (freeze,freeze_bytes,forbid_formal_references,
-    normalize_pool,path_bytes,quality_selection,require,signature,verify_files)
+    normalize_pool,path_bytes,require,signature,verify_files)
 from pathveil.prefix_tree import public_tree_spec as specs
-from pathveil.prefix_tree.public_prefix_tree import PublicPrefixTopology,commercial_phases
+from pathveil.prefix_tree.public_prefix_tree import commercial_phases
+from pathveil.prefix_tree.registered_topology import RegisteredPublicPrefixTopology as PublicPrefixTopology
 from pathveil.upstream.destination import DestinationFeatureStore
 from pathveil.upstream.neighbors import NeighborRuntime
 from pathveil.upstream import path_pipeline
@@ -22,6 +23,7 @@ from pathveil.upstream.implementation.frontier_policy import FrontierPolicy
 from pathveil.utils import read_json,sha256,utc_now,write_json
 
 from .policy import POLICY,RECURSION_TOPK,LOW_TAIL_MIN,select_root,mandatory_plan
+from .admission import quality_selection
 
 
 class Runtime(NeighborRuntime):
@@ -171,6 +173,9 @@ def construct(run,source):
             original_scorer_sha256=upstream["model_sha256"],final_reference_paths_opened=False))
     # Frozen downstream registration reads endpoint metadata and binds reference hashes.
     # Route sequences remain closed until the original checkpoint/evaluation gate.
+    if data["mode"] == "traceroute":
+        from .trace import prepare_source
+        return prepare_source(run, source)
     from pathveil.experiment import preparation
     original=preparation.specs.build_spec
     def reuse_tree(graph,s,original_prefixes,input_bindings=None):

@@ -72,6 +72,7 @@ def main():
     parser.add_argument("--source-asn", default="63835")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--k", type=int, default=200)
+    parser.add_argument("--prefix-tree-dir", type=Path)
     parser.add_argument("--destination-batch-size", type=int, default=256)
     parser.add_argument("--dgi-threshold", type=float, default=4.0)
     parser.add_argument(
@@ -133,6 +134,9 @@ def main():
     env.train_extra_data_mode = "augmentation_only"
     pool_audit = audit_pool_consumers(env, args.source_asn, contract)
     env.existPath = env.getExistPath("train")
+    if args.prefix_tree_dir is not None:
+        from pathveil.prefix_tree.traceroute import install_generator
+        install_generator(args.prefix_tree_dir, args.data_manifest, contract, args.outdir)
     model = torch.load(str(args.model), map_location=args.device)
     metadata = getattr(model, "_pathveil_metadata", None)
     if (

@@ -100,6 +100,29 @@ class TraceRunnerTests(unittest.TestCase):
         logs = list((self.root / "run/traceroute/control/attempts/training_inputs").glob("*.log"))
         self.assertEqual(len(logs), 2)
 
+    def test_pats_tree_is_shared_by_training_and_queries_and_part_of_cache_identity(self):
+        trees = self.root / 'trees'
+        write_json(trees / 'METHOD_FROZEN.json', {'version': 'fixture'})
+        write_json(trees / '1.json', {'prefixes': [['1', '2']]})
+        commands = []
+
+        def worker(command, **kwargs):
+            commands.append(command)
+            return self.fake_worker(command, **kwargs)
+
+        with patch.dict('os.environ', {'PATHVEIL_PROJECT_ROOT': str(self.root)}), patch(
+            'pathveil.traceroute.runner.subprocess.run', side_effect=worker
+        ):
+            arguments = dict(source='1', prefix_tree_dir=trees, pathgen_workers=4)
+            run_traceroute(self.root / 'run', self.data, self.release, 'cpu', **arguments)
+            for command in (commands[0], commands[2]):
+                self.assertEqual(command[command.index('--prefix-tree-dir') + 1], str(trees))
+            self.assertEqual(commands[0][commands[0].index('--pathgen-workers') + 1], '4')
+            self.assertNotIn('--prefix-tree-dir', commands[1])
+            write_json(trees / '1.json', {'prefixes': [['1', '3']]})
+            with self.assertRaisesRegex(ValueError, 'inputs/configuration changed'):
+                run_traceroute(self.root / 'run', self.data, self.release, 'cpu', **arguments)
+
 
 if __name__ == "__main__":
     unittest.main()

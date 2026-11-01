@@ -15,13 +15,12 @@ from .contracts import freeze, freeze_bytes, require, verify_files
 def prepare_data(date, run):
     data = prepare_date(date, run, deep=True)
     require(
-        data["mode"] == "bgp" and data["date"] == data["routing_date"] == date,
-        "The rho workflow requires an explicitly registered BGP date",
+        data["mode"] in {"bgp", "traceroute"} and data["date"] == data["routing_date"] == date,
+        "The rho workflow requires an explicitly registered routing date",
     )
-    require(
-        set(data["auxiliary_dates"].values()) == {date},
-        "Public snapshots must match the requested date",
-    )
+    registry = read_json(data["registry_path"])
+    require(data["auxiliary_dates"] == registry["auxiliary_dates"], "Public snapshot registration differs")
+    require(all(day <= date for day in data["auxiliary_dates"].values()), "Future public snapshot")
     return data
 
 
@@ -127,7 +126,7 @@ def downstream_view(data, run):
         result.setdefault("read_path_map", {})[str(path)] = str(path)
     mirror = projected.parent / "test"
     mirror.mkdir(parents=True, exist_ok=True)
-    for source in sorted(sources, key=int):
+    for source in sorted(sources, key=int) if data.get("mode", "bgp") == "bgp" else []:
         original = Path(data["test_dir"]) / (source + ".csv")
         wanted = data["corpus_input_sha256"][str(original)]
         require(sha256(original) == wanted, "Reference mirror input changed")

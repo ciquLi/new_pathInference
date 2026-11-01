@@ -172,7 +172,7 @@ def check_date(date, project_root=None, files_root=None, deep=False):
             if classification["status"] == "valid_empty_after_filtering":
                 empties.append(classification)
     test_dir = (
-        Path(config["files_root"])
+        Path(config.get("routing_files_root", config["files_root"]))
         / "data/aspath/path_by_vantage"
         / config["routing_date"]
         / "path_without_prefix/test"

@@ -38,6 +38,8 @@ def run_traceroute(
     k=200,
     seed=None,
     date=None,
+    prefix_tree_dir=None,
+    pathgen_workers=1,
 ):
     """Run generation → BGP training → target prediction → frozen scoring.
 
@@ -78,6 +80,17 @@ def run_traceroute(
             str(path): sha256(path) for path in sorted(Path(__file__).parent.glob("*.py"))
         },
     }
+    prefix_arguments = []
+    if prefix_tree_dir is not None:
+        prefix_tree_dir = Path(prefix_tree_dir).resolve()
+        tree_files = [prefix_tree_dir / 'METHOD_FROZEN.json', prefix_tree_dir / (str(source) + '.json')]
+        identity['pats'] = dict(prefix_tree_dir=str(prefix_tree_dir), pathgen_workers=pathgen_workers,
+                                files_sha256={str(p): sha256(p) for p in tree_files},
+                                code_sha256={str(p): sha256(p) for p in (
+                                    Path(__file__).resolve().parents[1] / 'prefix_tree' / name for name in (
+                                        'traceroute.py', 'registered_topology.py', 'public_tree_pathgen.py',
+                                        'public_tree_observed_pathgen.py'))})
+        prefix_arguments = ['--prefix-tree-dir', prefix_tree_dir]
     run = Path(run_dir).resolve() / "traceroute"
     control = run / "control"
     control.mkdir(parents=True, exist_ok=True)
@@ -162,7 +175,8 @@ def run_traceroute(
     generated = stage(
         "training_inputs",
         "pathveil.traceroute.generate_training",
-        [*base, "--support-data-dir", pool.parent, "--k", k],
+        [*base, "--support-data-dir", pool.parent, "--k", k,
+         *prefix_arguments, "--pathgen-workers", pathgen_workers],
         lambda out: [
             out / "TRAINING_INPUTS.json",
             Path(read_json(out / "TRAINING_INPUTS.json")["generated_csv"]),
@@ -227,6 +241,7 @@ def run_traceroute(
             "augmentation_only",
             "--k",
             k,
+            *prefix_arguments,
         ],
         lambda out: [
             out / "pair_predictions.jsonl",

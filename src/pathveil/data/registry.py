@@ -49,6 +49,8 @@ def load_registry(date, project_root=None, files_root=None):
     config["registry_path"] = str(path)
     config["project_root"] = str(root)
     config["files_root"] = variables["files_root"]
+    if config.get("routing_files_root"):
+        config["routing_files_root"] = str(Path(config["routing_files_root"].format(**variables)).resolve())
     return config
 
 

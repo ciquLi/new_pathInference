@@ -40,6 +40,7 @@ POLICY = dict(
     quality=dict(
         source_threshold=SOURCE_THRESHOLD,
         minimum_paths=MINIMUM_PATHS,
+        insufficient_legal_pool="retain_all",
         semantics="Source candidate pool relative quality threshold; no neighbor-first splice protocol",
     ),
     query_capacity=QUERY_CAPACITY,

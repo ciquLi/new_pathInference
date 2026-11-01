@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 RUNNER="${SCRIPT_DIR}/run_experiment.sh"
 BATCH_DIR="${PATHVEIL_BATCH_DIR:-${PROJECT_ROOT}/runs/batches/pats_$(date -u +%Y%m%dT%H%M%SZ)}"
-DATES=(20260201 20260301 20260401)
+read -r -a DATES <<< "${PATHVEIL_PATS_DATES:-20260201 20260301 20260401}"
 
 if [[ ! -x "${RUNNER}" ]]; then
     echo "Missing executable formal entry: ${RUNNER}" >&2

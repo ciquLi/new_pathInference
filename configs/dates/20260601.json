@@ -177,7 +177,10 @@
   "notes": [
     "The per-date original top-10 cohort is explicit. common9 is the fixed intersection for cross-date comparisons."
   ],
-  "workflow_id": "rho_prefix_v1",
-  "workflow_config": "configs/workflow_rho_prefix.json",
-  "method_config": "configs/method_full_sources.json"
+  "workflow_id": "pats_rho_v1",
+  "workflow_config": "configs/workflow_pats.json",
+  "method_config": "configs/method_full_sources.json",
+  "bootstrap_inputs": true,
+  "baseline_workflow": "pats_inputs_v1",
+  "upstream_cache": "runs/20260601/pats_inputs_v1/inputs/upstream_training"
 }

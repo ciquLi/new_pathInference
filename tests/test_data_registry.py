@@ -219,6 +219,9 @@ class RegistryTests(unittest.TestCase):
 
     def test_auxiliary_dates_and_frozen_common_cohort(self):
         trace = load_registry("20261015")
+        self.assertEqual(trace["mode"], "traceroute")
+        self.assertEqual(trace["test_sources"], ["63835"])
+        self.assertEqual(trace["common9"], [])
         self.assertEqual(trace["routing_date"], "20261015")
         self.assertEqual(
             trace["auxiliary_dates"],

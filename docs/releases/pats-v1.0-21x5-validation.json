@@ -1,0 +1,37 @@
+{
+  "release_tag": "pats-v1.0-21x5",
+  "status": "PASS",
+  "date": "2026-11-01",
+  "base_commit": "ba68dafa394a1f91b42fad0858fd10e1130ac60a",
+  "numerical_sources_configs_and_entrypoints_unchanged": true,
+  "experimental_training_or_path_generation_started": false,
+  "baseline_run_records_rewritten": false,
+  "unittest": {
+    "status": "PASS",
+    "tests": 235,
+    "skipped": 1,
+    "skip_reason": "Original opt-in legacy rho engineering smoke test",
+    "log": "runs/verification/pats-v1.0-21x5/unittest.log",
+    "log_sha256": "a3951ab8f76060303334e9899126ad7ea63617cb381126e968410198214eb35a"
+  },
+  "march_migration": {
+    "status": "PASS",
+    "sources": 10,
+    "all_model_scores_byte_equal": true,
+    "all_released_CSV_bytes_equal": true,
+    "release": "runs/verification/pats-v1.0-21x5/march_migration/upstream/RELEASE.json",
+    "release_sha256": "2fbdf3f06444eb0ea0ea04a98828157be51972aea4562a5b83638684d4efbe36",
+    "log_sha256": "13d14361e2c2309cdb47f905595d774385373cb9c6b6f57aa04f971658c18891"
+  },
+  "code_and_assets": {
+    "status": "PASS",
+    "release": "pats-v1.0-21x5",
+    "scope": "code_and_baseline_assets",
+    "checked_files": 3601,
+    "errors": []
+  },
+  "source_files": 191,
+  "baseline_assets": 3410,
+  "manifest_sha256": "d0f54502f4fd56cc1b1d5b177913ab6bf40f67390e6ff6f1d31b550f2f65b867",
+  "per_source_results_sha256": "730752ba79f40a54de5f7ac02b2c66b9a8ce3c4c463a67c20c8491ab5e0532d7"
+}

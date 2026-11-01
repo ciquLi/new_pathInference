@@ -1,55 +1,48 @@
 # 运行与恢复
 
-日常唯一入口：
+当前方法是PATS 21／5，流程定义见根目录 [WORKFLOW.md](../WORKFLOW.md)，稳定基线运行编号见[版本说明](releases/pats-v1.0-21x5.md)。正式入口：
 
 ```bash
 bash scripts/run_experiment.sh 20260301
 ```
 
-当前BGP方法、两类ρ分组和各阶段定义见[日期化流程](rho_workflow.md)，参数集中在`configs/workflow_rho_prefix.json`。
-Python默认`/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python`，可显式设置`PATHVEIL_PYTHON`，不自动升级依赖。
-
-## 检查与分阶段准备
+Python默认环境为 `/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python`，可用 `PATHVEIL_PYTHON` 指定。参数默认值在 `scripts/run_experiment.sh`，运行时合并到 `src/pathveil/pats/policy.py` 的策略，写入运行身份。21／5、0.75、1000、候选200是稳定版本参数；通过环境变量覆盖属于新的方法配置。
 
 ```bash
+# 仅读取计划，不生成候选或训练
 bash scripts/run_experiment.sh 20260301 --plan-only
-bash scripts/run_experiment.sh 20260301 --prepare-only
-bash scripts/run_experiment.sh 20260301 --upstream-only
-bash scripts/run_experiment.sh 20260301 --augmentation-only
+
+# 顺序调度0201、0301、0401
+bash scripts/run_pats_dates.sh
 ```
 
-检查不拟合模型；准备阶段产生独立输入视图；上游阶段核验或训练同日模型；增强阶段冻结完整路径库。普通运行会依次执行完整流程。
+20260201、20260301、20260401采用各自登记的10源队列；20260501、20260601用AS16276替换AS42473，并单报共同九源。20261015是单源AS63835的独立traceroute评测。输入只按登记日期读取，缺少同日资产时报错。
 
-当日有效去重原始完整路径数严格大于10000的全部合格源参与4:1:1源划分；正式测试AS独立留出。只有同日、输入/方法/训练源/代码身份均一致的上游缓存可以复用。
+## 恢复边界
 
-## 日期队列
-
-- 20260201、20260301、20260401：各自明确登记的原十源队列。
-- 20260501、20260601：AS16276替换AS42473；同时保存共同九源汇总。
-- 20261015：已有AS63835 traceroute的独立离线登记流程，不启动新测量。
-
-本次整理不会自动启动下一日期完整实验，也不启动0501、0601训练。它们的日期入口只在显式执行相应命令后运行。
-
-## 产物与资源
-
-当前运行指针：`runs/<date>/rho_prefix_v1/current.json`。其指向的目录中，`STATUS.json`/`PROGRESS.md`记录实际任务，`logs/`保存逐阶段日志，`REPORT.md`/`RESULTS.csv`在每个AS独立评测完成后更新。
-
-CPU上限8个任务、GPU上限2个任务，实际启动受共享内存账本和显存控制；默认保留10 GiB内存。数值线程、内存预算和进程上限都由同一方法配置记录。一次只调度各AS当前就绪的阶段。
-
-重复相同命令时，已完成工件须重新验证哈希，改变输入或配置会生成新的运行目录。需要明确保留旧产物并重新开始时：
+重复相同命令时，调度器核验已完成工件和身份后复用。显式指定已有运行：
 
 ```bash
-bash scripts/run_experiment.sh 20260301 --fresh-run
+bash scripts/run_experiment.sh 20260301 --run-dir runs/20260301/pats_rho_v1/run_e3f6274a5f3c9ec8
 ```
 
-`--run-dir`可指定本项目`runs/`内的明确目录；身份不一致时拒绝覆盖。失败保留日志、错误和完成产物，中断权重不作为新的初始模型加载。
+此命令属于实际运行授权，不是核验命令。代码或参数身份不一致时不能靠改旧哈希强制续跑。历史运行可能有已登记的迁移或恢复记录，应一起保留；代码版本标签不保证任意旧目录都能按当前身份原地续跑。
 
-## 回归
+`--fresh-run`会创建独立运行并保留旧产物；不要用它代替缓存恢复。`--prepare-only`等分阶段选项会准备或写入对应阶段产物，只有 `--plan-only`用于单纯展示方法。
+
+## 产物和资源
+
+产物位于 `runs/<date>/pats_rho_v1/<run_id>/`。`STATUS.json`、`PROGRESS.md`和 `logs/`记录状态；`RESULTS.json`、`RESULTS.csv`、`REPORT.md`记录逐AS完成结果。`current.json`会随运行变化，稳定基线按版本清单中的明确编号读取。
+
+训练候选默认并行4个AS并共享加载环境。测试候选最多4个隔离源进程，源内单worker。路径生成阶段完成后再调度GMPI；GPU任务上限2，并受显存、内存预算约束，默认保留10GiB内存余量。GMPI可以用CUDA；这些设置与VS Code硬件加速无关。
+
+## 稳定版本核验
 
 ```bash
-/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python -B scripts/verify_migration.py --run-dir runs/20260301/verification/rho_prefix_migration
+python -B scripts/verify_frozen_release.py
+python -B scripts/verify_frozen_release.py --assets
 ```
 
-该命令显式重放March冻结特征并比较模型分数和发布CSV，不是重新训练或盲测。当前日期入口不隐式使用March回放替代其他日期。
+核验工具仅读取文件，不启动、修复或重写实验。第一条检查代码、配置、入口和测试；第二条同时检查版本清单登记的本地资产。Git标签固定代码，数据和模型仍需在本地保留。
 
-外部`asinfer/files`语料只读；缺少原始RIB归档不阻断已解析数据的训练。实际用到的公开快照、路由语料、词表、嵌入和模型必须存在且绑定身份。缺少文件时停止并报出具体路径，不选择相邻日期。
+March迁移回归命令及验证范围见[版本说明](releases/pats-v1.0-21x5.md)。外部 `asinfer/files`语料只读；原始RIB归档不是已解析数据的训练前置条件。

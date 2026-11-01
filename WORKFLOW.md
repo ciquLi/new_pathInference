@@ -1,6 +1,6 @@
 # PathVeil 路径推测流程
 
-本文件记录当前要采用的流程：`pats_rho_v1`（Prefix-Anchored Tail Stitching）。代码和配置已经接入日期入口，但在完成正式实验前，不把它当成已经验证的实验结果。正式入口仍为：
+本文件记录当前稳定流程：`pats_rho_v1`（Prefix-Anchored Tail Stitching），参数21／5，版本标签 `pats-v1.0-21x5`。五个BGP日期各10个AS的已完成基线按运行编号固定在[版本说明](docs/releases/pats-v1.0-21x5.md)中。正式入口为：
 
 ```bash
 bash scripts/run_experiment.sh YYYYMMDD
@@ -8,7 +8,7 @@ bash scripts/run_experiment.sh YYYYMMDD
 
 日期必须从 `configs/dates/` 中明确登记，不能自动选择附近日期。
 
-PATS 的可调参数集中在 `scripts/run_experiment.sh`：首跳上限 `PATHVEIL_PATS_LOW_ROOT_LIMIT`、递归数量 `PATHVEIL_PATS_RECURSION_TOPK`、低 `rho` 尾段门槛 `PATHVEIL_PATS_LOW_TAIL_MIN`、增强质量阈值 `PATHVEIL_PATS_SOURCE_THRESHOLD`、增强路径最低数量 `PATHVEIL_PATS_MINIMUM_PATHS`、每个查询的候选容量 `PATHVEIL_PATS_QUERY_CAPACITY` 和训练候选生成并行数 `PATHVEIL_PATS_PATHGEN_TRAIN_THREADS`。默认训练候选生成并行4个 AS，测试候选固定单 worker；这些参数会写入运行身份，改动后自动形成新的方法身份。
+PATS 的可调参数集中在 `scripts/run_experiment.sh`：首跳上限 `PATHVEIL_PATS_LOW_ROOT_LIMIT`、递归数量 `PATHVEIL_PATS_RECURSION_TOPK`、低 `rho` 尾段门槛 `PATHVEIL_PATS_LOW_TAIL_MIN`、增强质量阈值 `PATHVEIL_PATS_SOURCE_THRESHOLD`、增强路径最低数量 `PATHVEIL_PATS_MINIMUM_PATHS`、每个查询的候选容量 `PATHVEIL_PATS_QUERY_CAPACITY`、训练候选生成并行数 `PATHVEIL_PATS_PATHGEN_TRAIN_THREADS` 和测试候选源并行数 `PATHVEIL_PATS_PATHGEN_TEST_THREADS`。训练候选默认并行4个AS；测试阶段最多并行4个源进程，每个源内部单worker。这些参数写入运行身份；改变参数属于新方法配置，不修改已冻结基线。
 
 三个日期可以通过 `scripts/run_pats_dates.sh` 一起提交：
 
@@ -81,7 +81,7 @@ bash scripts/run_pats_dates.sh --plan-only
 
 训练和查询使用同一棵完整前缀树与前缀锚点尾段拼接流程。之后保持原有流程：
 
-1. 每个日期启动一个批处理路径生成进程，统一加载公共拓扑、训练尾段索引和生成环境，循环完成全部登记源 AS 的训练候选和测试候选；
+1. 日期按顺序执行。每个日期由一个批处理进程协调路径生成：训练候选共享加载环境，最多4个源任务；测试候选使用最多4个隔离源进程，各进程加载自己的环境。已完成候选经身份和哈希校验后复用；
 2. 批处理路径生成完成后，才开始 GMPI 训练；不同源的训练仍可受 GPU 资源限制并行；
 3. 每个源 AS 独立训练一个正常历史 GMPI；
 4. 使用源内 pair-disjoint 的训练/验证划分选择检查点；
@@ -101,4 +101,4 @@ bash scripts/run_pats_dates.sh --plan-only
 - 前缀锚点尾段拼接输入、训练检查点和最终评估结果；
 - 每个源的完成、失败或停止状态。
 
-0201、0301、0401 的已完成旧结果只作为历史对照，不混入新版本训练或参数选择。
+稳定基线为0201、0301、0401、0501、0601各10个AS的21／5结果。其他参数组保留作历史对照，不按准确率挑选混合。1015为单源AS63835的独立traceroute评测，不属于这五个BGP日期。将来部分吸纳原始TRAIN路径的两AS实验另开分支、另存结果，不覆盖本版本。

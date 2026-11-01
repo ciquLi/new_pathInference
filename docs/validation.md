@@ -1,3 +1,5 @@
+> 当前PATS 21／5版本验收见[稳定版本说明](releases/pats-v1.0-21x5.md)。以下保留为历史迁移记录。
+
 > 本文为2026-10-24历史整理记录。2026-10-27日期化ρ流程的验收与边界见`runs/verification/rho_pipeline_20261027/REPORT.md`，当前运行方法见[rho_workflow.md](rho_workflow.md)。
 
 # 2026-10-24 整理验收

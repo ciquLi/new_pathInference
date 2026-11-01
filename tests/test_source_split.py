@@ -6,8 +6,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from pathveil.upstream.contracts import UpstreamError
-from pathveil.upstream.source_split import (
+from pathInference.upstream.contracts import UpstreamError
+from pathInference.upstream.source_split import (
     inventory_sources,
     prepare_source_split,
     split_sources,
@@ -16,7 +16,7 @@ from pathveil.upstream.source_split import (
 
 class SourceInventory(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix="pathveil_source_protocol_")
+        self.temp = tempfile.TemporaryDirectory(prefix="pathInference_source_protocol_")
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.canonical = self.root / "merged_paths.txt"

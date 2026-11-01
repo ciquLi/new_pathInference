@@ -5,9 +5,9 @@ import pickle
 import tempfile
 import unittest
 
-from pathveil.upstream.contracts import UpstreamError, sha
-from pathveil.upstream.evidence import load_policies, make_public, prepare_evidence
-from pathveil.upstream.method import MethodLibrary
+from pathInference.upstream.contracts import UpstreamError, sha
+from pathInference.upstream.evidence import load_policies, make_public, prepare_evidence
+from pathInference.upstream.method import MethodLibrary
 
 
 class NeighborBoundaries(unittest.TestCase):

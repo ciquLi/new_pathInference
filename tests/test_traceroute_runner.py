@@ -8,8 +8,8 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from pathveil.traceroute.runner import run_traceroute
-from pathveil.utils import sha256, write_json
+from pathInference.traceroute.runner import run_traceroute
+from pathInference.utils import sha256, write_json
 
 
 class TraceRunnerTests(unittest.TestCase):
@@ -74,7 +74,7 @@ class TraceRunnerTests(unittest.TestCase):
 
     def test_stage_resume_and_changed_checkpoint_detection(self):
         with patch.dict("os.environ", {"PATHVEIL_PROJECT_ROOT": str(self.root)}), patch(
-            "pathveil.traceroute.runner.subprocess.run", side_effect=self.fake_worker
+            "pathInference.traceroute.runner.subprocess.run", side_effect=self.fake_worker
         ):
             result = self.run_fixture()
             self.assertEqual(len(self.calls), 4)
@@ -87,14 +87,14 @@ class TraceRunnerTests(unittest.TestCase):
 
     def test_failed_worker_keeps_failure_status_and_can_retry(self):
         with patch.dict("os.environ", {"PATHVEIL_PROJECT_ROOT": str(self.root)}), patch(
-            "pathveil.traceroute.runner.subprocess.run", return_value=SimpleNamespace(returncode=7)
+            "pathInference.traceroute.runner.subprocess.run", return_value=SimpleNamespace(returncode=7)
         ):
             with self.assertRaisesRegex(RuntimeError, "stage failed"):
                 self.run_fixture()
         state = json.loads((self.root / "run/traceroute/control/status.json").read_text())
         self.assertEqual(state["status"], "failed")
         with patch.dict("os.environ", {"PATHVEIL_PROJECT_ROOT": str(self.root)}), patch(
-            "pathveil.traceroute.runner.subprocess.run", side_effect=self.fake_worker
+            "pathInference.traceroute.runner.subprocess.run", side_effect=self.fake_worker
         ):
             self.assertEqual(self.run_fixture()["status"], "complete")
         logs = list((self.root / "run/traceroute/control/attempts/training_inputs").glob("*.log"))
@@ -111,7 +111,7 @@ class TraceRunnerTests(unittest.TestCase):
             return self.fake_worker(command, **kwargs)
 
         with patch.dict('os.environ', {'PATHVEIL_PROJECT_ROOT': str(self.root)}), patch(
-            'pathveil.traceroute.runner.subprocess.run', side_effect=worker
+            'pathInference.traceroute.runner.subprocess.run', side_effect=worker
         ):
             arguments = dict(source='1', prefix_tree_dir=trees, pathgen_workers=4)
             run_traceroute(self.root / 'run', self.data, self.release, 'cpu', **arguments)

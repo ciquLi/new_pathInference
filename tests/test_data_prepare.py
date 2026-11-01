@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from pathveil.data.prepare import prepare_date, resolve_read_path
+from pathInference.data.prepare import prepare_date, resolve_read_path
 
 
 class PrepareTests(unittest.TestCase):

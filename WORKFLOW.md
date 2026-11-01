@@ -1,6 +1,6 @@
-# PathVeil 路径推测流程
+# pathInference 路径推测流程
 
-本文件记录当前稳定流程：`pats_rho_v1`（Prefix-Anchored Tail Stitching），参数21／5，版本标签 `pats-v1.0-21x5`。五个BGP日期各10个AS的已完成基线按运行编号固定在[版本说明](docs/releases/pats-v1.0-21x5.md)中。正式入口为：
+本文件记录 **pathInference** 的当前稳定流程。内部工作流标识为 `pats_rho_v1`，其中PATS（Prefix-Anchored Tail Stitching）是候选路径生成模块；参数21／5，版本标签 `pats-v1.0-21x5`。五个BGP日期各10个AS的已完成基线按运行编号固定在[版本说明](docs/releases/pats-v1.0-21x5.md)中。正式入口为：
 
 ```bash
 bash scripts/run_experiment.sh YYYYMMDD

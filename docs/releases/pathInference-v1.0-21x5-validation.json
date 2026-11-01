@@ -1,0 +1,68 @@
+{
+  "baseline_assets": "Historical inventory unchanged; tested checkpoint hashes verified, full asset set not rehashed.",
+  "checkpoint_compatibility": {
+    "checks": [
+      {
+        "hash_verified": true,
+        "kind": "GMPI",
+        "metadata_readable": true,
+        "module": "GMPI_pathLikelihoodEst",
+        "source": "19529"
+      },
+      {
+        "hash_verified": true,
+        "kind": "GMPI",
+        "metadata_readable": true,
+        "module": "GMPI_pathLikelihoodEst",
+        "source": "328840"
+      },
+      {
+        "hash_verified": true,
+        "kind": "neighbor_distribution_length",
+        "module": "sklearn.ensemble._forest"
+      },
+      {
+        "hash_verified": true,
+        "kind": "neighbor_distribution_coverage",
+        "module": "sklearn.ensemble._forest"
+      }
+    ],
+    "log": "runs/verification/pathInference-v1.0-21x5/checkpoint_compatibility.json",
+    "log_sha256": "4bad868e215f8c3aba29a04698cab919e9b88d19da5e6f584858c967ce9cad57",
+    "status": "PASS"
+  },
+  "code_inventory": {
+    "checked_files": 196,
+    "errors": [],
+    "release": "pathInference-v1.0-21x5",
+    "scope": "code_only",
+    "status": "PASS"
+  },
+  "date": "2026-11-01",
+  "historical_release_and_date_configs_unchanged": true,
+  "manifest_sha256": "a85e21ea6a81bb07a73083746568e20d5dae973845458e9e722a31b63971ae7b",
+  "march_migration": {
+    "all_model_scores_byte_equal": true,
+    "all_released_CSV_bytes_equal": true,
+    "log_sha256": "e22c1b3f385ee276751366d539a7c5b6e24e09026a87be64b988f557ad49cc60",
+    "release": "runs/verification/pathInference-v1.0-21x5/march_migration/upstream/RELEASE.json",
+    "release_sha256": "02b0306dba7f8d3d9c94748be87020bb73612c61ddf2db4c2f3febba047acedc",
+    "sources": 10,
+    "status": "PASS"
+  },
+  "namespace_only_migration": {
+    "files": 127,
+    "numerical_edits": false,
+    "verified_against": "6aa69798ba8e73a498d82e5ce2bf19ae34058342"
+  },
+  "release": "pathInference-v1.0-21x5",
+  "research_experiments_started": false,
+  "status": "PASS",
+  "unittest": {
+    "log": "runs/verification/pathInference-v1.0-21x5/unittest.log",
+    "log_sha256": "df05981cbe154ea571aa4ea5b2c5023a5a946b7e13b7ef71b14075f656ef24df",
+    "skipped": 1,
+    "status": "PASS",
+    "tests": 236
+  }
+}

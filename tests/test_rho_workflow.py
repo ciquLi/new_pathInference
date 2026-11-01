@@ -13,19 +13,19 @@ from unittest.mock import patch
 
 import numpy as np
 
-from pathveil.experiment import assets, augmentation, report, runner, train, utilities, worker
-from pathveil.downstream.common import StageGuard
-from pathveil.experiment.compile_queries import LabelBlindStageGuard
-from pathveil.experiment.contracts import (
+from pathInference.experiment import assets, augmentation, report, runner, train, utilities, worker
+from pathInference.downstream.common import StageGuard
+from pathInference.experiment.compile_queries import LabelBlindStageGuard
+from pathInference.experiment.contracts import (
     freeze,
     normalize_pool,
     quality_selection,
     require,
     signature,
 )
-from pathveil.experiment.schedule import downstream_tasks
-from pathveil.utils import read_json, sha256, write_json
-from pathveil.prefix_tree.provenance import symbol_sha256
+from pathInference.experiment.schedule import downstream_tasks
+from pathInference.utils import read_json, sha256, write_json
+from pathInference.prefix_tree.provenance import symbol_sha256
 
 
 class FakeTopology:
@@ -45,7 +45,7 @@ class FakeTopology:
 
 class FrozenNumerics(unittest.TestCase):
     def test_extracted_numerical_symbols_keep_their_verified_ast(self):
-        root = Path(__file__).resolve().parents[1] / "src/pathveil/prefix_tree"
+        root = Path(__file__).resolve().parents[1] / "src/pathInference/prefix_tree"
         provenance = read_json(root / "COMPUTATION_PROVENANCE.json")["modules"]
         for name, record in provenance.items():
             module = ast.parse((root / (name + ".py")).read_text())

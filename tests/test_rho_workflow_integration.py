@@ -10,10 +10,10 @@ import sys
 import tempfile
 import unittest
 
-from pathveil.experiment import preparation
-from pathveil.experiment.contracts import freeze, path_bytes, signature
-from pathveil.prefix_tree.public_prefix_tree import PublicPrefixTopology
-from pathveil.utils import project_root, read_json, sha256, write_json
+from pathInference.experiment import preparation
+from pathInference.experiment.contracts import freeze, path_bytes, signature
+from pathInference.prefix_tree.public_prefix_tree import PublicPrefixTopology
+from pathInference.utils import project_root, read_json, sha256, write_json
 
 
 @unittest.skipUnless(
@@ -136,7 +136,7 @@ class PortableEndToEnd(unittest.TestCase):
                         sys.executable,
                         "-B",
                         "-m",
-                        "pathveil.experiment.worker",
+                        "pathInference.experiment.worker",
                         "--run",
                         str(run),
                         "--stage",

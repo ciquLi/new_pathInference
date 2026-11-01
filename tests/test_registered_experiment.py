@@ -11,7 +11,7 @@ import tempfile
 import unittest
 from unittest.mock import Mock
 
-from pathveil.upstream.contracts import UpstreamError
+from pathInference.upstream.contracts import UpstreamError
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/run_registered_experiment.py"
 SPEC = importlib.util.spec_from_file_location("registered_experiment", SCRIPT)

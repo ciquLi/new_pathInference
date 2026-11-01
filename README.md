@@ -1,14 +1,16 @@
-# PathVeil
+# pathInference
 
-当前稳定方法是 **PATS 21／5**：同日邻居模型 → 按源 AS 的ρ构造完整前缀树 → 拼接训练尾段并由255维路径模型筛选增强库 → PATS生成训练和查询候选 → GMPI训练、选模和独立评测。
+当前方法名称为 **pathInference**，稳定参数为 **21／5**：同日邻居模型 → 按源 AS 的ρ构造完整前缀树 → 拼接训练尾段并由255维路径模型筛选增强库 → PATS生成训练和查询候选 → GMPI训练、选模和独立评测。
 
-数值基线标签为 `pats-v1.0-21x5`，本次目录分类快照为 `pats-v1.0-21x5-layout1`。五个BGP日期（20260201、20260301、20260401、20260501、20260601）各10个AS的已完成21／5结果，按明确的运行编号登记在[版本说明](docs/releases/pats-v1.0-21x5.md)和[机器清单](docs/releases/pats-v1.0-21x5.json)中。版本清单保留历史代码身份；当前代码快照不等于所有历史运行当时的代码。
+PATS指其中的前缀锚点尾段拼接模块。正式包目录为 `src/pathInference/`，Python入口为 `python -m pathInference`。`PATHVEIL_*`环境变量及旧模型元数据字段保留兼容。
+
+数值基线标签为 `pats-v1.0-21x5`，目录分类标签为 `pats-v1.0-21x5-layout1`，当前包名迁移记录见[pathInference版本说明](docs/releases/pathInference-v1.0-21x5.md)。五个BGP日期（20260201、20260301、20260401、20260501、20260601）各10个AS的已完成21／5结果，按明确的运行编号登记在[基线说明](docs/releases/pats-v1.0-21x5.md)和[原始机器清单](docs/releases/pats-v1.0-21x5.json)中。版本清单保留历史代码身份；当前代码快照不等于所有历史运行当时的代码。
 
 ## 目录用途
 
 | 目录 | 用途 |
 |---|---|
-| `src/pathveil/` | 正式方法实现：邻居选择、前缀树、PATS、GMPI |
+| `src/pathInference/` | 正式方法实现：邻居选择、前缀树、PATS、GMPI |
 | `configs/`、`scripts/` | 正式参数、日期登记、启动与调度 |
 | `tests/` | 自动化软件测试 |
 | `tools/` | 独立核验、数据准备和历史维护工具 |
@@ -25,7 +27,7 @@
 bash scripts/run_experiment.sh 20260301
 ```
 
-参数默认值集中在 [scripts/run_experiment.sh](scripts/run_experiment.sh)，环境变量可以覆盖。方法配置来自 `configs/workflow_pats.json`，由 `src/pathveil/pats/policy.py` 合并运行参数后写入身份。日期必须在 `configs/dates/` 明确登记；不使用相邻日期替代缺失输入。
+参数默认值集中在 [scripts/run_experiment.sh](scripts/run_experiment.sh)，环境变量可以覆盖。方法配置来自 `configs/workflow_pats.json`，由 `src/pathInference/pats/policy.py` 合并运行参数后写入身份。日期必须在 `configs/dates/` 明确登记；不使用相邻日期替代缺失输入。
 
 ```bash
 # 仅显示计划，不启动训练或候选生成
@@ -82,14 +84,14 @@ Git保存代码、配置、测试、文档和版本清单；大数据、模型�
 ## 代码与回归
 
 ```text
-src/pathveil/pats/          当前PATS流程、入库、候选生成和恢复
-src/pathveil/upstream/      同日邻居模型、递归模型和255维路径评分
-src/pathveil/prefix_tree/   公开约束、完整树和PATS数值实现
-src/pathveil/experiment/    公共准备、GMPI阶段与资源调度
-src/pathveil/downstream/    路径库一致性、训练和评测边界
-src/pathveil/core/          历史数值实现和checkpoint兼容模块
-src/pathveil/data/          日期登记、数据准备和输入映射
-src/pathveil/traceroute/    独立traceroute评测
+src/pathInference/pats/          当前PATS流程、入库、候选生成和恢复
+src/pathInference/upstream/      同日邻居模型、递归模型和255维路径评分
+src/pathInference/prefix_tree/   公开约束、完整树和PATS数值实现
+src/pathInference/experiment/    公共准备、GMPI阶段与资源调度
+src/pathInference/downstream/    路径库一致性、训练和评测边界
+src/pathInference/core/          历史数值实现和checkpoint兼容模块
+src/pathInference/data/          日期登记、数据准备和输入映射
+src/pathInference/traceroute/    独立traceroute评测
 scripts/                   正式薄入口、调度与运行支撑
 tests/                     自动化软件测试
 tools/                     核验、数据准备及历史维护工具

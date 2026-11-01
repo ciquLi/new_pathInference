@@ -6,8 +6,8 @@ import tempfile
 import unittest
 from unittest import mock
 
-from pathveil.upstream.contracts import UpstreamError, read, sha, write
-from pathveil.upstream import heldout_evaluation as evaluation
+from pathInference.upstream.contracts import UpstreamError, read, sha, write
+from pathInference.upstream import heldout_evaluation as evaluation
 
 
 class FixtureRuntime:

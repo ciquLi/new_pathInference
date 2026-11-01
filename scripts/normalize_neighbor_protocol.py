@@ -19,12 +19,12 @@ import sys
 
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT / "src"))
-from pathveil.upstream.contracts import read, require, sha, validate_model_scope, verify
-from pathveil.upstream.evidence import public_hashes
-from pathveil.upstream.method import MethodLibrary
-from pathveil.upstream.neighbor_training import _binding
-from pathveil.upstream.resources import runtime_resources
-from pathveil.utils import object_hash, write_json
+from pathInference.upstream.contracts import read, require, sha, validate_model_scope, verify
+from pathInference.upstream.evidence import public_hashes
+from pathInference.upstream.method import MethodLibrary
+from pathInference.upstream.neighbor_training import _binding
+from pathInference.upstream.resources import runtime_resources
+from pathInference.utils import object_hash, write_json
 
 SOURCE_PROTOCOL = "date_local_all_eligible_source_disjoint_v2"
 MODEL_PROTOCOL = "date_local_source_disjoint_v1"
@@ -71,7 +71,7 @@ def _source_set(values, label):
 def _code_identity(project):
     return {
         str(path.relative_to(project)): sha(path)
-        for path in sorted((project / "src/pathveil").rglob("*.py"))
+        for path in sorted((project / "src/pathInference").rglob("*.py"))
     }
 
 
@@ -189,7 +189,7 @@ def _audit(run, project, original):
     code = MethodLibrary(project).receipt()
     require(upstream_identity["code"] == code, "Upstream computational source identity changed")
     computational = copy.deepcopy(code)
-    implementation_root = Path(__file__).resolve().parents[1] / "src/pathveil/upstream"
+    implementation_root = Path(__file__).resolve().parents[1] / "src/pathInference/upstream"
     computational["orchestration_sources_sha256"] = {
         str(implementation_root / name): sha(implementation_root / name)
         for name in ("neighbor_training.py", "neighbors.py", "evidence.py")

@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from pathveil.downstream.evaluation import reference_identity, score_source
+from pathInference.downstream.evaluation import reference_identity, score_source
 
 
 class IndependentEvaluation(unittest.TestCase):

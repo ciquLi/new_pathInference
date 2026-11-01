@@ -38,4 +38,4 @@ bash scripts/run_experiment.sh 20260401
 
 历史低ρ八家的最终模型并非同一训练配置：6家Huber、2家CE。原Huber检查点下398465为83.23%、58057为80.22%，同样超过80%。因此新入口对10个AS统一采用正常历史Huber和原内部验证检查点规则，不保留按AS绑定CE模型的特例。这是对历史混合检查点的显式规范化；未经完整运行，不能声称复现历史85.13%。
 
-Tree B的原数值定义以`src/pathveil/prefix_tree/COMPUTATION_PROVENANCE.json`记录来源字节SHA256和可执行AST身份。AST忽略格式与文档字符串差异，保留计算、分支、常量和调用。生产代码无需导入旧实验worktree。
+Tree B的原数值定义以`src/pathInference/prefix_tree/COMPUTATION_PROVENANCE.json`记录来源字节SHA256和可执行AST身份。AST忽略格式与文档字符串差异，保留计算、分支、常量和调用。生产代码无需导入旧实验worktree。

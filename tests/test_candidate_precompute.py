@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import precompute_downstream_candidates as candidates
 import run_registered_experiment as entry
-from pathveil.downstream import runner
-from pathveil.utils import read_json, write_json, sha256
+from pathInference.downstream import runner
+from pathInference.utils import read_json, write_json, sha256
 
 
 class CandidatePrecompute(unittest.TestCase):

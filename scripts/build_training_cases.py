@@ -23,8 +23,8 @@ import traceback
 
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT / "src"))
-from pathveil.utils import read_json, sha256, utc_now, write_json
-from pathveil.upstream.resources import positive_int, runtime_resources
+from pathInference.utils import read_json, sha256, utc_now, write_json
+from pathInference.upstream.resources import positive_int, runtime_resources
 
 GIB = 1024**3
 
@@ -233,10 +233,10 @@ def registered_run(path, project=PROJECT):
 
 def prepare_configuration(run, cpu_threads=None, predict_threads=None):
     """Check the frozen run before admitting any worker or numerical writes."""
-    from pathveil.cli import run_identity
-    from pathveil.data.registry import load_registry
-    from pathveil.upstream.contracts import validate_model_scope, verify
-    from pathveil.upstream.method import MethodLibrary
+    from pathInference.cli import run_identity
+    from pathInference.data.registry import load_registry
+    from pathInference.upstream.contracts import validate_model_scope, verify
+    from pathInference.upstream.method import MethodLibrary
 
     manifest_path = run / "data/data_manifest.json"
     bundle_path = run / "upstream/NEIGHBOR_BUNDLE.json"
@@ -301,10 +301,10 @@ class FrozenCaseBuilder:
     """One original runtime/store per independently spawned worker."""
 
     def __init__(self, configuration):
-        from pathveil.upstream.destination import DestinationFeatureStore
-        from pathveil.upstream.method import MethodLibrary
-        from pathveil.upstream.neighbors import NeighborRuntime
-        from pathveil.upstream.path_pipeline import construct_case
+        from pathInference.upstream.destination import DestinationFeatureStore
+        from pathInference.upstream.method import MethodLibrary
+        from pathInference.upstream.neighbors import NeighborRuntime
+        from pathInference.upstream.path_pipeline import construct_case
 
         self.config = read_json(configuration["config_path"])
         self.runtime = NeighborRuntime(
@@ -541,7 +541,7 @@ def schedule_cases(
                         process = context.Process(
                             target=worker_main,
                             args=(next_id, configuration, inbox, events, builder_factory),
-                            name="pathveil-case-" + str(next_id),
+                            name="pathInference-case-" + str(next_id),
                         )
                         process.start()
                         return process

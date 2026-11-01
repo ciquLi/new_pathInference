@@ -5,8 +5,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from pathveil.upstream.contracts import UpstreamError
-from pathveil.upstream.evidence import select_dated_sources, source_fold_map
+from pathInference.upstream.contracts import UpstreamError
+from pathInference.upstream.evidence import select_dated_sources, source_fold_map
 
 
 class DatedSourceSplit(unittest.TestCase):

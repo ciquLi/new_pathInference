@@ -3,9 +3,9 @@ import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
 
-from pathveil.rho_adaptive.policy import LOW_ROOT_LIMIT,high_secondhop_count,select_root,mandatory_plan
-from pathveil.rho_adaptive.workflow import validate_assets
-from pathveil.rho_adaptive.construction import Adapter
+from pathInference.rho_adaptive.policy import LOW_ROOT_LIMIT,high_secondhop_count,select_root,mandatory_plan
+from pathInference.rho_adaptive.workflow import validate_assets
+from pathInference.rho_adaptive.construction import Adapter
 
 
 class RhoAdaptiveCounts(unittest.TestCase):
@@ -81,7 +81,7 @@ class FrozenProtocolBoundaries(unittest.TestCase):
 
     def test_low_rho_adapter_delegates_to_original_tail_capacity_protocol(self):
         adapter=Adapter.__new__(Adapter);adapter.rho=.5
-        with patch("pathveil.rho_adaptive.construction.SafeFrontierAdapter.plan",return_value={"original":True}) as original:
+        with patch("pathInference.rho_adaptive.construction.SafeFrontierAdapter.plan",return_value={"original":True}) as original:
             self.assertEqual(adapter.plan(),{"original":True})
             original.assert_called_once_with()
 

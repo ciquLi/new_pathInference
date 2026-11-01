@@ -5,15 +5,15 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from pathveil.upstream.contracts import read
-from pathveil.upstream.evidence import prepare_evidence, select_dated_sources, source_fold_map
-from pathveil.upstream.method import MethodLibrary
-from pathveil.upstream.source_split import prepare_source_split
+from pathInference.upstream.contracts import read
+from pathInference.upstream.evidence import prepare_evidence, select_dated_sources, source_fold_map
+from pathInference.upstream.method import MethodLibrary
+from pathInference.upstream.source_split import prepare_source_split
 
 
 class FullSourceIntegration(unittest.TestCase):
     def test_generated_roles_remain_disjoint_and_all_task_origins_leave_background(self):
-        with tempfile.TemporaryDirectory(prefix="pathveil_full_source_integration_") as temporary:
+        with tempfile.TemporaryDirectory(prefix="pathInference_full_source_integration_") as temporary:
             root = Path(temporary)
             canonical = root / "merged_paths.txt"
             rows = []

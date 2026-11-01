@@ -1,9 +1,9 @@
-# PathVeil project conventions
+# pathInference project conventions
 
 - The formal entry point is `scripts/run_experiment.sh YYYYMMDD`.
-- Keep numerical experiment Python in `src/pathveil/`; shell scripts are thin entry points.
+- Keep numerical experiment Python in `src/pathInference/`; shell scripts are thin entry points.
 - Resource dispatchers may live in `scripts/` and must call the frozen numerical APIs, preserve input/model/code identities, and reuse verified caches.
-- Keep automated tests in `tests/`, standalone validation/data tools in `tools/`, and research experiment plans/entry points in `research/`. Do not mix these with production launchers in `scripts/` or numerical method modules in `src/pathveil/`.
+- Keep automated tests in `tests/`, standalone validation/data tools in `tools/`, and research experiment plans/entry points in `research/`. Do not mix these with production launchers in `scripts/` or numerical method modules in `src/pathInference/`.
 - Do not restore old LLM review, voting pipelines, duplicate launchers or trial directories.
 - Keep large datasets in `data/`, trained assets in `models/`, outputs in `runs/`.
 - Register each experiment date in `configs/dates/`. Never select a nearby snapshot implicitly.

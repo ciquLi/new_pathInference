@@ -5,13 +5,13 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from pathveil.traceroute.score import (
+from pathInference.traceroute.score import (
     read_truth,
     pair_inventory_sha256,
     score_predictions,
     FROZEN_TRUTH_IDENTITIES,
 )
-from pathveil.utils import sha256
+from pathInference.utils import sha256
 
 
 class TraceScoreTests(unittest.TestCase):

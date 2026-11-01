@@ -19,7 +19,7 @@ import traceback
 
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT / "src"))
-from pathveil.utils import read_json, sha256, utc_now, write_json
+from pathInference.utils import read_json, sha256, utc_now, write_json
 
 
 def require(condition, message):
@@ -46,7 +46,7 @@ def verify_inputs(run):
     identity = read_json(run / "RUN_IDENTITY.json")
     code = {
         str(p.relative_to(PROJECT)): sha256(p)
-        for p in sorted((PROJECT / "src/pathveil").rglob("*.py"))
+        for p in sorted((PROJECT / "src/pathInference").rglob("*.py"))
     }
     require(identity["code_sha256"] == code, "Frozen numerical source changed")
     registry = PROJECT / "configs/dates" / (identity["date"] + ".json")
@@ -104,7 +104,7 @@ def verify_receipt(run):
         receipt["numerical_code_sha256"]
         == {
             str(p.relative_to(PROJECT)): sha256(p)
-            for p in sorted((PROJECT / "src/pathveil").rglob("*.py"))
+            for p in sorted((PROJECT / "src/pathInference").rglob("*.py"))
         },
         "Numerical code changed after repair",
     )
@@ -285,7 +285,7 @@ def prepare_run(run_dir):
         normalized = make_manifest(data, local_root, projected, original_train)
         write_json(manifest_path, normalized)
         # Run both original gates without relaxing any equality condition.
-        from pathveil.downstream.runner import prepare_downstream
+        from pathInference.downstream.runner import prepare_downstream
 
         prepared_path = prepare_downstream(
             run, manifest_path, run / "upstream/RELEASE.json"
@@ -336,7 +336,7 @@ def resume_run(run_dir, device="cuda"):
         verify_inputs(run)
         receipt = verify_receipt(run)
         # Match the formal CLI's run-local caches and thread configuration.
-        from pathveil.upstream.resources import runtime_resources
+        from pathInference.upstream.resources import runtime_resources
 
         config = read_json(run / "method_config.json")
         for key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
@@ -374,7 +374,7 @@ def resume_run(run_dir, device="cuda"):
                 status="running",
                 input_repair=str(folder(run) / "REPAIR.json"),
             )
-            from pathveil.downstream.runner import run_downstream
+            from pathInference.downstream.runner import run_downstream
 
             summary = run_downstream(
                 run,

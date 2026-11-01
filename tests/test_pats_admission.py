@@ -4,12 +4,12 @@ import tempfile
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from pathveil.experiment.contracts import AdmissionStopped, UnknownSourceScale
-from pathveil.experiment.contracts import quality_selection as strict_quality_selection
-from pathveil.pats.admission import quality_selection
-from pathveil.pats import runner
-from pathveil.pats.policy import runtime_policy
-from pathveil.utils import sha256, write_json
+from pathInference.experiment.contracts import AdmissionStopped, UnknownSourceScale
+from pathInference.experiment.contracts import quality_selection as strict_quality_selection
+from pathInference.pats.admission import quality_selection
+from pathInference.pats import runner
+from pathInference.pats.policy import runtime_policy
+from pathInference.utils import sha256, write_json
 
 
 class PatsAdmissionTests(unittest.TestCase):

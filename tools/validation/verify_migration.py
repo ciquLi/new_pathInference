@@ -7,9 +7,9 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
-from pathveil.data.prepare import prepare_date
-from pathveil.upstream.replay import run_baseline
-from pathveil.utils import project_root, read_json
+from pathInference.data.prepare import prepare_date
+from pathInference.upstream.replay import run_baseline
+from pathInference.utils import project_root, read_json
 
 
 def main():

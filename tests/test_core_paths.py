@@ -6,9 +6,9 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from pathveil.core import activate
-from pathveil.core.io import open_data
-from pathveil.utils import write_json
+from pathInference.core import activate
+from pathInference.core.io import open_data
+from pathInference.utils import write_json
 
 
 class CoreInputPaths(unittest.TestCase):

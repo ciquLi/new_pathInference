@@ -7,9 +7,9 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from pathveil.traceroute.common import load_contract, stable_bgp_split, path_signature
-from pathveil.traceroute.predict_web import read_targets
-from pathveil.utils import sha256, write_json
+from pathInference.traceroute.common import load_contract, stable_bgp_split, path_signature
+from pathInference.traceroute.predict_web import read_targets
+from pathInference.utils import sha256, write_json
 
 
 class TraceContractTests(unittest.TestCase):

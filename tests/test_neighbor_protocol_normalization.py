@@ -15,12 +15,12 @@ import normalize_neighbor_protocol as normalizer
 
 class NeighborProtocolNormalization(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix="pathveil_protocol_normalize_")
+        self.temp = tempfile.TemporaryDirectory(prefix="pathInference_protocol_normalize_")
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.run = self.root / "runs/20260201/full_sources"
         self.run.mkdir(parents=True)
-        source = self.root / "src/pathveil/__init__.py"
+        source = self.root / "src/pathInference/__init__.py"
         source.parent.mkdir(parents=True)
         source.write_text("# frozen fixture source\n")
         self.method = normalizer.read(normalizer.PROJECT / "configs/method_full_sources.json")
@@ -89,7 +89,7 @@ class NeighborProtocolNormalization(unittest.TestCase):
             dict(method_config=self.method, split=split, code=code, canonical_sha256=canonical_sha),
         )
         computational = copy.deepcopy(code)
-        actual_sources = normalizer.PROJECT / "src/pathveil/upstream"
+        actual_sources = normalizer.PROJECT / "src/pathInference/upstream"
         computational["orchestration_sources_sha256"] = {
             str(actual_sources / name): normalizer.sha(actual_sources / name)
             for name in ["neighbor_training.py", "neighbors.py", "evidence.py"]
@@ -260,7 +260,7 @@ class NeighborProtocolNormalization(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "Unknown protocol"):
             self.normalize()
         self.bundle_path.write_bytes(self.original)
-        (self.root / "src/pathveil/__init__.py").write_text("# changed source")
+        (self.root / "src/pathInference/__init__.py").write_text("# changed source")
         with self.assertRaisesRegex(RuntimeError, "source code differs"):
             self.normalize()
         self.assertEqual(self.bundle_path.read_bytes(), self.original)

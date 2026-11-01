@@ -54,14 +54,14 @@ class ParallelScheduling(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
-        (self.root / "src/pathveil").mkdir(parents=True)
-        (self.root / "src/pathveil/__init__.py").write_text("# frozen fixture\n")
-        (self.root / "src/pathveil/data").mkdir()
-        (self.root / "src/pathveil/data/__init__.py").write_text("")
+        (self.root / "src/pathInference").mkdir(parents=True)
+        (self.root / "src/pathInference/__init__.py").write_text("# frozen fixture\n")
+        (self.root / "src/pathInference/data").mkdir()
+        (self.root / "src/pathInference/data/__init__.py").write_text("")
         project = MODULE_PATH.parents[1]
         for relative in ("cli.py", "utils.py", "data/registry.py"):
-            (self.root / "src/pathveil" / relative).write_text(
-                (project / "src/pathveil" / relative).read_text()
+            (self.root / "src/pathInference" / relative).write_text(
+                (project / "src/pathInference" / relative).read_text()
             )
         (self.root / "configs/dates").mkdir(parents=True)
         (self.root / "configs/method_unified255.json").write_text(
@@ -380,7 +380,7 @@ class ParallelScheduling(unittest.TestCase):
 
     def test_source_change_is_rejected_and_existing_files_are_preserved(self):
         controller = self.controller()
-        path = self.root / "src/pathveil/__init__.py"
+        path = self.root / "src/pathInference/__init__.py"
         path.write_text("# changed\n")
         with self.assertRaisesRegex(RuntimeError, "Frozen source changed"):
             controller.verify_code()

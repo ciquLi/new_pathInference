@@ -6,11 +6,11 @@ import unittest
 
 import numpy as np
 
-from pathveil.upstream.contracts import UpstreamError, read
-from pathveil.upstream.implementation import neighbor_fit, neighbor_struct_fit
-from pathveil.upstream.implementation.distribution import DistributionHead
-from pathveil.upstream.neighbor_training import _fit_family
-from pathveil.upstream.resources import runtime_resources
+from pathInference.upstream.contracts import UpstreamError, read
+from pathInference.upstream.implementation import neighbor_fit, neighbor_struct_fit
+from pathInference.upstream.implementation.distribution import DistributionHead
+from pathInference.upstream.neighbor_training import _fit_family
+from pathInference.upstream.resources import runtime_resources
 
 
 class ReceiptOnlyModel:

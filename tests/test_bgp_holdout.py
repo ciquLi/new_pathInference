@@ -4,8 +4,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from pathveil.data.bgp_holdout import ensure_cohort
-from pathveil.data.prepare import read_double_json
+from pathInference.data.bgp_holdout import ensure_cohort
+from pathInference.data.prepare import read_double_json
 
 
 class BgpHoldoutTests(unittest.TestCase):

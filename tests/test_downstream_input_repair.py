@@ -12,8 +12,8 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import repair_downstream_inputs as repair
 import run_registered_experiment as entry
-from pathveil.data.prepare import resolve_read_path
-from pathveil.downstream.runner import audit_derived_source
+from pathInference.data.prepare import resolve_read_path
+from pathInference.downstream.runner import audit_derived_source
 
 
 class DerivedInputRepair(unittest.TestCase):
@@ -81,7 +81,7 @@ class DerivedInputRepair(unittest.TestCase):
         )
         audit = json.loads(audit_path.read_text())
         self.assertEqual(audit["train_expand_minus_source_csv_count"], 0)
-        from pathveil.downstream.train_evaluate_gmpi import audit_source_training_file
+        from pathInference.downstream.train_evaluate_gmpi import audit_source_training_file
 
         result = audit_source_training_file(projected, "1", audit_path)
         self.assertEqual(result["derived_external_rows"], 3)

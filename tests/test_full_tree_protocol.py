@@ -1,6 +1,6 @@
 import unittest
 
-from pathveil.rho_adaptive.full_tree import POLICY,validate_same_generator,numerical_tree
+from pathInference.rho_adaptive.full_tree import POLICY,validate_same_generator,numerical_tree
 
 
 class ConsistentGeneratorProtocol(unittest.TestCase):

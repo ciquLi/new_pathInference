@@ -145,7 +145,7 @@ class PressureAfterThreeWorkers:
 
 class SchedulerTests(unittest.TestCase):
     def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(prefix="pathveil_case_schedule_")
+        self.temporary = tempfile.TemporaryDirectory(prefix="pathInference_case_schedule_")
         self.run = Path(self.temporary.name)
 
     def tearDown(self):

@@ -1,7 +1,7 @@
 import unittest
 
-from pathveil.pats.policy import POLICY, RECURSION_TOPK, mandatory_plan, select_root
-from pathveil.pats.workflow import pats_training_tasks
+from pathInference.pats.policy import POLICY, RECURSION_TOPK, mandatory_plan, select_root
+from pathInference.pats.workflow import pats_training_tasks
 
 
 class PatsPolicyTests(unittest.TestCase):

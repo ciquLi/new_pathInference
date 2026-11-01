@@ -5,10 +5,10 @@ import unittest
 
 import numpy as np
 
-from pathveil.upstream.contracts import UpstreamError, sha, validate_model_scope
-from pathveil.upstream.destination import DestinationFeatureStore
-from pathveil.upstream.method import MethodLibrary
-from pathveil.upstream.witnesses import WitnessStore, prepare_witnesses
+from pathInference.upstream.contracts import UpstreamError, sha, validate_model_scope
+from pathInference.upstream.destination import DestinationFeatureStore
+from pathInference.upstream.method import MethodLibrary
+from pathInference.upstream.witnesses import WitnessStore, prepare_witnesses
 
 
 class UpstreamScopeTests(unittest.TestCase):
@@ -32,7 +32,7 @@ class UpstreamScopeTests(unittest.TestCase):
         self.assertTrue(library.receipt()["self_contained"])
         self.assertTrue(
             all(
-                "pathveil/upstream" in p and "releases" not in p
+                "pathInference/upstream" in p and "releases" not in p
                 for p in library.receipt()["computational_sources_sha256"]
             )
         )

@@ -7,10 +7,10 @@ import unittest
 from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
-from pathveil.prefix_tree import traceroute
-from pathveil.prefix_tree.registered_topology import RegisteredPublicPrefixTopology as PublicPrefixTopology
-from pathveil.traceroute.common import path_signature
-from pathveil.utils import sha256, write_json
+from pathInference.prefix_tree import traceroute
+from pathInference.prefix_tree.registered_topology import RegisteredPublicPrefixTopology as PublicPrefixTopology
+from pathInference.traceroute.common import path_signature
+from pathInference.utils import sha256, write_json
 
 
 class PatsTraceAdapterTests(unittest.TestCase):

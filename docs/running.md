@@ -6,7 +6,7 @@
 bash scripts/run_experiment.sh 20260301
 ```
 
-Python默认环境为 `/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python`，可用 `PATHVEIL_PYTHON` 指定。参数默认值在 `scripts/run_experiment.sh`，运行时合并到 `src/pathveil/pats/policy.py` 的策略，写入运行身份。21／5、0.75、1000、候选200是稳定版本参数；通过环境变量覆盖属于新的方法配置。
+Python默认环境为 `/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python`，可用 `PATHVEIL_PYTHON` 指定。参数默认值在 `scripts/run_experiment.sh`，运行时合并到 `src/pathInference/pats/policy.py` 的策略，写入运行身份。21／5、0.75、1000、候选200是稳定版本参数；通过环境变量覆盖属于新的方法配置。
 
 ```bash
 # 仅读取计划，不生成候选或训练

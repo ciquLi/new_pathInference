@@ -6,9 +6,9 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from pathveil.data.registry import load_registry, select_asset
-from pathveil.data.preflight import check_date, classify_empty_csv, inspect_asset, inspect_jsonl
-from pathveil.data.prepare import (
+from pathInference.data.registry import load_registry, select_asset
+from pathInference.data.preflight import check_date, classify_empty_csv, inspect_asset, inspect_jsonl
+from pathInference.data.prepare import (
     prepare_date,
     rebuild_test_aggregates,
     read_double_json,
@@ -208,7 +208,7 @@ class RegistryTests(unittest.TestCase):
                 "purpose": "archive_only",
             }
             with patch(
-                "pathveil.data.preflight.sha256_file", side_effect=AssertionError("RIB hash")
+                "pathInference.data.preflight.sha256_file", side_effect=AssertionError("RIB hash")
             ):
                 report = inspect_asset(asset, deep=True)
             self.assertEqual(report["status"], "optional_present")

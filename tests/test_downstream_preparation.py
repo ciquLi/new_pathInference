@@ -5,9 +5,9 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from pathveil.downstream import common
-from pathveil.downstream.runner import audit_derived_source, prepare_downstream
-from pathveil.utils import read_json, sha256, write_json
+from pathInference.downstream import common
+from pathInference.downstream.runner import audit_derived_source, prepare_downstream
+from pathInference.utils import read_json, sha256, write_json
 
 
 class DownstreamPreparation(unittest.TestCase):

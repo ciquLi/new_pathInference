@@ -17,9 +17,9 @@ import time
 
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT / "src"))
-from pathveil.utils import read_json, write_json, sha256, utc_now
-from pathveil.downstream import common
-from pathveil.downstream.runner import _execute, _adopt_existing
+from pathInference.utils import read_json, write_json, sha256, utc_now
+from pathInference.downstream import common
+from pathInference.downstream.runner import _execute, _adopt_existing
 from build_training_cases import WorkerMemoryCoordinator
 from run_priority_parallel import gpu_idle
 
@@ -56,7 +56,7 @@ def command(run, source, stage, prepared):
         sys.executable,
         "-B",
         "-m",
-        "pathveil.downstream.pathgen",
+        "pathInference.downstream.pathgen",
         "--stage",
         stage,
         "--experiment_dir",
@@ -318,7 +318,7 @@ def prepare_all(run_dir):
         identity["code_sha256"]
         == {
             str(p.relative_to(PROJECT)): sha256(p)
-            for p in sorted((PROJECT / "src/pathveil").rglob("*.py"))
+            for p in sorted((PROJECT / "src/pathInference").rglob("*.py"))
         },
         "Frozen numerical source changed",
     )
@@ -487,7 +487,7 @@ def prepare_all(run_dir):
                     prepared_sha256=sha256(run / "PREPARED.json"),
                     outputs_sha256=outputs,
                     all_candidates_precede_GPU_training=True,
-                    original_numerical_API="pathveil.downstream.pathgen",
+                    original_numerical_API="pathInference.downstream.pathgen",
                     updated_utc=utc_now(),
                 ),
             )

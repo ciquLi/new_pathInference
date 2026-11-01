@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run the frozen CLI in this PID, with one narrowly audited metadata repair.
 
-All experiment arguments go unchanged to pathveil.cli.main(). Only a fresh,
+All experiment arguments go unchanged to pathInference.cli.main(). Only a fresh,
 exact model-interface protocol gate failure may invoke the external normalizer;
 its successful audit receipt permits one retry of the original CLI invocation.
 """
@@ -204,7 +204,7 @@ def main(argv=None, *, cli_main=None, normalizer=None, project_root=None):
         source_path = str(root / "src")
         if source_path not in sys.path:
             sys.path.insert(0, source_path)
-        from pathveil.cli import main as cli_main
+        from pathInference.cli import main as cli_main
     normalizer = normalizer or normalize_run
     previous_status = status_stamp(locate_run(arguments, root))
     original_argv = sys.argv

@@ -23,7 +23,8 @@ def source_files(root):
          "--", *SOURCE_DIRS, *ROOT_FILES],
         cwd=root, check=True, stdout=subprocess.PIPE,
     )
-    return set(result.stdout.decode().rstrip("\0").split("\0")) - {""}
+    names = set(result.stdout.decode().rstrip("\0").split("\0")) - {""}
+    return {name for name in names if (root / name).is_file()}
 
 
 def digest(path):
@@ -80,7 +81,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--manifest", type=Path,
-        default=root / "docs/releases/pats-v1.0-21x5-layout1.json",
+        default=root / "docs/releases/pathInference-v1.0-21x5.json",
     )
     parser.add_argument(
         "--assets", action="store_true",

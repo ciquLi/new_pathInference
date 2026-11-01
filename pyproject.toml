@@ -3,13 +3,13 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pathveil-research"
+name = "pathInference"
 version = "1.0.0"
 description = "Date-bound routing evidence construction and path inference experiments"
 requires-python = ">=3.9"
 
 [project.scripts]
-pathveil = "pathveil.cli:main"
+pathInference = "pathInference.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

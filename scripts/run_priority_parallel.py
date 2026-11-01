@@ -50,7 +50,7 @@ def file_sha(path):
 def code_identity(root):
     return {
         str(path.relative_to(root)): file_sha(path)
-        for path in sorted((root / "src/pathveil").rglob("*.py"))
+        for path in sorted((root / "src/pathInference").rglob("*.py"))
     }
 
 
@@ -192,8 +192,8 @@ def choose_default_runs(root, adopted_dates=()):
     source_path = str(root / "src")
     if source_path not in sys.path:
         sys.path.insert(0, source_path)
-    from pathveil.cli import choose_run, load_method, run_identity
-    from pathveil.data.registry import load_registry
+    from pathInference.cli import choose_run, load_method, run_identity
+    from pathInference.data.registry import load_registry
 
     previous_root = os.environ.get("PATHVEIL_PROJECT_ROOT")
     os.environ["PATHVEIL_PROJECT_ROOT"] = str(root)
@@ -278,7 +278,7 @@ class Scheduler:
         self.starting_reservations = {}
         self.code = code_identity(self.root)
         if not self.code:
-            raise ValueError("No formal PathVeil source files found")
+            raise ValueError("No formal pathInference source files found")
         self.code_sha256 = code_hash(self.code)
         self.stop_requested = False
         self.gpu_lock = None

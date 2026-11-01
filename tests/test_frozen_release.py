@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location(
     "verify_frozen_release",
-    Path(__file__).resolve().parents[1] / "scripts/verify_frozen_release.py",
+    Path(__file__).resolve().parents[1] / "tools/validation/verify_frozen_release.py",
 )
 release = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(release)
@@ -48,6 +48,29 @@ class FrozenReleaseTests(unittest.TestCase):
                 self.assertEqual(["missing: checkpoint"],
                                  release.verify(root, manifest, True)["errors"])
                 self.assertFalse(asset.exists())
+
+    def test_layout_inventory_keeps_original_baseline_immutable(self):
+        import json
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            asset = root / "checkpoint"
+            asset.write_bytes(b"original model")
+            baseline = root / "original.json"
+            baseline.write_text(json.dumps(dict(baseline_assets_sha256={
+                "checkpoint": release.digest(asset),
+            })))
+            manifest = dict(release_tag="layout", source_files_sha256={},
+                            baseline_manifest=dict(path="original.json",
+                                                   sha256=release.digest(baseline)))
+            with patch.object(release, "source_files", return_value=set()):
+                self.assertEqual("PASS", release.verify(root, manifest, True)["status"])
+                asset.write_bytes(b"changed model")
+                self.assertIn("changed: checkpoint", release.verify(root, manifest, True)["errors"])
+                baseline.write_text("{}")
+                self.assertIn("changed: original.json", release.verify(root, manifest)["errors"])
+                baseline.unlink()
+                self.assertIn("missing: original.json", release.verify(root, manifest)["errors"])
 
 
 if __name__ == "__main__":

@@ -39,8 +39,8 @@ bash scripts/run_experiment.sh 20260301 --run-dir runs/20260301/pats_rho_v1/run_
 ## 稳定版本核验
 
 ```bash
-python -B scripts/verify_frozen_release.py
-python -B scripts/verify_frozen_release.py --assets
+python -B tools/validation/verify_frozen_release.py
+python -B tools/validation/verify_frozen_release.py --assets
 ```
 
 核验工具仅读取文件，不启动、修复或重写实验。第一条检查代码、配置、入口和测试；第二条同时检查版本清单登记的本地资产。Git标签固定代码，数据和模型仍需在本地保留。

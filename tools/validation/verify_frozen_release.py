@@ -13,7 +13,7 @@ import subprocess
 
 
 ROOT_FILES = ("AGENTS.md", ".gitignore", "pyproject.toml", "requirements.lock.txt")
-SOURCE_DIRS = ("src", "scripts", "configs", "tests")
+SOURCE_DIRS = ("src", "scripts", "configs", "tests", "tools", "research")
 
 
 def source_files(root):
@@ -51,9 +51,21 @@ def verify(root, manifest, assets=False):
     for name in sorted(source_files(root) - set(expected)):
         errors.append("unfrozen source: " + name)
     count = len(expected)
+    baseline = manifest
+    if "baseline_manifest" in manifest:
+        reference = manifest["baseline_manifest"]
+        baseline_file = root / reference["path"]
+        baseline_errors = check_hashes(root, {reference["path"]: reference["sha256"]})
+        if baseline_errors:
+            errors.extend(baseline_errors)
+            baseline = None
+        else:
+            baseline = json.loads(baseline_file.read_text())
+        count += 1
     if assets:
-        errors.extend(check_hashes(root, manifest["baseline_assets_sha256"]))
-        count += len(manifest["baseline_assets_sha256"])
+        if baseline is not None:
+            errors.extend(check_hashes(root, baseline["baseline_assets_sha256"]))
+            count += len(baseline["baseline_assets_sha256"])
     return dict(
         status="FAIL" if errors else "PASS",
         release=manifest["release_tag"],
@@ -64,11 +76,11 @@ def verify(root, manifest, assets=False):
 
 
 def main():
-    root = Path(__file__).resolve().parents[1]
+    root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--manifest", type=Path,
-        default=root / "docs/releases/pats-v1.0-21x5.json",
+        default=root / "docs/releases/pats-v1.0-21x5-layout1.json",
     )
     parser.add_argument(
         "--assets", action="store_true",

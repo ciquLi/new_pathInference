@@ -2,7 +2,20 @@
 
 当前稳定方法是 **PATS 21／5**：同日邻居模型 → 按源 AS 的ρ构造完整前缀树 → 拼接训练尾段并由255维路径模型筛选增强库 → PATS生成训练和查询候选 → GMPI训练、选模和独立评测。
 
-稳定版本标签为 `pats-v1.0-21x5`。五个BGP日期（20260201、20260301、20260401、20260501、20260601）各10个AS的已完成21／5结果，按明确的运行编号登记在[版本说明](docs/releases/pats-v1.0-21x5.md)和[机器清单](docs/releases/pats-v1.0-21x5.json)中。版本清单保留历史代码身份；当前代码快照不等于所有历史运行当时的代码。
+数值基线标签为 `pats-v1.0-21x5`，本次目录分类快照为 `pats-v1.0-21x5-layout1`。五个BGP日期（20260201、20260301、20260401、20260501、20260601）各10个AS的已完成21／5结果，按明确的运行编号登记在[版本说明](docs/releases/pats-v1.0-21x5.md)和[机器清单](docs/releases/pats-v1.0-21x5.json)中。版本清单保留历史代码身份；当前代码快照不等于所有历史运行当时的代码。
+
+## 目录用途
+
+| 目录 | 用途 |
+|---|---|
+| `src/pathveil/` | 正式方法实现：邻居选择、前缀树、PATS、GMPI |
+| `configs/`、`scripts/` | 正式参数、日期登记、启动与调度 |
+| `tests/` | 自动化软件测试 |
+| `tools/` | 独立核验、数据准备和历史维护工具 |
+| `research/` | 后续独立研究实验的方案、参数和入口 |
+| `data/`、`models/`、`runs/` | 数据、模型、运行产物 |
+
+详细文件导航见根目录 [DIRECTORY_MAP.md](DIRECTORY_MAP.md)。本项目内按用途分类，不在外部复制工作区。
 
 ## 运行
 
@@ -58,10 +71,10 @@ runs/YYYYMMDD/pats_rho_v1/<run_id>/
 
 ```bash
 # 仅读取代码并核对稳定版本；不会启动实验
-python -B scripts/verify_frozen_release.py
+python -B tools/validation/verify_frozen_release.py
 
 # 同时核验版本清单登记的本地输入、模型、候选和结果
-python -B scripts/verify_frozen_release.py --assets
+python -B tools/validation/verify_frozen_release.py --assets
 ```
 
 Git保存代码、配置、测试、文档和版本清单；大数据、模型和运行产物仍留在 `data/`、`models/`、`runs/`，不随代码仓库上传。版本标签不能替代这些本地资产。
@@ -77,14 +90,17 @@ src/pathveil/downstream/    路径库一致性、训练和评测边界
 src/pathveil/core/          历史数值实现和checkpoint兼容模块
 src/pathveil/data/          日期登记、数据准备和输入映射
 src/pathveil/traceroute/    独立traceroute评测
-scripts/                   正式薄入口、调度和核验工具
+scripts/                   正式薄入口、调度与运行支撑
+tests/                     自动化软件测试
+tools/                     核验、数据准备及历史维护工具
+research/                  独立研究实验的登记与入口
 ```
 
 旧ρ流程保留作历史回归和缓存兼容，不是当前日期入口的默认方法。
 
 ```bash
 PYTHONPATH=src /home/lxl/anaconda3/envs/rl-aspath-inference/bin/python -B -m unittest discover -s tests
-/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python -B scripts/verify_migration.py --run-dir runs/verification/pats-v1.0-21x5/march_migration
+/home/lxl/anaconda3/envs/rl-aspath-inference/bin/python -B tools/validation/verify_migration.py --run-dir runs/verification/pats-v1.0-21x5-layout1/march_migration
 ```
 
 March回归重算冻结特征的模型分数和选择，验证字节一致性，不重新训练或重跑五个日期。固定结果及验证范围见[版本说明](docs/releases/pats-v1.0-21x5.md)。

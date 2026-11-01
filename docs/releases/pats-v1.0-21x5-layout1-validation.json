@@ -1,0 +1,34 @@
+{
+  "release_tag": "pats-v1.0-21x5-layout1",
+  "status": "PASS",
+  "date": "2026-11-01",
+  "numerical_sources_and_configs_unchanged": true,
+  "original_release_files_unchanged": true,
+  "new_research_experiment_started": false,
+  "unittest": {
+    "tests": 236,
+    "skipped": 1,
+    "status": "PASS",
+    "log": "runs/verification/pats-v1.0-21x5-layout1/unittest.log",
+    "log_sha256": "45ca37d1138d40d5ac55dadefe7cc5481048937c638f88205cdf61cbf11b6cdb"
+  },
+  "march_migration": {
+    "status": "PASS",
+    "sources": 10,
+    "all_model_scores_byte_equal": true,
+    "all_released_CSV_bytes_equal": true,
+    "release": "runs/verification/pats-v1.0-21x5-layout1/march_migration/upstream/RELEASE.json",
+    "release_sha256": "b473edc9156b09d52e0e6a3462b908895fe8a6372eace20fd173e42816d63dbc",
+    "log_sha256": "354498cbc5930963869136231f6ca2663e908677ea5bd074824e71acea62f94f"
+  },
+  "code_inventory": {
+    "status": "PASS",
+    "release": "pats-v1.0-21x5-layout1",
+    "scope": "code_only",
+    "checked_files": 196,
+    "errors": []
+  },
+  "manifest_sha256": "af08ea66586fcafee1a3742cc1fb9bb53beeb003034490d82718161f7c9e04cb",
+  "baseline_assets": "Original release inventory retained unchanged; asset hashes were verified in the original freeze, not rehashed for this directory-only change.",
+  "standalone_tool_bootstrap": "PASS from /tmp for all relocated CLI tools"
+}

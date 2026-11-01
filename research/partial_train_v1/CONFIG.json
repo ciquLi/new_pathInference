@@ -1,0 +1,27 @@
+{
+  "name": "partial_train_v1",
+  "baseline_manifest": "docs/releases/pats-v1.0-21x5.json",
+  "code_manifest": "docs/releases/pathInference-v1.0-21x5.json",
+  "dates": {
+    "20260201": "runs/20260201/pats_rho_v1/run_3e92673fd15d85e4",
+    "20260301": "runs/20260301/pats_rho_v1/run_e3f6274a5f3c9ec8",
+    "20260401": "runs/20260401/pats_rho_v1/run_ab7ab2f546f7279d",
+    "20260501": "runs/20260501/pats_rho_v1/run_834f604486bd8597",
+    "20260601": "runs/20260601/pats_rho_v1/run_e3376ed94b5612d8"
+  },
+  "sources": ["34927", "58057"],
+  "policy": {
+    "maximum_added_to_augmented_ratio": 0.25,
+    "maximum_new_paths_per_destination": 1,
+    "prefix_filter": "matches an unchanged baseline tree prefix",
+    "legality": "canonical, simple, 2..20 AS nodes, reject known commercial incompatibility; retain unknown",
+    "destination_order": "uncovered augmentation destinations first",
+    "per_destination_choice": "shortest eligible TRAIN path then stable hash",
+    "branch_schedule": "equal firsthop round robin; no mass prediction",
+    "seed": 20261015,
+    "all_baseline_augmented_paths_retained": true,
+    "library_consumers": "identical set for training labels and PATS local knowledge",
+    "gmpi": "unchanged cold normal-history Huber, pair-disjoint BGP validation",
+    "final_test_used_for_admission_or_tuning": false
+  }
+}

@@ -3,41 +3,49 @@
 
 \subsection{Research Questions}
 
-We evaluate \sys from three perspectives.
-\textbf{RQ1:} How well does \sys infer routes from ASes with no
-source-originated path observations available?
-\textbf{RQ2:} How well does \sys select egress neighbors and construct
-high-quality augmented paths?
-\textbf{RQ3:} How effective are the key components of \sys?
+The evaluation examines final inference performance, the training
+evidence constructed for each source, and the effect of the candidate
+construction components. We address the following questions.
+\textbf{RQ1:} How accurately does \sys infer AS paths when
+target-originated observations are withheld from the path inputs?
+\textbf{RQ2:} To what extent do the selected neighbors and admitted
+paths agree with held-out source observations?
+\textbf{RQ3:} How do recursive exploration and prefix-tree-constrained
+generation affect the candidate space and final inference performance?
 
 \subsection{Experimental Setup}
 
 \subsubsection{Dataset}
 
-We use five monthly BGP snapshots from February 1 to June 1, 2026.
-For each date, ten target source ASes yield 685,765--692,950 distinct
-source--destination AS queries (Table~\ref{tab:bgp_results}).
-The February--April target sets are identical; in May and June,
-AS16276 replaces AS42473. The targets have substantial BGP path
-coverage, enabling evaluation over many destinations but limiting
-generalization to sparsely observed source ASes.
+We use BGP snapshots taken on the first day of each month from
+February to June 2026. Each snapshot contains ten target source ASes
+and 685,765--692,950 distinct source--destination AS queries
+(Table~\ref{tab:bgp_results}). The target set is unchanged from
+February through April; AS16276 replaces AS42473 in May and June.
+These sources have sufficient public path coverage to support
+evaluation across many destinations. Their reference observations are
+retained for evaluation and hidden from path construction.
 
-For each target source, its source-originated paths are withheld from
-path construction, upstream supervision, and downstream checkpoint
-selection. Paths from other origins provide public evidence and
-supervision; the resulting augmented paths train the target's route
-model. The held-out target paths are used only for the evaluations
-below. Table~\ref{tab:data_sources} lists the public data sources.
-The inherited graph and AS features do not have complete
-origin-level provenance, so source separation is guaranteed for path
-labels but not for every graph feature.
+For each date, observations originating at the target sources are
+excluded from path construction and upstream supervision. Other
+origins supply the permitted observations and training references.
+The augmented library trains each target's route model, with an
+internal AS-pair-disjoint split for checkpoint selection. Held-out
+target paths are opened only for the evaluations reported below.
+The public data sources are listed in Table~\ref{tab:data_sources}.
+The inherited graph and AS features do not have complete origin-level
+provenance: source isolation is verified for path labels, but cannot
+be certified for every derived graph feature. This boundary applies
+to the interpretation of the cold-start results.
 
 \subsubsection{Metrics}
 \label{sec:metrics}
 
-For a query $q=(s,d)$, let $\mathcal Y_q$ be its distinct held-out BGP
-paths, $\widehat P_q$ the predicted path, and $Q$ the fixed query set
-for one date.
+Let $Q$ be the fixed set of queries for a date. For query $q=(s,d)$,
+$\mathcal Y_q$ contains its distinct held-out BGP paths and
+$\widehat P_q$ is the prediction. Multiple reference paths are retained
+because a source--destination AS pair can have more than one observed
+route.
 
 \textbf{Inference performance (RQ1).}
 \emph{Accuracy (ACC)} is the mean AS-set Jaccard similarity to the
@@ -49,24 +57,26 @@ best-matching held-out path:
             {|S(\widehat P_q)\cup S(Y)|}.
 \label{eq:jaccard}
 \end{equation}
-Here $S(P)$ is the set of ASes in $P$, including both endpoints. A
-missing, cyclic, or endpoint-invalid prediction scores zero.
-\emph{Exact Same Ratio (ESR)} is the fraction of queries with a
-best-matching Jaccard score of one.
+Here $S(P)$ contains the ASes in $P$, including both endpoints.
+Missing, cyclic, and endpoint-invalid predictions score zero, so a
+method cannot improve ACC by omitting difficult queries.
+\emph{Exact Same Ratio (ESR)}, as reported here, is the fraction of
+queries whose best-matching Jaccard score is one. It measures identical
+AS sets and does not distinguish permutations of the same ASes.
 \emph{Coverage} is the fraction of queries with a valid prediction.
-All three metrics use queries, rather than source ASes, as their
-weighting unit.
+These metrics weight queries equally. Ordered-sequence support for
+the augmented library is measured separately by CPS below.
 
 \textbf{Path augmentation quality (RQ2).}
-\emph{First-Hop Coverage (FHC)} measures whether selected neighbors
-cover the first hops of held-out paths: for each query, we compute
-the fraction of paths in $\mathcal Y_q$ whose first hop is selected,
-then average equally over queries.
-\emph{Neighbor Representation Rate (NRR)} is the fraction of neighbors
-that are both selected and observed in held-out paths for which at
-least one admitted augmented path uses that first hop. Its numerator
-and denominator are pooled over the ten target sources. Neighbors not
-observed in the held-out paths are excluded from the denominator.
+\emph{First-Hop Coverage (FHC)} evaluates prefix selection. For each
+query, it is the fraction of reference paths in $\mathcal Y_q$ whose
+first hop belongs to the selected neighbors; we average this fraction
+over queries. \emph{Neighbor Representation Rate (NRR)} evaluates
+whether admission retains paths through the selected neighbors. Among
+neighbors that are both selected and observed in the held-out paths,
+it is the fraction used by at least one admitted path. Counts are
+pooled across the ten target sources; neighbors absent from the
+held-out observations are excluded from the denominator.
 \emph{Complete-Path Support (CPS)} is the fraction of admitted
 augmented paths whose full AS sequence matches a held-out BGP path:
 \begin{equation}
@@ -75,39 +85,46 @@ augmented paths whose full AS sequence matches a held-out BGP path:
         {|\mathcal L^Q|},
 \label{eq:library_support}
 \end{equation}
-where $\mathcal L^Q$ contains admitted paths whose endpoint pair
-appears in the held-out BGP data. Selected-neighbor counts and admitted
-path counts describe the scale of the constructed library.
+where $\mathcal L^Q$ contains only admitted paths whose endpoint pair
+appears in the held-out BGP data. Unlike ACC and ESR, CPS requires an
+ordered full-sequence match. We also report the selected-neighbor
+counts and admitted-path counts to describe the scale of augmentation.
 
 \textbf{Component effectiveness (RQ3).}
 \emph{Oracle Accuracy (OA)} is the query-averaged best Jaccard score
-among generated candidates before final selection, with zero for a
-query without candidates. We also report the selected path's ACC and
-ESR for each ablation.
+available among the generated candidates, with zero for queries that
+have no candidate. It measures the accuracy attainable by a selector
+with knowledge of the references. Comparing OA with the selected
+path's ACC and ESR distinguishes candidate availability from the
+scorer's ability to select a suitable path.
 
 \subsubsection{Baselines}
 
-\emph{KnownPath} infers AS paths from observed BGP paths under routing
-constraints~\cite{qiu2005path}. Its index uses the permitted
-training-origin BGP paths.
-\emph{PathRadar} combines policy-based and path-stitching inference
-according to routing observation adequacy~\cite{11044440}. We compare
-both baselines on all five dates.
-For a given date, every reported method is scored on the same fixed
-set of target source--destination AS pairs.
+We compare with \emph{KnownPath}, which infers AS paths from BGP
+observations under routing constraints~\cite{qiu2005path}, and
+\emph{PathRadar}, which combines policy-based and stitching-based
+inference according to observation adequacy~\cite{11044440}.
+KnownPath's index uses the permitted training-origin BGP paths.
+Both baselines are evaluated on all five dates. Within each date,
+every method uses the same fixed target source--destination query
+set and the same metric denominator, including missing predictions.
+The PG comparison in the component study tests a generator within
+\sys; it is separate from these end-to-end baseline comparisons.
 
 \subsection{Inference Performance Evaluation}
 \label{sec:results}
 
 \input{tables/bgp_results}
 
-\sys attains 83.12--84.52\% ACC and 52.41--56.64\% ESR across the
-five snapshots, with 99.58--99.73\% Coverage
-(Table~\ref{tab:bgp_results}). KnownPath attains 70.52--71.78\% ACC,
-giving \sys an 11.75--13.79 percentage-point gain on the same query
-sets. PathRadar attains 67.86--71.00\% ACC and 25.26--28.96\% ESR.
-\sys improves ACC over PathRadar by 12.14--16.44 points across the
-five dates.
+Table~\ref{tab:bgp_results} reports the end-to-end results for RQ1.
+\sys achieves 83.12--84.52\% ACC and 52.41--56.64\% ESR across
+the five snapshots, with 99.58--99.73\% Coverage. KnownPath achieves
+70.52--71.78\% ACC, and PathRadar achieves 67.86--71.00\% ACC
+and 25.26--28.96\% ESR. The ACC gains are 11.75--13.79
+percentage points over KnownPath and 12.14--16.44 points over
+PathRadar. All methods return paths for a large majority of queries;
+the gains therefore concern agreement with the reference routes,
+while accounting for missing predictions in the same query set.
 
 \begin{figure*}[t]
 \centering
@@ -119,32 +136,37 @@ ESR, and the area under a curve is ACC.}
 \label{fig:query_distribution}
 \end{figure*}
 
-Figure~\ref{fig:query_distribution} shows the distribution behind
-these averages. \sys retains more queries at high Jaccard thresholds
-on all five dates. In February, 56.64\% of its queries reach $J=1$,
-compared with 17.55\% for KnownPath and 26.84\% for PathRadar.
-KnownPath's higher ACC than ESR indicates that many of its routes
-share some ASes with a held-out path without matching its full AS set.
+Figure~\ref{fig:query_distribution} shows how these gains are
+distributed across queries. On every date, a larger fraction of
+\sys predictions meet high Jaccard thresholds. In February,
+56.64\% reach $J=1$, compared with 17.55\% for KnownPath and
+26.84\% for PathRadar. Partial overlap contributes to ACC even
+when the predicted AS set is incomplete or contains additional ASes;
+the distribution separates that overlap from identical-set agreement.
+Together with Table~\ref{tab:bgp_results}, these results show that
+the constructed training evidence can support source-specific
+inference under the stated path-input restrictions.
 
 \subsection{Path Augmentation Quality Evaluation}
 
 \input{tables/stage_results}
 
-Table~\ref{tab:stage_results} evaluates RQ2. Across the five dates,
-the selected neighbors cover 81.60--85.02\% of held-out first-hop
-choices (FHC). Among selected neighbors observed in the held-out
-paths, 92.35--95.78\% receive at least one admitted augmented path
-(NRR). The library contains 30,128--38,175 paths per date, with an
-average of 17.2--17.5 selected neighbors per target source.
+To answer RQ2, Table~\ref{tab:stage_results} follows the construction
+from neighbor selection to the admitted library. The method selects
+an average of 17.2--17.5 neighbors per source, covering
+81.60--85.02\% of the held-out first-hop choices. Among selected
+neighbors that appear in the references, 92.35--95.78\% have at
+least one admitted path. Thus, most of these selected branches
+survive admission, although this measure does not assess the number
+or destination diversity of paths retained on each branch.
 
-Complete-path support (CPS) is 89.25--95.62\% among augmented paths
-whose source--destination pair appears in the held-out data. This
-measure checks the entire AS sequence, whereas FHC and NRR assess
-only first-hop selection and representation. The held-out BGP corpus
-is finite: a nonmatch does not prove that a constructed path is
-impossible, and a match does not establish packet forwarding. CPS
-also includes paths found intact in public observations, so it does
-not isolate the quality of newly stitched joins.
+The admitted libraries contain 30,128--38,175 paths per date.
+Among paths whose endpoint pair is covered by the held-out data,
+89.25--95.62\% match a complete reference sequence (CPS).
+This result concerns the library as a whole, including routes found
+intact in public observations. It does not separately estimate the
+support of newly stitched joins. The finite reference corpus also
+leaves some valid alternatives potentially unobserved.
 
 \begin{figure}[t]
 \centering
@@ -154,21 +176,25 @@ Each point is one target AS on one date; AS328840 is highlighted.}
 \label{fig:eval_stage}
 \end{figure}
 
-Figure~\ref{fig:eval_stage} exposes an important failure case:
-AS328840 has nearly complete FHC on every date, but its CPS ranges
-from 2.40\% in April to 72.53\% in February. Selecting a relevant
-egress neighbor therefore does not by itself ensure that the
-constructed route beyond that neighbor agrees with observations.
+The source-level view in Fig.~\ref{fig:eval_stage} reveals a failure
+that the pooled CPS obscures. AS328840 has nearly complete first-hop
+coverage on every date, yet its CPS ranges from 2.40\% in April to
+72.53\% in February. The selected exit can therefore agree with
+the references while the continuation does not. This case explains
+why first-hop selection, branch representation, and complete-path
+support are evaluated separately: a well-covered source boundary
+alone is insufficient to establish the quality of augmented labels.
 
 \subsection{Component Ablation}
 
-To answer RQ3, we vary recursive exploration and candidate generation
-separately. The recursion ablation compares conditional expansion with
-no expansion and expansion at every selected first-hop neighbor.
-The generator ablation replaces prefix-tree-constrained generation
-with the prior high-frequency-node path generator (PG), keeping the
-admitted training library and recursion policy fixed. All variants
-are scored on the same query pairs within each date.
+For RQ3, we examine recursive exploration and candidate generation
+in separate ablations. The exploration study compares the conditional
+policy with two alternatives: retaining first-hop prefixes without
+expansion, and expanding every selected first-hop neighbor. The
+generator study replaces prefix-tree-constrained generation with the
+prior high-frequency-node generator (PG), while holding the admitted
+training library and recursion policy fixed. Every variant is scored
+on the same query pairs within a date.
 
 \input{tables/ablation_results}
 
@@ -184,15 +210,19 @@ February--April and AS16276 in May--June.}
 \label{fig:ablation_recursion}
 \end{figure*}
 
-Removing recursion lowers ACC on every date by 0.94--4.13 percentage
-points (Table~\ref{tab:ablation_recursion}). Full recursion attains
-nearly the same OA as conditional recursion, and their final ACC
-differs by at most 0.81 points. Conditional recursion performs
-better in February and March; full recursion performs better from
-April through June. Thus, exploration is useful, while the
-conditional policy has no consistent accuracy advantage over
-expanding every selected neighbor. Figure~\ref{fig:ablation_recursion}
-shows that its effect also varies across source ASes.
+Removing recursion lowers ACC on every date by 0.94--4.13
+percentage points (Table~\ref{tab:ablation_recursion}). Its lower
+OA shows that stopping at the first hop also restricts the candidate
+space. Full recursion and conditional recursion attain nearly the
+same OA, and their final ACC differs by at most 0.81 points.
+Conditional recursion performs better in February and March, whereas
+full recursion performs better from April through June.
+Figure~\ref{fig:ablation_recursion} further shows that the effect
+depends on the source. The supported conclusion is that exploration
+beyond the first hop improves inference in these cohorts. These
+results do not establish a consistent accuracy advantage for the
+conditional rule over full expansion, or a computational saving
+without a separate cost measurement.
 
 \input{tables/ablation_generator}
 
@@ -205,10 +235,15 @@ Each point averages the source's dated queries.}
 \label{fig:ablation_generator}
 \end{figure*}
 
-Replacing the prefix-tree generator with PG lowers OA by
-6.59--8.09 points across the five dates
-(Table~\ref{tab:ablation_generator}). ACC falls by 6.45--7.96
-points and ESR by 16.26--21.10 points. The candidate-space loss
-therefore carries through to the selected prediction.
-Figure~\ref{fig:ablation_generator} shows that the size of this
-gain differs by source AS.
+Table~\ref{tab:ablation_generator} isolates the generator comparison.
+Replacing prefix-tree generation with PG lowers OA by 6.59--8.09
+percentage points, ACC by 6.45--7.96 points, and ESR by
+16.26--21.10 points. Since the training library is fixed, the
+comparison shows the value of retaining the selected prefix tree
+when generating candidates. The loss in candidate quality persists
+after likelihood-based selection, although its size varies by
+source (Fig.~\ref{fig:ablation_generator}). The remaining gap
+between OA and ACC also indicates that candidate availability alone
+does not determine the final result. This study isolates the
+generator choice; the quality-admission model and its feature groups
+require separate ablations to attribute their individual effects.

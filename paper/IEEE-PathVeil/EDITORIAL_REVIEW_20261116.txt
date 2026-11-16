@@ -1,0 +1,123 @@
+PathVeil editorial revision and review — 2026-11-16 (Asia/Shanghai)
+
+Revision plan
+1. Use the local ToN PA-GMPI manuscript as a reference for argument structure
+   and formal networking-paper prose. Rewrite original prose for PathVeil's
+   source-cold-start setting; do not import ToN's results or technical claims.
+2. Rework the abstract, introduction, related work, problem formulation,
+   methodology, discussion and conclusion. Explain each design through the
+   problem it addresses and the objects it produces.
+3. Preserve all Evaluation section/subsection/subsubsection titles, figure
+   environments and captions, table sources, numerical results, bibliography,
+   and algorithm source. Improve evaluation prose without adding experiments.
+4. Review independently for contribution overlap, method fidelity, claims
+   versus evidence, natural academic English, and consistency of data roles.
+   Resolve editorial findings; record empirical gaps that writing cannot fix.
+5. Build the PDF, inspect warnings and rendered pages, and verify protected
+   content against the pre-edit snapshot. Numerical code and experiments are
+   outside this editorial revision.
+
+Status: editorial revision completed; independent content review passed.
+
+Changed files
+- IEEE Conference Template/pathveil.tex: abstract, introduction, related work,
+  problem formulation, discussion and conclusion.
+- IEEE Conference Template/sections/method.tex: method explanation and prose.
+- IEEE Conference Template/sections/evaluation.tex: evaluation prose only.
+- IEEE Conference Template/pathveil.pdf: rebuilt manuscript.
+- IEEE Conference Template/pathveil.bbl: regenerated citation order; reference
+  entries and ref.bib were not rewritten.
+- ../README.md: links the current editorial review and labels the older audit
+  as historical.
+- This file: revision plan, findings, verification and remaining evidence gaps.
+
+Argument and style changes
+1. The introduction now develops the source-path requirement of individual
+   inference models, the cold-start problem, and the observed-tail example
+   before explaining the design. It connects prefix construction, whole-path
+   admission and generation consistency as successive problems.
+2. The related work explicitly credits PA-GMPI's source-dependent generator,
+   observed-prefix reuse, graph-kernel warm-starting and real-path embedding.
+   PathVeil's focus is constructing target-source training evidence from other
+   origins; the GMPI scoring architecture and objective remain inherited.
+3. The method explains what each stage receives, why its rule is used, and
+   what it returns. It distinguishes the retained tree from the admitted
+   library and the admission classifier from the downstream route scorer.
+4. Repeated probability/forwarding disclaimers were consolidated. Data-role
+   and provenance qualifications remain where needed to define the claims.
+   Formal research prose replaces checklist-like narration and repeated
+   challenge/response labels. No ToN prose or results were copied.
+5. The evaluation separates identical AS sets (reported ESR) from ordered
+   library-sequence support (CPS). It explains the fixed query denominator,
+   the AS328840 failure case, and the interpretation of oracle versus final
+   accuracy. It distinguishes a PG generator ablation from an end-to-end
+   PA-GMPI comparison.
+
+Independent review and corrections
+Scope: the three edited TeX sources, their diff, and necessary original
+algorithm/table material. A reviewer separate from the writing agents checked
+argument structure, source isolation, inherited/new methods, and claim strength.
+
+The review found no serious method drift or unsupported main-result claim.
+Two wording findings were resolved:
+- MEDIUM: "resolves downstream choices" overstated exploration's effect.
+  Replaced with "exposes downstream alternatives".
+- LOW: the explanation of scoring-work concentration incorrectly attributed
+  imbalance to scoring. It now explains that well-observed branches produce
+  more joins, motivating grouped construction budgets.
+
+Additional self-review corrections:
+- Replaced "observed forwarding choices" with "observed route choices".
+- Defined an AS-path prefix separately from an IP address prefix.
+- Removed trailing periods in paragraph titles because IEEEtran supplies
+  its own punctuation.
+
+Final independent content verdict: PASS for this editorial revision, with no
+new substantive issue identified after the wording corrections. This is an
+editorial and consistency review, not an empirical revalidation of the method.
+
+Protected material
+- All 9 Evaluation section/subsection/subsubsection titles are unchanged.
+- All 6 figure environments, including captions and sizing, are unchanged.
+- All 26 protected table/figure/algorithm/bibliography source or asset files
+  are unchanged by SHA-256 comparison against the pre-edit snapshot.
+- All 10 displayed equation environments and all input statements in the
+  three edited manuscript sources are unchanged.
+- No numerical source, model, experiment configuration or dataset was edited.
+  No numerical experiment or regression suite was run for this prose change.
+
+Verification
+- latexmk -pdf -silent -interaction=nonstopmode -halt-on-error
+  -file-line-error pathveil.tex: successful PDF/BibTeX build.
+- No undefined citations/references, duplicate/missing labels, LaTeX/package
+  warnings, or overfull boxes in the final build.
+- Underfull boxes remain in narrow table/reference material and some
+  paragraph/page justification; no clipping or overlap was seen in rendering.
+- All pages were rendered for visual inspection; the algorithm and combined
+  evaluation figure/table page were also checked at larger size.
+- git diff --check passed.
+- The revised PDF has 12 pages, including references (previous PDF: 11).
+  No venue-specific page limit has been supplied. Font sizes and margins
+  were not reduced to force the old page count.
+
+Remaining evidence and historical-document gaps
+1. Inherited graph/AS features lack complete origin-level provenance. The
+   draft states path-label isolation without claiming fully source-independent
+   construction of all derived features.
+2. Ten target sources per month, with extensive references, do not establish
+   generalization to arbitrary source topologies or sparsely observed ASes.
+3. Existing results support exploration beyond the first hop and the fixed-
+   library generator comparison. They do not show a consistent accuracy
+   advantage of conditional over full recursion or a measured cost saving.
+4. Quality-admission and individual feature-group ablations, novel-join-only
+   support, and current-method data-plane validation remain separate empirical
+   work. Text was not used to invent those missing results.
+5. REVISION_NOTES.txt and RESULT_PROVENANCE.json are historical 2026-10-29
+   audits. They cover different/earlier run identities and only three months,
+   while the active evaluation now covers five. They were not relabeled as
+   current evidence. This writing revision does not certify the raw provenance
+   of every baseline or ablation result in the existing tables.
+6. The unchanged pseudocode leaves empty-pool max implicit, and its pool-smaller-
+   than-B branch assigns the whole pool while the comment says positive-scored
+   paths. These are pre-existing specification details; the manuscript prose
+   retains the stated positive-score policy, and no numerical method was changed.

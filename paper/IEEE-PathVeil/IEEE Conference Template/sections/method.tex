@@ -16,62 +16,67 @@ estimator, which scores the generated candidates.}
 \label{fig:overview}
 \end{figure*}
 
-\sys first represents public routing and interconnection evidence for
-source-neighbor, transition, and complete-path decisions
-(Fig.~\ref{fig:overview}). Path augmentation then builds a source-specific
-prefix tree from likely forwarding neighbors and supported continuations,
-joins its prefixes to intact observed tails, and scores the constructed
-paths to admit an augmented library. Together, these three stages
-implement \pats (Prefix-Anchored Tail Stitching). For route inference,
-the complete tree constrains candidate generation for training and
-destination queries. The augmented paths supply surrogate training
-routes; a source-specific path likelihood
-estimator scores the newly generated query candidates. Its scoring model
-reuses GMPI's architecture and learning objective. The source's held-out
-route labels are not
-used to construct the tree or library.
+Figure~\ref{fig:overview} illustrates the two phases of \sys: path
+augmentation and route inference. Given public routing and
+interconnection evidence, path augmentation constructs the training paths
+needed by a target source. It first selects likely source neighbors and
+explores supported continuations to form a prefix tree. It then joins
+these prefixes to observed forward tails and evaluates the resulting
+complete paths. These operations constitute \pats
+(Prefix-Anchored Tail Stitching).
 
-Two objects are retained for each source: the complete selected prefix
-tree $\mathcal T_s$ and the admitted path library $\mathcal L_s$. They serve different
-purposes. The tree defines the permitted early forwarding choices; the
-library provides surrogate training routes.
-Candidate generation uses the complete tree, including selected prefixes
-that do not happen to dominate the admitted library. Thus library
-selection cannot silently redefine the source's permitted exits.
+The augmentation phase returns a selected prefix tree $\mathcal T_s$ and
+an admitted path library $\mathcal L_s$. The tree records the early
+forwarding choices available to candidate generation; the library
+supplies surrogate route labels for training. Keeping the two objects
+separate allows candidate generation to use a selected branch even when
+few admitted training paths traverse it. The source's held-out routes
+are used for neither object.
+
+In the inference phase, a prefix-tree-constrained generator constructs
+candidates for each destination. The same tree constrains candidate
+generation during training and inference. A source-specific path
+likelihood estimator, trained on $\mathcal L_s$, ranks these candidates
+using independently available historical paths. We reuse GMPI's scoring
+architecture and learning objective; \pats supplies the source-specific
+training evidence and our generator defines the candidate space.
 
 \subsection{Public Routing Evidence Representation}
 \label{sec:representation}
 
-We represent public AS relationships and ASRank attributes,
-PeeringDB presence, and independent BGP observations at AS-pair,
-transition, and complete-path levels~\cite{CAIDA,caidaASrank,PeeringDB}.
-Table~\ref{tab:method_features} summarizes their roles. Features are
-tabular, with explicit missingness and conflict indicators. Shared
-PeeringDB IXPs or facilities identify potential interconnection partners;
-co-location alone does not establish a physical link or an export policy.
+Without observations originating from the target source, its forwarding
+choices must be estimated from evidence collected elsewhere. We combine
+AS relationships, ASRank attributes, PeeringDB presence, and independent
+BGP observations~\cite{CAIDA,caidaASrank,PeeringDB}. The tabular
+representations in Table~\ref{tab:method_features} support decisions at
+three levels: source neighbors, prefix transitions, and complete paths.
+Missingness and conflict indicators preserve differences in evidence
+coverage. In particular, shared IXPs or facilities identify potential
+interconnection partners, while adjacency and routing support require
+separate evidence.
 
 \input{tables/method_features}
 
-\paragraph{Separating evidence from supervision.}
-The upstream procedure masks complete observations by their original
-first ASN before expanding paths into segments. Independent background
-observations provide ordered edges and forward contiguous segments.
-Task-source observations have separate roles: training origins provide
-supervised labels and destination-conditioned donor statistics, while
-held-out origins provide evaluation labels. A segment containing $s$
-inside another origin's observation can remain evidence; an observation
-originally rooted at held-out $s$ is excluded from this upstream evidence.
-Tails preserve their observed direction and are never constructed by
-reversing a route. These upstream guarantees apply to the explicitly
-masked corpus; the provenance of inherited downstream graph and embedding
-artifacts is assessed separately in the experimental protocol.
+\paragraph{Separating evidence from supervision}
+Origin separation precedes segment extraction. We mask each complete
+observation according to its original first ASN, then extract ordered
+edges and contiguous forward segments from the permitted background
+corpus. Training-origin observations provide supervised labels and
+destination-conditioned donor statistics; held-out-origin observations
+provide evaluation labels only. An observation from another origin may
+contain the target source $s$ internally and remain usable, whereas one
+originally rooted at held-out $s$ is excluded. Segment extraction retains
+the observed direction and never reverses a route. This separation
+applies to the explicitly masked upstream corpus; the experimental setup
+states the provenance limits of inherited graph and embedding artifacts.
 
-\paragraph{Destination-conditioned transfer.}
-A path observed at an intermediate AS need not be exported to a particular
-neighbor~\cite{rfc4271}. We therefore complement segment support with
-evidence about which next hops other receivers observe toward the same
-destination. For an original training donor $v$, let $c_v(n,a,d)$ count
-distinct complete routes beginning $(v,n,a)$ and ending at $d$, and let
+\paragraph{Destination-conditioned transfer}
+Observing a tail at an intermediate AS does not reveal which receivers
+learn that tail, because route export depends on the receiving
+neighbor~\cite{rfc4271}. We therefore describe how other receivers reach
+the same destination through the proposed transition. For an original
+training donor $v$, let $c_v(n,a,d)$ count distinct complete routes
+beginning $(v,n,a)$ and ending at $d$, and let
 $c_v(n,d)=\sum_b c_v(n,b,d)$. With
 $V_{n,d}=\{v:c_v(n,d)>0\}$, two representative features are
 \begin{equation}
@@ -82,36 +87,42 @@ m(n,a,d)&=\frac{1}{|V_{n,d}|}\sum_{v\in V_{n,d}}
 \end{split}
 \label{eq:destination_evidence}
 \end{equation}
-The first measures agreement across donors and the second gives every
-donor equal weight after normalizing its alternative routes. We also
-condition these statistics on the donor's incoming commercial role at
-$n$, matching the candidate receiver's role when it is known. This uses
-original receiver contexts, rather than treating every internal occurrence
-of $n$ as an independent receiver observation.
+The first feature measures the fraction of donors supporting transition
+$(n,a)$ toward $d$. The second averages their route fractions, giving
+each donor equal weight so that prolific observers do not dominate. We
+also condition the statistics on the donor's incoming commercial role at
+$n$ when the candidate receiver's role is known. Each donor is counted
+in its original receiver context; internal occurrences of $n$ do not
+create additional independent receivers.
 
-These features are evaluated at both the first-hop transition and the
-construction boundary. Destination-context, path-evidence, prefix-reliability, and
-actual-next-hop features form the complete-path representation. Missing donor coverage remains explicit. For a training
-source, the entire original-source fold is removed from its donor
-statistics, even when recursion changes the stitching anchor.
+We compute these features at the first-hop transition and the stitching
+boundary. Together with path evidence, prefix reliability, and support
+for the actual next hop, they form the complete-path representation.
+Absent donor coverage is represented explicitly. During training, donor
+statistics exclude the source's entire original-source fold, including
+when exploration moves the stitching anchor to a different AS.
 
 \subsection{Source-Specific Prefix Tree Construction}
 \label{sec:prefix_selection}
 
-\paragraph{Learning likely forwarding choices.}
-Candidate neighbors are retrieved from public or independently observed
-adjacency and PeeringDB co-location, with graph-supported candidates
-prioritized in a bounded candidate pool. Two LightGBM
-rankers~\cite{ke2017lightgbm} use a public-evidence view and a structurally
-extended view. The latter adds common-neighbor overlap, Adamic--Adar,
-resource-allocation, and population-weighted IXP/facility features.
-Each view also has a binary presence head.
+\paragraph{Learning likely forwarding choices}
+The first step is to identify source neighbors through which useful
+paths can be constructed. We retrieve candidates from public or
+independently observed adjacency and PeeringDB co-location, giving
+graph-supported candidates priority within a bounded pool. Two LightGBM
+rankers~\cite{ke2017lightgbm} evaluate this pool using a public-evidence
+view and a structurally extended view. The extended view adds
+common-neighbor overlap, Adamic--Adar, resource-allocation, and
+population-weighted IXP/facility features. Each view also has a binary
+presence head.
 
-Training first-hop importance gives each destination equal weight,
-divided among its distinct observed routes. Observed neighbors receive graded relevance according to their
-destination-balanced rank; unobserved candidates receive the lowest grade. Presence indicates use in
-this finite reference corpus. These targets measure observed routing
-choices, rather than link existence or traffic volume.
+For supervision, each destination receives equal weight, divided among
+its distinct observed routes. Observed neighbors receive graded
+relevance according to their destination-balanced rank, and unobserved
+candidates receive the lowest grade. The presence target records whether
+a neighbor occurs in the reference corpus. Thus the models learn
+observed route choices across destinations rather than link
+existence or traffic volume.
 
 Let $r_s^{\mathrm{pub}}(n),r_s^{\mathrm{str}}(n)$ denote the ranker outputs
 and $p_s^{\mathrm{pub}}(n),p_s^{\mathrm{str}}(n)$ the presence outputs.
@@ -121,7 +132,8 @@ K_s=\operatorname{Top}_{k_0}(r_s^{\mathrm{pub}})
        \cup\operatorname{Top}_{k_0}(r_s^{\mathrm{str}}).
 \label{eq:protected_core}
 \end{equation}
-For ordering within the core and the remaining candidates, we use
+The union protects the highest-ranked choices from either view. To order
+neighbors within the core and the remaining candidates, we use
 \begin{equation}
 \begin{split}
 \bar p_s(n)&=\tfrac12\bigl(p_s^{\mathrm{pub}}(n)+p_s^{\mathrm{str}}(n)\bigr),\\
@@ -130,108 +142,118 @@ u_s(n)&=z(r_s^{\mathrm{str}}(n))+
 \end{split}
 \label{eq:neighbor_ranking}
 \end{equation}
-where $z$ standardizes within the candidate pool, $\alpha$ weights
-the presence evidence, and probabilities are clipped away from zero and
-one before taking the logit.
-The core precedes the remaining candidates, with descending $u_s$ and
-ASN tie breaking. Presence outputs are uncalibrated observation-support
-scores; we do not interpret them as forwarding probabilities.
+where $z$ standardizes within the candidate pool and $\alpha$ weights
+presence evidence. Presence outputs are clipped away from zero and one
+before taking the logit. The core comes first, followed by the remaining
+candidates; both groups use descending $u_s$ with ASN tie breaking.
 
-\paragraph{Adapting exploration to source structure.}
-Degree alone misses a source whose first hop conceals a large next-layer
-choice set. Let $b_1(s)$ be the source's public degree, and let $b_2(s)$
-count distinct second-layer ASes reachable through loop-free,
-commercially non-incompatible two-hop public prefixes. Unknown roles
-remain eligible. We define
+\paragraph{Adapting exploration to source structure}
+A neighbor with many reusable tails can be used directly as a stitching
+anchor. However, a source with few neighbors may conceal many routing
+choices at the next layer, making first-hop selection insufficient. To
+distinguish these situations, let $b_1(s)$ be the source's public degree
+and let $b_2(s)$ count distinct second-layer ASes reachable through
+loop-free two-hop public prefixes that do not conflict with known
+commercial relationships. Prefixes with unknown roles remain eligible.
+We define
 \begin{equation}
 \rho(s)=\frac{b_2(s)}{b_1(s)^2}.
 \label{eq:source_rho}
 \end{equation}
-This is a structural control statistic, not a routing probability.
-It is computed once for the original source and is not recomputed to
-switch policies at its neighbors. A source with no usable public degree
-remains unresolved.
+The statistic controls how far to explore beyond the selected first
+hops. It is computed once for the original source, and the same regime
+applies throughout its construction. A source with no usable public
+degree remains unresolved.
 
-When $\rho(s)\leq\rho_0$, we select the longest prefix of the protected-core
-ordering containing $K_s$, limited to a root budget $\kappa$, whose mean
-$\bar p_s$ exceeds the support threshold $\eta$. If none qualifies, the core is retained with
-uncertain support. For each selected neighbor $n$, we count usable
-independent forward tails for $(s,n)$, stopping at the capacity threshold $\gamma$.
-A usable direct prefix is retained. If its capacity is below $\gamma$,
-exploration also proposes $(s,n,a)$ prefixes.
-An explored child is retained only if it has at least one usable tail.
+When $\rho(s)\leq\rho_0$, we select the longest initial portion of the
+protected-core ordering that contains $K_s$, respects the root budget
+$\kappa$, and has mean $\bar p_s$ above the support threshold $\eta$.
+If none qualifies, we retain the core and record its uncertain support.
+For each selected neighbor $n$, we count usable independent forward
+tails for $(s,n)$, stopping at the capacity threshold $\gamma$. We retain
+the direct prefix if it has a usable tail. When its count is below
+$\gamma$, we also explore prefixes $(s,n,a)$ and retain an explored
+child only if it has at least one usable tail.
 
-When $\rho(s)>\rho_0$, only the dual-ranker core $K_s$ is selected, yielding
-at most $2k_0$ roots. Every root is expanded to $(s,n,a)$ independently
-of its direct-tail capacity. This exposes choices hidden behind a narrow
-first layer; the high-$\rho$ branch does not retain a broad direct-tail
-bypass. Both policies use the same recursive width $k_r$ and a bounded
-prefix length $L_p$.
+When $\rho(s)>\rho_0$, we select only the dual-ranker core $K_s$, giving
+at most $2k_0$ roots. Every root is expanded to $(s,n,a)$ regardless of
+its direct-tail capacity. This regime exposes downstream alternatives behind
+a narrow first layer and does not retain direct prefixes as a bypass.
+Both regimes use the same recursive width $k_r$ and bounded prefix
+length $L_p$.
 
-\paragraph{Prefix-aware next-hop prediction.}
-A conditional ranker uses the preceding AS, current AS, and candidate
-next AS to transfer local routing preferences. Its candidate pool is
-bounded by a candidate retrieval budget. Each proposed extension must avoid visited ASes and have
-independent/public edge evidence, or co-location accompanied by a finite
-learned support score. It must also preserve at least one feasible
-commercial phase of the complete prefix. We track upward, post-peer,
-and downward states; sibling edges are neutral and unknown relationships
-retain all feasible states. Distinct prefixes and phase states sharing
-an anchor remain distinct. This is local conditional transfer, not a
-claim that multiplying local scores gives a calibrated path probability.
-No supported continuation means stopping that branch rather than
-inventing an extension.
+\paragraph{Prefix-aware next-hop prediction}
+Exploration uses a conditional ranker whose input is the preceding AS,
+current AS, and candidate next AS. This context allows local routing
+preferences learned at training sources to guide an extension of the
+target prefix. Retrieval bounds the candidate pool. An extension must
+avoid visited ASes and have public or independent edge evidence, or
+co-location accompanied by a finite learned support score.
+
+We also check the commercial phase of the entire prefix. The tracked
+states are upward, post-peer, and downward; sibling edges are neutral,
+and unknown relationships retain all feasible states. An extension is
+accepted only if at least one state remains feasible. Prefixes that
+reach the same anchor through different AS sequences or phase states
+remain distinct. Exploration stops when no supported continuation exists.
 
 \subsection{Augmented Path Synthesis and Selection}
 \label{sec:construction}
 
-\paragraph{Joining prefixes to observed tails.}
+\paragraph{Joining prefixes to observed tails}
 For each selected prefix $q=(s,\ldots,z)$, \pats joins it to an intact
 observed forward tail $t=(z,\ldots,d)$:
 \begin{equation}
 q\oplus t=(s,\ldots,z,\ldots,d),
 \label{eq:pats_join}
 \end{equation}
-including the common anchor $z$ once. Reusing a tail preserves multiple
-consecutive observed routing choices. It does not establish that $s$
-would learn or select the resulting route.
+including the common anchor $z$ once. The selected prefix supplies the
+connection from the target source, while the intact tail preserves
+consecutive routing choices observed beyond the anchor.
 
-Construction checks valid ASNs, minimum and maximum path length, absence of loops, support
-for each added prefix edge, and existence of a valley-free assignment
+A join must satisfy ASN validity, path-length limits, loop freedom,
+support for each added prefix edge, and a valley-free assignment
 consistent with known relationships~\cite{gao2001inferring}. Missing
-relationships are retained as unknown rather than automatically rejected.
-The same physical path may arise from different prefixes; ordered
-sequences are deduplicated while retaining their construction provenance.
+relationships remain unknown and do not by themselves reject a path.
+Different prefixes can produce the same ordered AS sequence; we
+deduplicate these sequences while retaining their construction provenance.
 
-To bound scoring work while preserving alternatives, construction keeps
-a bounded number of evidence-prioritized candidates per first hop,
-actual third AS, destination, and AS count. It favors fewer unobserved prefix extensions
-and stronger independent segment support. A deterministic hash ordering
-selects a bounded set of destination contexts, supplemented by protected
-destinations for sparse prefixes. These are construction work
-budgets, not a final library-size cap.
+Well-observed branches can produce many more legal joins. To bound
+scoring work while retaining alternatives, we group candidates by first
+hop, actual third AS, destination, and AS count, retaining a bounded
+number in each group. Within these groups,
+priority goes to fewer unobserved prefix extensions and stronger
+independent segment support. A deterministic hash ordering bounds the
+destination contexts considered, with protected destinations for sparse
+prefixes. These budgets limit construction work; final admission has no
+upper library-size cap.
 
-\paragraph{Scoring constructed paths.}
-A LightGBM classifier $h_\theta(\phi(P))$ assesses the feature
-representation of a complete constructed path. For a training source,
-an exact ordered match to its original reference is positive. A
-nonmatching candidate is negative only if its destination has reference
-coverage; candidates for uncovered destinations remain unlabeled.
-The weighted binary objective balances training sources, first hops,
-destinations within first hops, and alternatives within each context.
+\paragraph{Scoring constructed paths}
+Legal joins can still disagree with a source's observed routing choices.
+We use a LightGBM classifier $h_\theta(\phi(P))$ to assess each complete
+path from the representations described above. For a training source,
+an exact ordered match to its original reference is a positive example.
+A nonmatching candidate is negative only when its destination has
+reference coverage; candidates for uncovered destinations remain
+unlabeled. A weighted binary objective balances training sources, first
+hops, destinations within first hops, and alternatives within each
+context.
 
-Models are fitted separately for each date using registered training
-origins. Neighbor and transition predictions for a training source use
-heads fitted without its original-source fold; destination features
-exclude the same fold. This is stagewise source isolation. The final
-path classifier is fitted on these training cases, and held-out source
-routes never determine its features or parameters. Because non-observation
-does not prove route impossibility, $h_\theta$ estimates support in a
-finite observation corpus, rather than the probability of forwarding
-reality.
+We fit the models separately for each date using its registered training
+origins. To construct a training source's examples, neighbor and
+transition predictions use heads fitted without its original-source
+fold, and destination features exclude the same fold. The complete-path
+classifier is then fitted on these cases. This stagewise separation
+prevents a training source's own observations from supplying its upstream
+predictions. Held-out target-source routes supply neither classifier
+features nor parameters. The resulting scores measure support in the
+finite reference corpus; they are not calibrated probabilities of
+actual forwarding.
 
-\paragraph{Source-relative admission.}
-Let $\mathcal B_s$ be the legal deduplicated source candidate pool and
+\paragraph{Source-relative admission}
+The score distribution can vary across sources. Admission therefore uses
+quality relative to the best candidate for the same source. Let
+$\mathcal B_s$ be the legal deduplicated source candidate pool and
 $q(P)=h_\theta(\phi(P))$. We normalize within that source:
 \begin{equation}
 \widetilde q_s(P)=\frac{q(P)}{\max_{P'\in\mathcal B_s}q(P')}.
@@ -247,58 +269,56 @@ paths, let $\widetilde q_{s,(B)}$ be its $B$th highest relative score and set
 \end{split}
 \label{eq:quality_admission}
 \end{equation}
-All cutoff ties are retained and there is no upper size cap. If fewer than
-$B$ legal paths exist, the implementation retains all positive-scored
-legal candidates and records the shortfall. Otherwise it uses the
-$B$th score to relax the threshold when needed. A zero source maximum
-leaves the source unresolved. The threshold relaxation, pool size, and
-shortfall are recorded. Relative quality is an admission ranking
-criterion, not a calibrated route-accuracy estimate. Algorithm~\ref{alg:path_synthesis}
-summarizes augmentation.
+The minimum-library rule relaxes the nominal threshold only when needed
+to retain at least $B$ paths. All cutoff ties are retained, and there is
+no upper size cap. If the legal pool contains fewer than $B$ paths, we
+retain all positive-scored legal candidates and record the shortfall.
+A zero source maximum leaves the source unresolved. We record the pool
+size, effective threshold, and any shortfall for each source.
+Algorithm~\ref{alg:path_synthesis} summarizes the construction and
+admission procedure.
 
 \input{algorithms/path_augmentation}
 
 \subsection{Prefix-Tree-Constrained Path Generation}
 \label{sec:inference}
 
-\paragraph{Generating candidates from the complete tree.}
-Training and query candidate generation both consume the same frozen
-$\mathcal T_s$. For a destination $d$, each anchor supplies intact forward
-observed tails toward $d$ and, when available, a shortest-path proposal
-from the permitted topology. Every joined candidate is checked against
-its full prefix, endpoint, length, AS vocabulary, loop constraints, and
-commercial-phase continuation. The topology proposal supports candidate
-coverage; it is not admitted as a training label merely because it is
-shortest. No unrestricted generator bypasses the selected source tree.
+\paragraph{Generating candidates from the complete tree}
+The admitted library supports learning across destinations, but it need
+not contain a route for every query. We generate query-specific
+candidates from the frozen tree $\mathcal T_s$, using the same procedure
+for training and inference. For destination $d$, each anchor supplies
+intact observed forward tails toward $d$ and, when available, a
+shortest-path proposal from the permitted topology. Joined candidates
+are checked against their full prefix, endpoint, length, AS vocabulary,
+loop constraints, and commercial-phase continuation. A topology proposal
+can improve candidate coverage but does not become a training label
+solely because it is shortest. Candidate generation remains constrained
+by the selected source tree.
 
-Prefixes with fully public, commercially compatible evidence have priority
-over prefixes containing unknown or conflicting public roles. The latter
-are used for a query only if the former yield no candidate. These are
-ordinal evidence tiers, not route probabilities. Within the selected
-tier, stable deduplication and round-robin allocation across first hops
-and actual third-hop prefixes retain up to $K$ candidates per query.
-Lower tiers do not fill unused higher-tier slots. This allocation
-preserves available forwarding alternatives without asserting a uniform
-real-world route distribution.
+Generation first uses prefixes with fully public, commercially
+compatible evidence. Prefixes containing unknown or conflicting public
+roles are considered only if the first group yields no candidate. Within
+the chosen evidence tier, stable deduplication and round-robin allocation
+across first hops and actual third-hop prefixes retain up to $K$
+candidates. This allocation keeps alternatives from different selected
+branches. Lower tiers do not fill unused slots in a higher tier.
 
-\paragraph{Path likelihood estimation.}
-Our path likelihood estimator reuses GMPI's~\cite{li2023realizing}
-architecture and normal-history Huber objective to score the paths
-produced by our prefix-tree-constrained generator. Its scores rank
-candidates; they are not calibrated route probabilities. The admitted
-augmented paths supply surrogate training route labels. Candidate
-generation instead uses the selected prefix tree, public observed tails,
-and topology proposals. Independently available observations supply
-historical contexts, kept separate from candidate paths at the model
-interface.
+\paragraph{Path likelihood estimation}
+We train a source-specific estimator with GMPI's~\cite{li2023realizing}
+architecture and normal-history Huber objective. The admitted paths are
+surrogate route labels, while independently available observations supply
+historical contexts. Candidate paths and historical contexts remain
+separate inputs to the model. An internal AS-pair-disjoint split of the
+augmented supervision selects the checkpoint: paths of the same pair
+cannot appear in both training and validation. Final held-out source
+routes are reserved for evaluation.
 
-An internal split of the augmented supervision holds out AS pairs for
-checkpoint selection; paths of a pair cannot span its training and
-validation partitions. Final held-out source routes remain closed
-until evaluation. At inference, the trained model ranks $\mathcal C_{s,d}$ using
-its historical context $H_{s,d}$ and returns the highest-scoring route,
-or no estimate when the candidate set is empty. The implementation also
-handles a same-AS query with $(s)$ and an otherwise uncovered direct
-public edge with $(s,d)$; these cases remain in the fixed evaluation
-denominator. This scorer completes the inference pipeline; the preceding
-modules determine the source-specific evidence and candidate space.
+For a query $(s,d)$, the estimator scores $\mathcal C_{s,d}$ using
+$H_{s,d}$ and returns the highest-ranked path according to
+\eqref{eq:query_score}. An empty candidate set gives no estimate.
+The implementation returns $(s)$ for a same-AS query and $(s,d)$ for an
+otherwise uncovered direct public edge. These cases remain in the fixed
+evaluation denominator. The estimator supplies the final ranking; the
+source prefix tree and admitted library determine the alternatives and
+supervision available to it.

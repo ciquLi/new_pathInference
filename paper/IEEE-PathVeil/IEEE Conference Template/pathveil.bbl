@@ -127,17 +127,6 @@ T.~Koch, K.~Li, C.~Ardi, E.~Katz-Bassett, M.~Calder, and J.~Heidemann,
   ``Anycast in context: A tale of two systems,'' in {\em Proceedings of the ACM
   SIGCOMM 2021 Conference}, (New York, NY, USA), pp.~398--417, ACM, 2021.
 
-\bibitem{lepochat2019tranco}
-V.~Le~Pochat, T.~Van~Goethem, S.~Tajalizadehkhoob, M.~Korczy{\'n}ski, and
-  W.~Joosen, ``{Tranco}: A research-oriented top sites ranking hardened against
-  manipulation,'' in {\em Proceedings of the Network and Distributed System
-  Security Symposium}, 2019.
-
-\bibitem{caidaRouteviewsPfx2AS}
-{CAIDA}, ``{Routeviews Prefix to AS mappings Dataset for IPv4 and IPv6}.''
-  \url{https://www.caida.org/catalog/datasets/routeviews-prefix2as/}.
-\newblock Accessed: 2026-10-24.
-
 \bibitem{CAIDA}
 ``Center for {A}pplied {I}nternet {D}ata {A}nalysis.''
   \url{https://www.caida.org/}, 2023.

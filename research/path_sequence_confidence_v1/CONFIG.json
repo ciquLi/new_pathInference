@@ -1,0 +1,30 @@
+{
+  "name": "path_sequence_confidence_v1",
+  "date": "20260201",
+  "control_run": "runs/20260201/gmpi_confidence_v1",
+  "control_variant": "query_cross_entropy",
+  "source_snapshot": "runs/20260201/gmpi_confidence_v1/SNAPSHOT.json",
+  "frozen_candidate_run": "runs/20260201/candidate_scorer_v1",
+  "sources": ["19529", "328840", "16552", "32590", "34927", "42473", "49544", "58057", "199524", "398465"],
+  "variants": ["ordered_path"],
+  "changed_factor": "confidence network architecture only; same existing inputs and query cross entropy",
+  "label_temperature": 0.1,
+  "architecture": {
+    "width": 64,
+    "heads": 4,
+    "layers": 2,
+    "feedforward": 128,
+    "dropout": 0.1,
+    "max_length": 20
+  },
+  "device": "cuda",
+  "cpu_threads": 2,
+  "cpu_affinity": [6, 7],
+  "gpu_workers": 1,
+  "seed": 20261015,
+  "validation": "unchanged pair-disjoint weak-label top1 Jaccard",
+  "hyperparameters": "inherit all per-source training arguments from the frozen GMPI cross-entropy control",
+  "freeze_all_models_before_prediction": true,
+  "freeze_all_predictions_before_final_evaluation": true,
+  "final_labels_used_for_tuning": false
+}

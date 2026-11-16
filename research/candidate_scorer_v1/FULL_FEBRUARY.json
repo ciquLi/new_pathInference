@@ -1,0 +1,10 @@
+{
+  "date": "20260201",
+  "sources": ["19529", "328840", "16552", "32590", "34927", "42473", "49544", "58057", "199524", "398465"],
+  "scope": "All ten February sources; identical numerical parameters to the frozen pilot",
+  "threads": 2,
+  "cpu_affinity": [6, 7],
+  "reuse_completed_pilot": true,
+  "record_wall_and_cpu_time": true,
+  "final_labels_used_for_tuning": false
+}

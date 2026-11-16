@@ -1,0 +1,17 @@
+{
+  "name": "candidate_confidence_v2",
+  "date": "20260201",
+  "reference_run": "runs/20260201/candidate_scorer_v1",
+  "sources": ["19529", "328840", "16552", "32590", "34927", "42473", "49544", "58057", "199524", "398465"],
+  "threads": 2,
+  "cpu_affinity": [6, 7],
+  "changed_factor": "LightGBM objective: pointwise squared error versus query-wise soft-label cross entropy",
+  "label_temperature": 0.1,
+  "max_rounds": 500,
+  "early_stopping_rounds": 40,
+  "batch_queries": 128,
+  "max_batch_candidates": 8192,
+  "test_labels_used_for_tuning": false,
+  "require_all_models_before_prediction": true,
+  "require_all_predictions_before_evaluation": true
+}

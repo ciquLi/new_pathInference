@@ -1,0 +1,131 @@
+{
+  "date": "20260201",
+  "bin_convention": [
+    "0",
+    "(0, 0.5)",
+    "[0.5, 0.75)",
+    "[0.75, 1)",
+    "1"
+  ],
+  "missing_prediction_score": 0,
+  "methods": {
+    "KnownPath": {
+      "queries": 685820,
+      "mean_jaccard_pct": 71.78469478432541,
+      "esr_pct": 17.545565891924994,
+      "bins": {
+        "0": 1290,
+        "(0, 0.5)": 61264,
+        "[0.5, 0.75)": 250766,
+        "[0.75, 1)": 252169,
+        "1": 120331
+      },
+      "source_files": [
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-0-knownpath-detail-result.csv",
+          "sha256": "353d71be9e190d262efd6651f0560a2af915e3e4b0a66d43b471636b89cba2b4"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-1-knownpath-detail-result.csv",
+          "sha256": "6d61ded0c50b33d27c4b630179b3aa74738d73f996b8db25413c540346ba7850"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-2-knownpath-detail-result.csv",
+          "sha256": "91fe82bc14b74c95ff72fdfe50672e95ef69f206c663b25df592b2cbba1c1aff"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-3-knownpath-detail-result.csv",
+          "sha256": "acb0d74854b48c8bdb083007fa43cf2195253293e0d41065c1a0c6571a4d604a"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-4-knownpath-detail-result.csv",
+          "sha256": "8b706a28aaa6e4e867c6c4ada5146fb39878d41b2b3a798e531ae2c1a3720d6c"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-5-knownpath-detail-result.csv",
+          "sha256": "e60a7c3622e2f3fa2abd3768d46d9adaea0e2f5fb487db0597f36061048b153d"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-6-knownpath-detail-result.csv",
+          "sha256": "03bac9bc071be6acf8192e96fa1d5cf8d2a51a3e0d7ad9bd64c5f180828dbd85"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/baselines/knownpath/20260201/results/20260201/20260201-7-knownpath-detail-result.csv",
+          "sha256": "0c00eda08e187302431fdadf5d4b1c9170ecf4bcb698c1711c7089e4888c0dbb"
+        }
+      ]
+    },
+    "PathRadar": {
+      "queries": 685820,
+      "mean_jaccard_pct": 69.30143155906738,
+      "esr_pct": 27.294771222769825,
+      "bins": {
+        "0": 1656,
+        "(0, 0.5)": 108307,
+        "[0.5, 0.75)": 287067,
+        "[0.75, 1)": 101597,
+        "1": 187193
+      },
+      "source_files": [
+        {
+          "path": "/tmp/pathradar_20260201_round2_seed0_pairs.json",
+          "sha256": "c2df3fbdb435fe7e545528d8feb386a0f88b6f578058de7217df2942f977d867"
+        }
+      ]
+    },
+    "PathVeil": {
+      "queries": 685820,
+      "mean_jaccard_pct": 84.52204468998755,
+      "esr_pct": 56.64183021784142,
+      "bins": {
+        "0": 1862,
+        "(0, 0.5)": 32048,
+        "[0.5, 0.75)": 150098,
+        "[0.75, 1)": 113351,
+        "1": 388461
+      },
+      "source_files": [
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as16552/pair_predictions.csv",
+          "sha256": "6e248e468cbb9869a3b4cf1ded50726953201d402203fc518dd300570d11d5c7"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as19529/pair_predictions.csv",
+          "sha256": "78063411b9e796b801e832c9dba2e557ea0d0e9ec60ee6c98afe19bb8f4f4161"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as199524/pair_predictions.csv",
+          "sha256": "0a13369035d72f44664c9bed58f14bc96bd57f32a477b619c5a3607bd6643fc1"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as32590/pair_predictions.csv",
+          "sha256": "5bd8b0cb19affbf29f44c45acc8d73d3da8658e611bb15af2ae3fadfee63fccf"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as328840/pair_predictions.csv",
+          "sha256": "fded050cd3377256b18b34afc521c3a1920855b033065fd8315dbcab2e524eea"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as34927/pair_predictions.csv",
+          "sha256": "7f8b8cb3ea149284559bfaa30846fff6dbd027c45fe51b70bce470824e876b19"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as398465/pair_predictions.csv",
+          "sha256": "a230a78ade0e402510974ff70b7f4fee36b9cf88f6253167172541b9f52aeda6"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as42473/pair_predictions.csv",
+          "sha256": "1b29e3f346be1d921d49d2952b2e948de4059d21bd2444317b7569220096ce86"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as49544/pair_predictions.csv",
+          "sha256": "70eef0470eadb90a1cbf86b80dc9685316bc1db33e26ba2b4685f0995d820216"
+        },
+        {
+          "path": "/run/media/lxl/data/asinfer/MetaGMPI/runs/20260201/pats_rho_v1/run_3e92673fd15d85e4/T-PG-B/evaluations/as58057/pair_predictions.csv",
+          "sha256": "077227b53d49a55a0bc2dfa344a1cc6656ecbf7d767dc52fec0a3df293f9cbaf"
+        }
+      ]
+    }
+  }
+}

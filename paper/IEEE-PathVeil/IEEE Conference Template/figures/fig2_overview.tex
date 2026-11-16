@@ -1,143 +1,192 @@
 \documentclass[tikz,border=3pt]{standalone}
 \usepackage{mathptmx}
 \usepackage{amsmath}
-\usetikzlibrary{arrows.meta,calc}
+\usetikzlibrary{arrows.meta}
 \definecolor{pvblue}{HTML}{0072B2}
-\definecolor{pvorange}{HTML}{D55E00}
-\definecolor{pvink}{HTML}{374151}
-\definecolor{pvmuted}{HTML}{9AA5B1}
+\definecolor{pvteal}{HTML}{008077}
+\definecolor{pvorange}{HTML}{B75635}
+\definecolor{pvink}{HTML}{303A43}
+\definecolor{pvline}{HTML}{A9B4BC}
 \begin{document}
 \begin{tikzpicture}[
- font=\fontsize{9.1}{10.3}\selectfont,
- >={Latex[length=1.5mm,width=1mm]},
+ font=\fontsize{8.5}{10}\selectfont,
+ >={Latex[length=1.6mm,width=1mm]},
  flow/.style={->,draw=pvink,line width=.8pt},
- prefixedge/.style={->,draw=pvblue,line width=1pt,dashed},
- observededge/.style={->,draw=pvink,line width=1pt},
- heading/.style={font=\fontsize{10}{11.3}\selectfont\bfseries,align=center,inner sep=0pt},
- label/.style={align=center,inner sep=0pt},
- as/.style={circle,draw=pvink,fill=white,line width=.7pt,
-  minimum size=.36cm,inner sep=0pt,font=\fontsize{9}{10}\selectfont},
- selected/.style={as,draw=pvblue,fill=pvblue!8},
- pics/database/.style={code={
-  \path[draw=pvink,fill=pvblue!5,line width=.8pt]
-   (-.31,.22)--(-.31,-.22) arc[start angle=180,end angle=360,x radius=.31,y radius=.09]
-   --(.31,.22) arc[start angle=0,end angle=180,x radius=.31,y radius=.09];
-  \draw[pvink,line width=.7pt] (-.31,.22) arc[start angle=180,end angle=360,x radius=.31,y radius=.09];
-  \draw[pvink,line width=.6pt] (-.31,-.01) arc[start angle=180,end angle=360,x radius=.31,y radius=.08];
- }},
- pics/metadata/.style={code={
-  \draw[pvink,fill=pvblue!5,line width=.8pt] (-.28,-.28) rectangle (.28,.28);
-  \foreach \x in {-.14,.14} {\foreach \y in {-.10,.10} {
-   \draw[pvink,line width=.6pt] (\x-.05,\y-.04) rectangle (\x+.05,\y+.04);}}
-  \draw[pvink,line width=.65pt] (.28,0)--(.46,0)--(.46,-.18);
-  \draw[pvink,fill=white] (.46,-.18) circle (.055);
- }},
- pics/library/.style={code={
-  \path[draw=pvorange,fill=pvorange!8,line width=.85pt,rounded corners=.7pt]
-   (-.43,-.28)--(-.43,.27)--(-.11,.27)--(.02,.16)--(.43,.16)--(.43,-.28)--cycle;
-  \node[text=pvorange,font=\fontsize{11}{12}\selectfont] at (0,-.02) {$\mathcal L_s$};
- }},
- pics/chip/.style={code={
-  \draw[pvink,fill=pvblue!5,line width=.85pt,rounded corners=1pt]
-   (-.70,-.40) rectangle (.70,.40);
-  \foreach \x in {-.42,-.14,.14,.42} {
-   \draw[pvink,line width=.7pt] (\x,.40)--(\x,.52) (\x,-.40)--(\x,-.52);}
-  \foreach \y in {-.24,0,.24} {
-   \draw[pvink,line width=.7pt] (-.70,\y)--(-.83,\y) (.70,\y)--(.83,\y);}
-  \node[align=center,font=\fontsize{9.2}{10.3}\selectfont] {Path\\Inference};
- }},
- pics/link/.style={code={
-  \draw[pvblue,line width=1.1pt,rotate=-25,rounded corners=1.8pt]
-   (-.25,-.08) rectangle (.04,.08);
-  \draw[pvink,line width=1.1pt,rotate=-25,rounded corners=1.8pt]
-   (-.04,-.08) rectangle (.25,.08);
- }}
+ evidence/.style={->,draw=pvblue,line width=.85pt},
+ training/.style={->,draw=pvorange,line width=.85pt},
+ frame/.style={draw=pvline,fill=white,rounded corners=2pt,line width=.7pt},
+ stage/.style={frame,fill=pvblue!2},
+ label/.style={font=\fontsize{8.8}{10.2}\selectfont\bfseries,align=center},
+ small/.style={font=\fontsize{8}{9.2}\selectfont,align=center},
+ as/.style={circle,draw=pvink,fill=white,minimum size=.34cm,
+             inner sep=0pt,line width=.7pt},
+ prefixnode/.style={as,draw=pvblue,fill=pvblue!8},
+ minias/.style={as,minimum size=.29cm,font=\fontsize{7.2}{8}\selectfont},
+ miniprefix/.style={minias,draw=pvblue,fill=pvblue!8},
+ miniflow/.style={->,draw=pvink,line width=.7pt,
+                  >={Latex[length=.9mm,width=.6mm]}},
+ miniblue/.style={miniflow,draw=pvblue}
 ]
-\path[use as bounding box] (-.25,-1.08) rectangle (17.22,4.07);
-% The augmentation boundary includes prefix selection, construction, admission.
-\draw[pvmuted,line width=.8pt,rounded corners=3pt]
- (-.20,-.48) rectangle (12.88,3.94);
-\node[heading,fill=white,inner xsep=6pt] at (6.34,3.94) {Path Augmentation};
-\node[heading] at (1.68,3.43) {1. Prefix Selection};
-\node[heading] at (6.17,3.43) {2. Tail Stitching};
-\node[heading] at (10.73,3.43) {3. Quality Admission};
-\node[heading] at (15.06,3.43) {4. Path Inference};
+\path[use as bounding box] (-.12,1.25) rectangle (17.62,7.66);
 
-% Public evidence and a compact branching picture.
-\pic at (.58,2.58) {database};
-\pic at (2.20,2.58) {metadata};
-\node[label] at (.58,2.02) {BGP paths};
-\node[label] at (2.30,2.02) {Metadata};
-\draw[flow] (.58,1.78)--(.58,1.57)--(1.32,1.57);
-\draw[flow] (2.20,1.78)--(2.20,1.57)--(1.32,1.57);
-\node[label,text=pvblue] at (2.80,1.53) {$\rho(s)$};
-\node[selected] (s) at (.57,.48) {$s$};
-\node[selected] (n1) at (1.68,.98) {$n_1$};
-\node[selected] (n2) at (1.68,-.05) {$n_2$};
-\node[selected] (a1) at (2.87,.98) {$a$};
-\node[selected,minimum size=.20cm] (a2) at (2.87,-.05) {};
-\draw[flow] (1.32,1.57)--(1.32,1.36)--(s.north);
-\draw[prefixedge] (s)--(n1); \draw[prefixedge] (s)--(n2);
-\draw[prefixedge] (n1)--(a1); \draw[prefixedge] (n2)--(a2);
-\draw[flow,line width=1pt] (3.22,.48)--(3.96,.48);
+% Public inputs and the three augmentation stages.
+\draw[frame] (0,3.55) rectangle (2.60,7.35);
+\node[label] at (1.30,6.93) {Public Evidence};
+\draw[pvink,line width=.7pt] (.43,6.20)--(.70,6.20)--(1.03,6.43)
+ (.70,6.20)--(1.03,6.04);
+\foreach \x/\y in {.43/6.20,.70/6.20,1.03/6.43,1.03/6.04}
+ {\fill[pvblue] (\x,\y) circle (.055);}
+\node[font=\fontsize{7.6}{8.8}\selectfont,anchor=west] at (1.18,6.20) {BGP paths};
+\draw[pvink,line width=.7pt] (.43,5.36)--(.73,5.58)--(1.03,5.40)
+ (.43,5.36)--(.92,5.18)--(1.03,5.40);
+\foreach \x/\y in {.43/5.36,.73/5.58,1.03/5.40,.92/5.18}
+ {\fill[pvteal] (\x,\y) circle (.055);}
+\node[font=\fontsize{7.6}{8.8}\selectfont,anchor=west] at (1.18,5.38) {Topology};
+\draw[pvink,line width=.65pt,rounded corners=.4pt] (.41,4.31) rectangle (1.04,4.78);
+\node[font=\fontsize{6.7}{7.4}\selectfont\bfseries,text=pvblue,
+      inner sep=0pt] at (.60,4.58) {AS};
+\draw[pvink,line width=.55pt] (.52,4.42)--(.93,4.42)
+ (.77,4.57)--(.93,4.57);
+\node[small,anchor=west,align=left] at (1.18,4.55) {AS\\metadata};
 
-% Learned source prefixes reuse real observed tails at a shared anchor.
-\node[label,text=pvblue] at (4.95,2.79) {Selected prefix};
-\node[label] at (7.17,2.79) {Observed tail};
-\node[selected] (ps) at (4.18,2.14) {$s$};
-\node[selected] (pn) at (4.93,2.14) {$n$};
-\node[selected] (pa) at (5.68,2.14) {$a$};
-\node[as] (ta) at (6.45,2.14) {$a$};
-\node[as] (tb) at (7.20,2.14) {$b$};
-\node[as] (td) at (7.95,2.14) {$d$};
-\draw[prefixedge] (ps)--(pn); \draw[prefixedge] (pn)--(pa);
-\draw[observededge] (ta)--(tb); \draw[observededge] (tb)--(td);
-\draw[flow] (4.93,1.89)--(4.93,1.53)--(5.91,1.15);
-\draw[flow] (7.20,1.89)--(7.20,1.53)--(6.30,1.15);
-\pic at (6.10,1.06) {link};
-\draw[flow] (6.10,.80)--(6.10,.43);
-\node[selected] (js) at (4.48,.15) {$s$};
-\node[selected] (jn) at (5.29,.15) {$n$};
-\node[as,draw=pvorange,fill=pvorange!8] (ja) at (6.10,.15) {$a$};
-\node[as] (jb) at (6.91,.15) {$b$};
-\node[as] (jd) at (7.72,.15) {$d$};
-\draw[prefixedge] (js)--(jn); \draw[prefixedge] (jn)--(ja);
-\draw[observededge] (ja)--(jb); \draw[observededge] (jb)--(jd);
-\draw[flow,line width=1pt] (8.10,.48)--(8.72,.48);
+\draw[frame,fill=pvblue!1] (2.98,3.55) rectangle (14.15,7.35);
+\node[label,fill=white,inner xsep=7pt] at (8.56,7.35)
+ {Path Augmentation (PATS)};
+\draw[stage] (3.18,3.75) rectangle (6.20,7.08);
+\draw[stage] (6.60,3.75) rectangle (10.03,7.08);
+\draw[stage] (10.43,3.75) rectangle (13.95,7.08);
+\node[label] at (4.69,6.82) {Prefix Tree};
+\node[label] at (8.31,6.82) {Path Synthesis};
+\node[label] at (12.19,6.82) {Path Selection};
+\draw[flow] (2.60,5.42)--(3.18,5.42);
+\draw[flow] (6.20,5.42)--(6.60,5.42);
+\draw[flow] (10.03,5.42)--(10.43,5.42);
 
-% Complete-path scores feed a single source-relative quality gate.
-\node[label] at (9.61,2.77) {Path support scores};
-\foreach \y/\bar in {2.09/.37,1.56/.27,1.03/.12} {
- \begin{scope}[shift={(9.56,\y)}]
-  \draw[pvmuted,fill=white,rounded corners=1pt,line width=.65pt] (-.66,-.17) rectangle (.66,.17);
-  \draw[pvblue,dashed,line width=.8pt] (-.51,0)--(-.20,0);
-  \draw[pvink,line width=.8pt] (-.20,0)--(.10,0);
-  \foreach \x in {-.51,-.20,.10} {\fill[pvink] (\x,0) circle (.033);}
-  \fill[pvblue!70] (.23,-.05) rectangle ({.23+\bar},.05);
- \end{scope}
-}
-\draw[flow] (10.30,1.56)--(10.65,1.56);
-\path[draw=pvink,fill=pvblue!5,line width=.85pt]
- (10.68,2.14)--(11.47,2.14)--(11.20,1.53)--(11.20,1.22)--(10.95,1.22)--(10.95,1.53)--cycle;
-\draw[flow] (11.08,1.13)--(11.08,.75)--(11.57,.75);
-\pic at (12.05,.75) {library};
-\node[label,text=pvorange] at (11.66,.13) {Augmented paths};
-\draw[flow,line width=1pt] (12.57,.75)--(13.08,.75)--(13.08,.79)--(14.23,.79);
+\node[small,anchor=west] at (3.27,6.17) {1\; Neighbors};
+\node[minias] (c_s) at (5.14,6.17) {$s$};
+\node[minias] (c_1) at (5.91,6.41) {$n_1$};
+\node[minias] (c_2) at (5.91,6.17) {$n_2$};
+\node[minias] (c_3) at (5.91,5.93) {$n_3$};
+\draw[miniflow,draw=pvline] (c_s)--(c_1);
+\draw[miniflow,draw=pvline] (c_s)--(c_2);
+\draw[miniflow,draw=pvline] (c_s)--(c_3);
 
+\node[small,anchor=west] at (3.27,5.25) {2\; Select};
+\node[miniprefix] (r_s) at (4.92,5.25) {$s$};
+\node[miniprefix] (r_1) at (5.82,5.51) {$n_1$};
+\node[miniprefix] (r_2) at (5.82,5.25) {$n_2$};
+\node[minias,draw=pvline,text=pvline] (r_3) at (5.82,4.99) {$n_3$};
+\draw[miniblue] (r_s)--(r_1);
+\draw[miniblue] (r_s)--(r_2);
+\draw[miniflow,draw=pvline,dashed] (r_s)--(r_3);
 
-% Query candidates and training share exactly the selected source tree.
-\node[label] at (15.06,2.78) {Query $(s,d)$};
-\draw[flow] (15.06,2.48)--(15.06,1.45);
-\pic at (15.06,.79) {chip};
-\draw[flow] (15.06,.20)--(15.06,-.14);
-\foreach \x [count=\i] in {13.74,14.40,15.06,15.72,16.38} {
- \node[circle,draw=pvblue,fill=pvblue!9,minimum size=.12cm,inner sep=0pt] (out\i) at (\x,-.33) {};
-}
-\foreach \i/\j in {1/2,2/3,3/4,4/5} {\draw[pvblue,line width=1pt,->] (out\i)--(out\j);}
-\node[label,text=pvblue] at (15.06,-.74) {Estimated AS path};
-\draw[->,pvblue,line width=.8pt,dash pattern=on 3pt off 2pt]
- (1.68,-.28)--(1.68,-.94)--(13.46,-.94)--(13.46,.55)--(14.23,.55);
-\node[label,fill=white,inner xsep=4pt,text=pvblue] at (7.41,-.94)
- {Same selected prefix tree for training and query candidates};
+\node[small,anchor=west] at (3.27,4.38) {3\; Recurse};
+\node[miniprefix] (t_s) at (4.92,4.38) {$s$};
+\node[miniprefix] (t_1) at (5.38,4.52) {$n_1$};
+\node[miniprefix] (t_2) at (5.38,4.17) {$n_2$};
+\node[miniprefix] (t_a) at (5.98,4.60) {$a$};
+\node[miniprefix] (t_b) at (5.98,4.27) {$b$};
+\draw[miniblue] (t_s)--(t_1);
+\draw[miniblue] (t_s)--(t_2);
+\draw[miniblue,dashed] (t_1)--(t_a);
+\draw[miniblue,dashed] (t_1)--(t_b);
+
+\node[small,text=pvblue] at (7.47,6.23) {Prefix};
+\node[small] at (9.08,6.23) {Observed tail};
+\node[miniprefix] (ps) at (7.00,5.65) {$s$};
+\node[miniprefix] (pn) at (7.53,5.65) {$n$};
+\node[miniprefix] (pa) at (8.06,5.65) {$a$};
+\node[minias] (ta) at (8.75,5.65) {$a$};
+\node[minias] (tb) at (9.28,5.65) {$b$};
+\node[minias] (td) at (9.81,5.65) {$d$};
+\draw[miniblue] (ps)--(pn);
+\draw[miniblue] (pn)--(pa);
+\draw[miniflow] (ta)--(tb);
+\draw[miniflow] (tb)--(td);
+\node[small] at (8.41,5.65) {$\oplus$};
+\draw[flow] (8.41,5.38)--(8.41,5.02);
+\node[minias] (js) at (6.95,4.74) {$s$};
+\node[minias] (jn) at (7.55,4.74) {$n$};
+\node[minias] (ja) at (8.15,4.74) {$a$};
+\node[minias] (jb) at (8.75,4.74) {$b$};
+\node[minias] (jd) at (9.35,4.74) {$d$};
+\draw[miniblue] (js)--(jn);
+\draw[miniblue] (jn)--(ja);
+\draw[miniflow] (ja)--(jb);
+\draw[miniflow] (jb)--(jd);
+\node[small] at (8.31,4.20) {Join at anchor $a$};
+
+\node[small,anchor=west] at (10.68,6.20) {Path};
+\node[minias] (rp1) at (11.65,6.20) {$s$};
+\node[minias] (rp2) at (12.19,6.20) {$n$};
+\node[minias] (rp3) at (12.73,6.20) {$a$};
+\node[minias] (rp4) at (13.27,6.20) {$d$};
+\draw[miniflow] (rp1)--(rp2);
+\draw[miniflow] (rp2)--(rp3);
+\draw[miniflow] (rp3)--(rp4);
+\node[small,anchor=west] at (10.68,5.57) {$\phi(P)$};
+\foreach \x/\name in {11.62/AS,12.16/hop,12.70/dst,13.24/obs}
+ {\node[frame,fill=pvblue!5,minimum width=.48cm,minimum height=.27cm,
+        inner sep=0pt,font=\fontsize{8}{9}\selectfont]
+   at (\x,5.57) {\name};}
+\node[small] at (12.18,4.94) {$q(P)=h_\theta(\phi(P))$};
+\draw[pvline,fill=white,line width=.6pt,rounded corners=.7pt]
+ (11.17,4.47) rectangle (13.22,4.63);
+\fill[pvteal] (11.23,4.52) rectangle (12.64,4.58);
+\draw[pvorange,dashed,line width=.7pt] (12.06,4.41)--(12.06,4.68);
+\node[small] at (12.19,4.12) {$\widetilde q_s(P)\geq\tau_s$: admit};
+\draw[frame] (14.55,3.55) rectangle (17.55,7.35);
+\node[label] at (16.05,6.93) {Augmented Paths};
+\node[minias,draw=pvblue,fill=pvblue!8] (p1s) at (15.00,6.10) {$s$};
+\node[minias,draw=pvblue,fill=pvblue!8] (p1n) at (15.70,6.10) {$n_1$};
+\node[minias,draw=pvblue,fill=pvblue!8] (p1a) at (16.40,6.10) {$a$};
+\node[minias,draw=pvblue,fill=pvblue!8] (p1d) at (17.10,6.10) {$d_1$};
+\foreach \u/\v in {p1s/p1n,p1n/p1a,p1a/p1d}
+ {\draw[miniflow,draw=pvblue] (\u)--(\v);}
+\node[minias,draw=pvteal,fill=pvteal!8] (p2s) at (14.84,5.42) {$s$};
+\node[minias,draw=pvteal,fill=pvteal!8] (p2n) at (15.43,5.42) {$n_2$};
+\node[minias,draw=pvteal,fill=pvteal!8] (p2b) at (16.02,5.42) {$b$};
+\node[minias,draw=pvteal,fill=pvteal!8] (p2c) at (16.61,5.42) {$c$};
+\node[minias,draw=pvteal,fill=pvteal!8] (p2d) at (17.20,5.42) {$d_2$};
+\foreach \u/\v in {p2s/p2n,p2n/p2b,p2b/p2c,p2c/p2d}
+ {\draw[miniflow,draw=pvteal] (\u)--(\v);}
+\node[minias,draw=pvorange,fill=pvorange!8] (p3s) at (14.84,4.74) {$s$};
+\node[minias,draw=pvorange,fill=pvorange!8] (p3n) at (15.31,4.74) {$n_1$};
+\node[minias,draw=pvorange,fill=pvorange!8] (p3e) at (15.78,4.74) {$e$};
+\node[minias,draw=pvorange,fill=pvorange!8] (p3f) at (16.25,4.74) {$f$};
+\node[minias,draw=pvorange,fill=pvorange!8] (p3g) at (16.72,4.74) {$g$};
+\node[minias,draw=pvorange,fill=pvorange!8] (p3d) at (17.19,4.74) {$d_3$};
+\foreach \u/\v in {p3s/p3n,p3n/p3e,p3e/p3f,p3f/p3g,p3g/p3d}
+ {\draw[miniflow,draw=pvorange] (\u)--(\v);}
+\node[small] at (16.05,4.06) {Source-rooted AS paths};
+\draw[flow] (13.95,5.42)--(14.55,5.42);
+
+% Public evidence and the tree guide generation; augmented paths train the estimator.
+\draw[frame,fill=pvteal!1] (-.06,1.28) rectangle (17.55,3.12);
+\node[label,fill=white,inner xsep=7pt] at (1.25,3.12) {Path Inference};
+\node[frame,minimum width=1.82cm,minimum height=.72cm] (query)
+ at (1.30,1.83) {Query $(s,d)$};
+\node[frame,minimum width=3.22cm,minimum height=.72cm,
+      align=center] (generator) at (5.17,1.83)
+ {Prefix-Tree-Constrained\\Path Generation};
+\node[frame,minimum width=2.96cm,minimum height=.72cm,
+      align=center] (estimator) at (11.30,1.83)
+ {Path Likelihood\\Estimator};
+\node[frame,draw=pvteal,fill=pvteal!7,
+      minimum width=2.18cm,minimum height=.72cm] (output)
+ at (15.75,1.83) {Inferred Path};
+\draw[flow] (query.east)--(generator.west);
+\draw[flow] (generator.east)--node[small,above,fill=white,inner sep=1pt]
+ {$\mathcal C_{s,d}$} (estimator.west);
+\draw[flow] (estimator.east)--(output.west);
+
+\draw[evidence] (4.69,3.75)--(4.69,2.19);
+\node[small,text=pvblue,fill=white,inner sep=1pt] at (4.69,2.65)
+ {$\mathcal T_s$};
+\draw[evidence] (1.30,3.55)--(1.30,3.34)--(3.72,3.34)--(3.72,2.19);
+\node[small,text=pvblue,fill=white,inner sep=1pt] at (2.52,3.34)
+ {Public graph/tails};
+\draw[training] (16.05,3.55)--(16.05,3.34)--(11.30,3.34)
+ --(estimator.north);
 \end{tikzpicture}
 \end{document}

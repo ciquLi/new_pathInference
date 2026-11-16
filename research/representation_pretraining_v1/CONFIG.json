@@ -1,0 +1,26 @@
+{
+  "name": "representation_pretraining_v1",
+  "date": "20260201",
+  "source_snapshot": "runs/20260201/path_sequence_confidence_v1/SNAPSHOT.json",
+  "cold_control": "runs/20260201/path_sequence_confidence_v1",
+  "gmpi_control": "runs/20260201/gmpi_confidence_v1",
+  "frozen_candidate_run": "runs/20260201/candidate_scorer_v1",
+  "sources": ["19529", "328840", "16552", "32590", "34927", "42473", "49544", "58057", "199524", "398465"],
+  "variants": ["as_context", "as_and_path"],
+  "label_temperature": 0.1,
+  "architecture": {"width": 64, "heads": 4, "layers": 2, "feedforward": 128, "dropout": 0.1, "max_length": 20},
+  "pretraining": {
+    "as_context": {"epochs": 10, "lr": 0.001, "batch_size": 256, "negatives": 64, "temperature": 0.1, "gradient_clip": 1.0},
+    "path_context": {"epochs": 15, "lr": 0.0003, "batch_size": 128, "negatives": 64, "temperature": 0.1, "contrastive_weight": 0.1, "gradient_clip": 1.0}
+  },
+  "device": "cuda",
+  "cpu_threads": 2,
+  "cpu_affinity": [6, 7],
+  "gpu_workers": 1,
+  "seed": 20261015,
+  "corpus": "same admitted library, whole paths with endpoints in train_pairs only",
+  "pretraining_checkpoint": "fixed epochs, no validation or test selection",
+  "finetuning": "unchanged cold control per-source arguments, query soft-label CE and pair-disjoint weak validation",
+  "candidates_regenerated": false,
+  "final_labels_used_for_tuning": false
+}

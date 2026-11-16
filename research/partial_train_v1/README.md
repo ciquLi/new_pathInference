@@ -17,3 +17,13 @@ bash research/partial_train_v1/run.sh
 ```
 
 数值实现位于 `src/pathInference/research/partial_train.py`，正式入口不会导入它。输出为 `runs/YYYYMMDD/partial_train_v1/fixed25/`，总进度和对照表为 `runs/batches/partial_train_v1/`。日期按顺序执行；每日期只生成两个AS的候选。GMPI使用GPU，候选生成使用CPU。可用相同入口续跑，已完成阶段均需校验身份和输出哈希。
+
+五日期首轮现已全部完成。宏平均Jaccard：AS34927为83.4508% → 85.1859%（+1.7351个百分点），AS58057为76.1315% → 72.8215%（-3.3100个百分点）。AS34927前3期提高、后2期略降，AS58057五期均下降；暂不将此规则并入正式方法。
+
+最终审计及五日期逐查询诊断使用独立维护工具，不启动训练、不改写输入和历史基线：
+
+```bash
+python -B tools/validation/verify_partial_train.py
+```
+
+最终报告为 `runs/batches/partial_train_v1/REPORT.md`；`FINAL_AUDIT.json`记录参考/查询身份、独立重评分、树、库、检查点边界；`FINAL_SUMMARY.json`记录完整数值及宏平均。`PAIRED_DIAGNOSTICS.json`和`NEW_DESTINATION_DIAGNOSTICS.json`提供后验解释，不能用于自动调整已固定的吸纳规则。

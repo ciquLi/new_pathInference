@@ -5,29 +5,31 @@
 \begin{algorithmic}[1]
 \Require Source $s$, public topology $G$, independent tails $\mathcal T$
 \Require Neighbor heads $g$, conditional ranker $g_c$, path scorer $h_\theta$
-\Require Root budget $\kappa$ ($21$ in the evaluated protocol)
+\Require Core width $k_0$, root budget $\kappa$, recursion width $k_r$
+\Require Regime boundary $\rho_0$, support gate $\eta$, tail gate $\gamma$
+\Require Quality threshold $\tau_0$ and requested minimum $B$
 \Ensure Prefix tree $\mathcal T_s$ and admitted library $\mathcal L_s$, or unresolved
 \If{$b_1(s)=0$}
   \State \Return unresolved
 \EndIf
 \State $\rho\gets b_2(s)/b_1(s)^2$
-\State $K\gets\operatorname{Top}_3(g_{\rm pub}(s))\cup\operatorname{Top}_3(g_{\rm str}(s))$
-\If{$\rho\leq1$}
-  \State $N\gets\Call{ProtectedSupportPrefix}{s,K,\kappa,0.7}$
+\State $K\gets\operatorname{Top}_{k_0}(g_{\rm pub}(s))\cup\operatorname{Top}_{k_0}(g_{\rm str}(s))$
+\If{$\rho\leq\rho_0$}
+  \State $N\gets\Call{ProtectedSupportPrefix}{s,K,\kappa,\eta}$
 \Else
   \State $N\gets K$
 \EndIf
 \State $Q\gets\emptyset$
 \ForAll{$n\in N$}
-  \State $q\gets(s,n)$; $c\gets\Call{UsableTailCount}{q,\mathcal T,300}$
-  \If{$\rho\leq1$ and $c>0$}
+  \State $q\gets(s,n)$; $c\gets\Call{UsableTailCount}{q,\mathcal T,\gamma}$
+  \If{$\rho\leq\rho_0$ and $c>0$}
     \State $Q\gets Q\cup\{q\}$
   \EndIf
-  \If{$\rho>1$ or $c<300$}
-    \State $A\gets\Call{SupportedTopK}{g_c(s,q),10}$
+  \If{$\rho>\rho_0$ or $c<\gamma$}
+    \State $A\gets\Call{SupportedTopK}{g_c(s,q),k_r}$
     \ForAll{$a\in A$ with $a\notin q$}
       \State $q'\gets q\mathbin{\|}(a)$
-      \If{$\rho>1$ or $\Call{UsableTailCount}{q',\mathcal T,1}>0$}
+      \If{$\rho>\rho_0$ or $\Call{UsableTailCount}{q',\mathcal T,1}>0$}
         \State $Q\gets Q\cup\{q'\}$
       \EndIf
     \EndFor
@@ -38,11 +40,15 @@
 \State $\mathcal B\gets\Call{ConstructionRepresentatives}{\mathcal B}$
 \State $\mathcal B\gets\Call{ProtectedDestinationBudget}{\mathcal B}$
 \State $(\mathcal B,q)\gets\Call{DeduplicateAndScore}{\mathcal B,h_\theta}$
-\If{$|\mathcal B|<1000$ or $q_{(1000)}\leq0$}
+\If{$\mathop{\mathrm{max}}_{P\in\mathcal B}q(P)\leq0$}
   \State \Return unresolved \Comment{retain failure provenance}
 \EndIf
+\If{$|\mathcal B|<B$}
+  \State $\mathcal L_s\gets\mathcal B$ \Comment{retain all positive-scored legal candidates}
+  \State \Return $\mathcal T_s,\mathcal L_s$
+\EndIf
 \State $\widetilde q(P)\gets q(P)/\max_{P'\in\mathcal B}q(P')$
-\State $\tau\gets\min\{0.75,\widetilde q_{(1000)}\}$
+\State $\tau\gets\min\{\tau_0,\widetilde q_{(B)}\}$
 \State $\mathcal L_s\gets\{P\in\mathcal B:\widetilde q(P)\geq\tau\}$
 \State \Return $\mathcal T_s,\mathcal L_s$ \Comment{retain all cutoff ties and path provenance}
 \end{algorithmic}

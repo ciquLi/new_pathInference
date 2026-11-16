@@ -1,0 +1,1697 @@
+{
+  "aggregation": "query-weighted within each source across available dates",
+  "by_date": {
+    "20260201": {
+      "16552": {
+        "current": {
+          "queries": 67397,
+          "accuracy_sum": 56719.76125540728,
+          "esr_count": 39462,
+          "oracle_accuracy": 0.9874670934458584
+        },
+        "legacy_generator": {
+          "queries": 67397,
+          "accuracy_sum": 52407.79995559284,
+          "esr_count": 25906,
+          "oracle_accuracy": 0.9083372687012778
+        },
+        "no_recursion": {
+          "queries": 67397,
+          "accuracy_sum": 58399.453679652805,
+          "esr_count": 41724,
+          "oracle_accuracy": 0.9871036089680966
+        },
+        "all_recursion": {
+          "queries": 67397,
+          "accuracy_sum": 58166.260894660016,
+          "esr_count": 42241,
+          "oracle_accuracy": 0.9875995509239686
+        }
+      },
+      "19529": {
+        "current": {
+          "queries": 68211,
+          "accuracy_sum": 57898.77563823918,
+          "esr_count": 40019,
+          "oracle_accuracy": 0.9942184985770314
+        },
+        "legacy_generator": {
+          "queries": 68211,
+          "accuracy_sum": 53862.09648683321,
+          "esr_count": 29941,
+          "oracle_accuracy": 0.9448714880027739
+        },
+        "no_recursion": {
+          "queries": 68211,
+          "accuracy_sum": 46844.58679930157,
+          "esr_count": 13310,
+          "oracle_accuracy": 0.7204939901105272
+        },
+        "all_recursion": {
+          "queries": 68211,
+          "accuracy_sum": 57898.77563823918,
+          "esr_count": 40019,
+          "oracle_accuracy": 0.9942184985770314
+        }
+      },
+      "199524": {
+        "current": {
+          "queries": 70019,
+          "accuracy_sum": 62708.71749639435,
+          "esr_count": 46630,
+          "oracle_accuracy": 0.9872054744489385
+        },
+        "legacy_generator": {
+          "queries": 70019,
+          "accuracy_sum": 56901.45869130778,
+          "esr_count": 27943,
+          "oracle_accuracy": 0.9544418102388346
+        },
+        "no_recursion": {
+          "queries": 70019,
+          "accuracy_sum": 62791.667712845745,
+          "esr_count": 46618,
+          "oracle_accuracy": 0.9870957629373218
+        },
+        "all_recursion": {
+          "queries": 70019,
+          "accuracy_sum": 61640.148989900496,
+          "esr_count": 42860,
+          "oracle_accuracy": 0.9875416447982472
+        }
+      },
+      "32590": {
+        "current": {
+          "queries": 70283,
+          "accuracy_sum": 62329.376226557426,
+          "esr_count": 43375,
+          "oracle_accuracy": 0.98719622938959
+        },
+        "legacy_generator": {
+          "queries": 70283,
+          "accuracy_sum": 59220.38070263483,
+          "esr_count": 34508,
+          "oracle_accuracy": 0.9464672524001257
+        },
+        "no_recursion": {
+          "queries": 70283,
+          "accuracy_sum": 61344.41284271977,
+          "esr_count": 39644,
+          "oracle_accuracy": 0.9870192013245944
+        },
+        "all_recursion": {
+          "queries": 70283,
+          "accuracy_sum": 59773.609343437514,
+          "esr_count": 35563,
+          "oracle_accuracy": 0.9872932577526993
+        }
+      },
+      "328840": {
+        "current": {
+          "queries": 69263,
+          "accuracy_sum": 57716.67867409867,
+          "esr_count": 39602,
+          "oracle_accuracy": 0.9922243534009703
+        },
+        "legacy_generator": {
+          "queries": 69263,
+          "accuracy_sum": 50854.97993116784,
+          "esr_count": 20945,
+          "oracle_accuracy": 0.924887484841521
+        },
+        "no_recursion": {
+          "queries": 69263,
+          "accuracy_sum": 39193.23095515519,
+          "esr_count": 9587,
+          "oracle_accuracy": 0.7171471533309262
+        },
+        "all_recursion": {
+          "queries": 69263,
+          "accuracy_sum": 57716.67867409867,
+          "esr_count": 39602,
+          "oracle_accuracy": 0.9922243534009703
+        }
+      },
+      "34927": {
+        "current": {
+          "queries": 67926,
+          "accuracy_sum": 55258.75566378161,
+          "esr_count": 30739,
+          "oracle_accuracy": 0.9896474870008691
+        },
+        "legacy_generator": {
+          "queries": 67926,
+          "accuracy_sum": 51152.01291485942,
+          "esr_count": 20045,
+          "oracle_accuracy": 0.8843616874853955
+        },
+        "no_recursion": {
+          "queries": 67926,
+          "accuracy_sum": 55580.36565379567,
+          "esr_count": 31285,
+          "oracle_accuracy": 0.9760154241571889
+        },
+        "all_recursion": {
+          "queries": 67926,
+          "accuracy_sum": 55758.75450938242,
+          "esr_count": 31986,
+          "oracle_accuracy": 0.9896514128417353
+        }
+      },
+      "398465": {
+        "current": {
+          "queries": 67672,
+          "accuracy_sum": 55845.45321622698,
+          "esr_count": 35168,
+          "oracle_accuracy": 0.9940728537677811
+        },
+        "legacy_generator": {
+          "queries": 67672,
+          "accuracy_sum": 48291.561535682486,
+          "esr_count": 16539,
+          "oracle_accuracy": 0.9035656275231014
+        },
+        "no_recursion": {
+          "queries": 67672,
+          "accuracy_sum": 57251.287626264144,
+          "esr_count": 39613,
+          "oracle_accuracy": 0.9939509869735831
+        },
+        "all_recursion": {
+          "queries": 67672,
+          "accuracy_sum": 55738.68354978204,
+          "esr_count": 35688,
+          "oracle_accuracy": 0.9942758957901864
+        }
+      },
+      "42473": {
+        "current": {
+          "queries": 68858,
+          "accuracy_sum": 56833.4721861421,
+          "esr_count": 36620,
+          "oracle_accuracy": 0.9816021449626195
+        },
+        "legacy_generator": {
+          "queries": 68858,
+          "accuracy_sum": 53086.60803525866,
+          "esr_count": 25705,
+          "oracle_accuracy": 0.8993908328884558
+        },
+        "no_recursion": {
+          "queries": 68858,
+          "accuracy_sum": 56250.66948051272,
+          "esr_count": 35431,
+          "oracle_accuracy": 0.9812285332631646
+        },
+        "all_recursion": {
+          "queries": 68858,
+          "accuracy_sum": 57357.175577195834,
+          "esr_count": 38212,
+          "oracle_accuracy": 0.9822908062840306
+        }
+      },
+      "49544": {
+        "current": {
+          "queries": 69802,
+          "accuracy_sum": 62200.24076479396,
+          "esr_count": 45717,
+          "oracle_accuracy": 0.9779129601921207
+        },
+        "legacy_generator": {
+          "queries": 69802,
+          "accuracy_sum": 54221.185964032906,
+          "esr_count": 21165,
+          "oracle_accuracy": 0.9113567730005135
+        },
+        "no_recursion": {
+          "queries": 69802,
+          "accuracy_sum": 61476.07395382687,
+          "esr_count": 43798,
+          "oracle_accuracy": 0.9771376435709123
+        },
+        "all_recursion": {
+          "queries": 69802,
+          "accuracy_sum": 59992.77925685655,
+          "esr_count": 38694,
+          "oracle_accuracy": 0.9780640466935264
+        }
+      },
+      "58057": {
+        "current": {
+          "queries": 66389,
+          "accuracy_sum": 52157.855772002724,
+          "esr_count": 31129,
+          "oracle_accuracy": 0.9789610633049154
+        },
+        "legacy_generator": {
+          "queries": 66389,
+          "accuracy_sum": 48203.81479059852,
+          "esr_count": 21011,
+          "oracle_accuracy": 0.8617450501684613
+        },
+        "no_recursion": {
+          "queries": 66389,
+          "accuracy_sum": 52229.34044011158,
+          "esr_count": 31197,
+          "oracle_accuracy": 0.9866402777524904
+        },
+        "all_recursion": {
+          "queries": 66389,
+          "accuracy_sum": 52199.59691141919,
+          "esr_count": 30573,
+          "oracle_accuracy": 0.9790051815813459
+        }
+      }
+    },
+    "20260301": {
+      "16552": {
+        "current": {
+          "queries": 67691,
+          "accuracy_sum": 58847.58401598176,
+          "esr_count": 43008,
+          "oracle_accuracy": 0.9872199456221077
+        },
+        "legacy_generator": {
+          "queries": 67691,
+          "accuracy_sum": 53824.111829829024,
+          "esr_count": 30608,
+          "oracle_accuracy": 0.9047414117367816
+        },
+        "no_recursion": {
+          "queries": 67691,
+          "accuracy_sum": 58071.47835497545,
+          "esr_count": 40806,
+          "oracle_accuracy": 0.9868065336281336
+        },
+        "all_recursion": {
+          "queries": 67691,
+          "accuracy_sum": 59317.00813353145,
+          "esr_count": 44613,
+          "oracle_accuracy": 0.987405628321712
+        }
+      },
+      "19529": {
+        "current": {
+          "queries": 68226,
+          "accuracy_sum": 57273.96097790133,
+          "esr_count": 39716,
+          "oracle_accuracy": 0.9955018486644975
+        },
+        "legacy_generator": {
+          "queries": 68226,
+          "accuracy_sum": 44085.27504438435,
+          "esr_count": 6195,
+          "oracle_accuracy": 0.9448769068217902
+        },
+        "no_recursion": {
+          "queries": 68226,
+          "accuracy_sum": 48516.3248001903,
+          "esr_count": 17389,
+          "oracle_accuracy": 0.73031212135933
+        },
+        "all_recursion": {
+          "queries": 68226,
+          "accuracy_sum": 57273.96097790133,
+          "esr_count": 39716,
+          "oracle_accuracy": 0.9955018486644975
+        }
+      },
+      "199524": {
+        "current": {
+          "queries": 69993,
+          "accuracy_sum": 63728.02319625123,
+          "esr_count": 49651,
+          "oracle_accuracy": 0.987418967226952
+        },
+        "legacy_generator": {
+          "queries": 69993,
+          "accuracy_sum": 61135.25591630493,
+          "esr_count": 42828,
+          "oracle_accuracy": 0.9543247702424703
+        },
+        "no_recursion": {
+          "queries": 69993,
+          "accuracy_sum": 63269.17918470723,
+          "esr_count": 48240,
+          "oracle_accuracy": 0.9872120638161572
+        },
+        "all_recursion": {
+          "queries": 69993,
+          "accuracy_sum": 62648.77683982849,
+          "esr_count": 46417,
+          "oracle_accuracy": 0.9876809126134085
+        }
+      },
+      "32590": {
+        "current": {
+          "queries": 70400,
+          "accuracy_sum": 62866.71821790166,
+          "esr_count": 43636,
+          "oracle_accuracy": 0.9876520352674598
+        },
+        "legacy_generator": {
+          "queries": 70400,
+          "accuracy_sum": 61251.20242535758,
+          "esr_count": 40027,
+          "oracle_accuracy": 0.9528360404983742
+        },
+        "no_recursion": {
+          "queries": 70400,
+          "accuracy_sum": 63726.58405484473,
+          "esr_count": 46022,
+          "oracle_accuracy": 0.9875354181014828
+        },
+        "all_recursion": {
+          "queries": 70400,
+          "accuracy_sum": 62969.713059172354,
+          "esr_count": 43408,
+          "oracle_accuracy": 0.9877207192665409
+        }
+      },
+      "328840": {
+        "current": {
+          "queries": 69171,
+          "accuracy_sum": 54304.34721111426,
+          "esr_count": 33059,
+          "oracle_accuracy": 0.9376221192784036
+        },
+        "legacy_generator": {
+          "queries": 69171,
+          "accuracy_sum": 50628.72594071458,
+          "esr_count": 23728,
+          "oracle_accuracy": 0.9168787697758393
+        },
+        "no_recursion": {
+          "queries": 69171,
+          "accuracy_sum": 43906.505960698385,
+          "esr_count": 20349,
+          "oracle_accuracy": 0.6648454701886225
+        },
+        "all_recursion": {
+          "queries": 69171,
+          "accuracy_sum": 54304.34721111426,
+          "esr_count": 33059,
+          "oracle_accuracy": 0.9376221192784036
+        }
+      },
+      "34927": {
+        "current": {
+          "queries": 67952,
+          "accuracy_sum": 57210.9896076182,
+          "esr_count": 38075,
+          "oracle_accuracy": 0.9895882334478862
+        },
+        "legacy_generator": {
+          "queries": 67952,
+          "accuracy_sum": 54756.14342879477,
+          "esr_count": 30120,
+          "oracle_accuracy": 0.8898353048677393
+        },
+        "no_recursion": {
+          "queries": 67952,
+          "accuracy_sum": 57195.85789488659,
+          "esr_count": 36419,
+          "oracle_accuracy": 0.9733562117186242
+        },
+        "all_recursion": {
+          "queries": 67952,
+          "accuracy_sum": 56629.7723665265,
+          "esr_count": 34578,
+          "oracle_accuracy": 0.9896404820472706
+        }
+      },
+      "398465": {
+        "current": {
+          "queries": 67839,
+          "accuracy_sum": 54400.30598845522,
+          "esr_count": 28499,
+          "oracle_accuracy": 0.9943471691006323
+        },
+        "legacy_generator": {
+          "queries": 67839,
+          "accuracy_sum": 50024.2217254927,
+          "esr_count": 19571,
+          "oracle_accuracy": 0.8961690009848684
+        },
+        "no_recursion": {
+          "queries": 67839,
+          "accuracy_sum": 56136.77857143008,
+          "esr_count": 33588,
+          "oracle_accuracy": 0.9941206103867001
+        },
+        "all_recursion": {
+          "queries": 67839,
+          "accuracy_sum": 54779.070271394536,
+          "esr_count": 30385,
+          "oracle_accuracy": 0.9945801053836271
+        }
+      },
+      "42473": {
+        "current": {
+          "queries": 68270,
+          "accuracy_sum": 57022.73607503659,
+          "esr_count": 37738,
+          "oracle_accuracy": 0.9767123731614132
+        },
+        "legacy_generator": {
+          "queries": 68270,
+          "accuracy_sum": 52437.22344044565,
+          "esr_count": 26478,
+          "oracle_accuracy": 0.8759818781304164
+        },
+        "no_recursion": {
+          "queries": 68270,
+          "accuracy_sum": 56362.747222223246,
+          "esr_count": 35458,
+          "oracle_accuracy": 0.976297576298692
+        },
+        "all_recursion": {
+          "queries": 68270,
+          "accuracy_sum": 54912.32352092174,
+          "esr_count": 33225,
+          "oracle_accuracy": 0.9778744855066887
+        }
+      },
+      "49544": {
+        "current": {
+          "queries": 69904,
+          "accuracy_sum": 61558.21186868959,
+          "esr_count": 43351,
+          "oracle_accuracy": 0.9777599900353927
+        },
+        "legacy_generator": {
+          "queries": 69904,
+          "accuracy_sum": 56891.544186367115,
+          "esr_count": 29796,
+          "oracle_accuracy": 0.9069905894648128
+        },
+        "no_recursion": {
+          "queries": 69904,
+          "accuracy_sum": 60228.92867965601,
+          "esr_count": 40484,
+          "oracle_accuracy": 0.9770401562051525
+        },
+        "all_recursion": {
+          "queries": 69904,
+          "accuracy_sum": 61508.46020923773,
+          "esr_count": 43719,
+          "oracle_accuracy": 0.9778708336594826
+        }
+      },
+      "58057": {
+        "current": {
+          "queries": 66319,
+          "accuracy_sum": 50913.78037240477,
+          "esr_count": 28283,
+          "oracle_accuracy": 0.978966181471927
+        },
+        "legacy_generator": {
+          "queries": 66319,
+          "accuracy_sum": 48801.67264401951,
+          "esr_count": 24143,
+          "oracle_accuracy": 0.888920681309604
+        },
+        "no_recursion": {
+          "queries": 66319,
+          "accuracy_sum": 53785.269669218666,
+          "esr_count": 35723,
+          "oracle_accuracy": 0.9868033243581538
+        },
+        "all_recursion": {
+          "queries": 66319,
+          "accuracy_sum": 50912.66731323726,
+          "esr_count": 27733,
+          "oracle_accuracy": 0.9790512968856051
+        }
+      }
+    },
+    "20260401": {
+      "16552": {
+        "current": {
+          "queries": 67887,
+          "accuracy_sum": 59333.57815517746,
+          "esr_count": 45272,
+          "oracle_accuracy": 0.986315054868691
+        },
+        "legacy_generator": {
+          "queries": 67887,
+          "accuracy_sum": 53088.40603284617,
+          "esr_count": 28821,
+          "oracle_accuracy": 0.9092290390469527
+        },
+        "no_recursion": {
+          "queries": 67887,
+          "accuracy_sum": 59489.35097402694,
+          "esr_count": 45443,
+          "oracle_accuracy": 0.9860311005953888
+        },
+        "all_recursion": {
+          "queries": 67887,
+          "accuracy_sum": 59649.20520312916,
+          "esr_count": 44776,
+          "oracle_accuracy": 0.9865123364858311
+        }
+      },
+      "19529": {
+        "current": {
+          "queries": 68502,
+          "accuracy_sum": 55970.852791640864,
+          "esr_count": 37346,
+          "oracle_accuracy": 0.9941982629871284
+        },
+        "legacy_generator": {
+          "queries": 68502,
+          "accuracy_sum": 42991.99203360954,
+          "esr_count": 6292,
+          "oracle_accuracy": 0.9336371523865734
+        },
+        "no_recursion": {
+          "queries": 68502,
+          "accuracy_sum": 45244.899181365065,
+          "esr_count": 11494,
+          "oracle_accuracy": 0.6894298380501527
+        },
+        "all_recursion": {
+          "queries": 68502,
+          "accuracy_sum": 55970.852791640864,
+          "esr_count": 37346,
+          "oracle_accuracy": 0.9941982629871284
+        }
+      },
+      "199524": {
+        "current": {
+          "queries": 70376,
+          "accuracy_sum": 63518.44960317796,
+          "esr_count": 47961,
+          "oracle_accuracy": 0.9853525134966962
+        },
+        "legacy_generator": {
+          "queries": 70376,
+          "accuracy_sum": 60170.95732323041,
+          "esr_count": 38189,
+          "oracle_accuracy": 0.9520921811585858
+        },
+        "no_recursion": {
+          "queries": 70376,
+          "accuracy_sum": 61399.63668831256,
+          "esr_count": 41189,
+          "oracle_accuracy": 0.9852078032690034
+        },
+        "all_recursion": {
+          "queries": 70376,
+          "accuracy_sum": 62823.69693362393,
+          "esr_count": 45913,
+          "oracle_accuracy": 0.9858979059555248
+        }
+      },
+      "32590": {
+        "current": {
+          "queries": 70591,
+          "accuracy_sum": 61554.49458874839,
+          "esr_count": 40315,
+          "oracle_accuracy": 0.9864377089795475
+        },
+        "legacy_generator": {
+          "queries": 70591,
+          "accuracy_sum": 60434.29072871845,
+          "esr_count": 37436,
+          "oracle_accuracy": 0.9508829701415066
+        },
+        "no_recursion": {
+          "queries": 70591,
+          "accuracy_sum": 62906.07056277533,
+          "esr_count": 44210,
+          "oracle_accuracy": 0.9863396171070082
+        },
+        "all_recursion": {
+          "queries": 70591,
+          "accuracy_sum": 60790.84826840149,
+          "esr_count": 36988,
+          "oracle_accuracy": 0.9869022112891851
+        }
+      },
+      "328840": {
+        "current": {
+          "queries": 69549,
+          "accuracy_sum": 53266.31777388351,
+          "esr_count": 31003,
+          "oracle_accuracy": 0.9303921514269258
+        },
+        "legacy_generator": {
+          "queries": 69549,
+          "accuracy_sum": 41513.366147728186,
+          "esr_count": 1673,
+          "oracle_accuracy": 0.839054534996342
+        },
+        "no_recursion": {
+          "queries": 69549,
+          "accuracy_sum": 46463.62637916345,
+          "esr_count": 21190,
+          "oracle_accuracy": 0.6933783151829082
+        },
+        "all_recursion": {
+          "queries": 69549,
+          "accuracy_sum": 53266.31777388351,
+          "esr_count": 31003,
+          "oracle_accuracy": 0.9303921514269258
+        }
+      },
+      "34927": {
+        "current": {
+          "queries": 68186,
+          "accuracy_sum": 57915.405916307944,
+          "esr_count": 38728,
+          "oracle_accuracy": 0.9891023095801367
+        },
+        "legacy_generator": {
+          "queries": 68186,
+          "accuracy_sum": 54237.37362637361,
+          "esr_count": 29514,
+          "oracle_accuracy": 0.8851757986764635
+        },
+        "no_recursion": {
+          "queries": 68186,
+          "accuracy_sum": 57215.57129259844,
+          "esr_count": 37017,
+          "oracle_accuracy": 0.9738105840619941
+        },
+        "all_recursion": {
+          "queries": 68186,
+          "accuracy_sum": 57977.64960317787,
+          "esr_count": 39352,
+          "oracle_accuracy": 0.9891446043405552
+        }
+      },
+      "398465": {
+        "current": {
+          "queries": 68145,
+          "accuracy_sum": 55545.94383117263,
+          "esr_count": 30774,
+          "oracle_accuracy": 0.9938090875951352
+        },
+        "legacy_generator": {
+          "queries": 68145,
+          "accuracy_sum": 50696.55967643417,
+          "esr_count": 19566,
+          "oracle_accuracy": 0.901409842308011
+        },
+        "no_recursion": {
+          "queries": 68145,
+          "accuracy_sum": 59119.283694090875,
+          "esr_count": 40571,
+          "oracle_accuracy": 0.9935964754300697
+        },
+        "all_recursion": {
+          "queries": 68145,
+          "accuracy_sum": 55964.28925797035,
+          "esr_count": 32497,
+          "oracle_accuracy": 0.9939693095647332
+        }
+      },
+      "42473": {
+        "current": {
+          "queries": 68428,
+          "accuracy_sum": 55698.158874458924,
+          "esr_count": 38252,
+          "oracle_accuracy": 0.976198202789671
+        },
+        "legacy_generator": {
+          "queries": 68428,
+          "accuracy_sum": 52864.51976911588,
+          "esr_count": 29218,
+          "oracle_accuracy": 0.8730144274416789
+        },
+        "no_recursion": {
+          "queries": 68428,
+          "accuracy_sum": 56267.25934343157,
+          "esr_count": 38820,
+          "oracle_accuracy": 0.9754616010374058
+        },
+        "all_recursion": {
+          "queries": 68428,
+          "accuracy_sum": 56846.09880952164,
+          "esr_count": 40080,
+          "oracle_accuracy": 0.9768849654466758
+        }
+      },
+      "49544": {
+        "current": {
+          "queries": 70082,
+          "accuracy_sum": 60312.76419691661,
+          "esr_count": 38911,
+          "oracle_accuracy": 0.97550781192622
+        },
+        "legacy_generator": {
+          "queries": 70082,
+          "accuracy_sum": 55410.62623487157,
+          "esr_count": 24607,
+          "oracle_accuracy": 0.9104730683546166
+        },
+        "no_recursion": {
+          "queries": 70082,
+          "accuracy_sum": 60555.210317462115,
+          "esr_count": 39943,
+          "oracle_accuracy": 0.9749996234767648
+        },
+        "all_recursion": {
+          "queries": 70082,
+          "accuracy_sum": 60285.65111000338,
+          "esr_count": 39544,
+          "oracle_accuracy": 0.9762135812305599
+        }
+      },
+      "58057": {
+        "current": {
+          "queries": 66556,
+          "accuracy_sum": 49365.02878509911,
+          "esr_count": 24345,
+          "oracle_accuracy": 0.9777872323251912
+        },
+        "legacy_generator": {
+          "queries": 66556,
+          "accuracy_sum": 46239.356232649145,
+          "esr_count": 17466,
+          "oracle_accuracy": 0.8533207918599763
+        },
+        "no_recursion": {
+          "queries": 66556,
+          "accuracy_sum": 53219.9303668555,
+          "esr_count": 34833,
+          "oracle_accuracy": 0.9837784531846471
+        },
+        "all_recursion": {
+          "queries": 66556,
+          "accuracy_sum": 50908.80980963133,
+          "esr_count": 28535,
+          "oracle_accuracy": 0.9778725389775236
+        }
+      }
+    },
+    "20260501": {
+      "16276": {
+        "current": {
+          "queries": 70001,
+          "accuracy_sum": 55211.30030525784,
+          "esr_count": 19148,
+          "oracle_accuracy": 0.961836644964106
+        },
+        "legacy_generator": {
+          "queries": 70001,
+          "accuracy_sum": 54466.931271509806,
+          "esr_count": 20824,
+          "oracle_accuracy": 0.8710700018719616
+        },
+        "no_recursion": {
+          "queries": 70001,
+          "accuracy_sum": 53799.86778499716,
+          "esr_count": 14594,
+          "oracle_accuracy": 0.9616263423613388
+        },
+        "all_recursion": {
+          "queries": 70001,
+          "accuracy_sum": 55302.875502283896,
+          "esr_count": 19459,
+          "oracle_accuracy": 0.9616546938425226
+        }
+      },
+      "16552": {
+        "current": {
+          "queries": 68058,
+          "accuracy_sum": 59120.72250527021,
+          "esr_count": 43525,
+          "oracle_accuracy": 0.9867429251520903
+        },
+        "legacy_generator": {
+          "queries": 68058,
+          "accuracy_sum": 53317.114826830126,
+          "esr_count": 29374,
+          "oracle_accuracy": 0.9008427038136424
+        },
+        "no_recursion": {
+          "queries": 68058,
+          "accuracy_sum": 59771.50295815286,
+          "esr_count": 44353,
+          "oracle_accuracy": 0.9862198334185616
+        },
+        "all_recursion": {
+          "queries": 68058,
+          "accuracy_sum": 59465.83293095549,
+          "esr_count": 44515,
+          "oracle_accuracy": 0.986966745896275
+        }
+      },
+      "19529": {
+        "current": {
+          "queries": 69235,
+          "accuracy_sum": 53541.83061104186,
+          "esr_count": 29667,
+          "oracle_accuracy": 0.9940312487557379
+        },
+        "legacy_generator": {
+          "queries": 69235,
+          "accuracy_sum": 42133.85805859827,
+          "esr_count": 5896,
+          "oracle_accuracy": 0.9331592234426223
+        },
+        "no_recursion": {
+          "queries": 69235,
+          "accuracy_sum": 51973.73147962268,
+          "esr_count": 25592,
+          "oracle_accuracy": 0.7709854073931186
+        },
+        "all_recursion": {
+          "queries": 69235,
+          "accuracy_sum": 53541.83061104186,
+          "esr_count": 29667,
+          "oracle_accuracy": 0.9940312487557379
+        }
+      },
+      "199524": {
+        "current": {
+          "queries": 70958,
+          "accuracy_sum": 62691.09938672538,
+          "esr_count": 45341,
+          "oracle_accuracy": 0.9845513881817065
+        },
+        "legacy_generator": {
+          "queries": 70958,
+          "accuracy_sum": 59360.568290040625,
+          "esr_count": 35210,
+          "oracle_accuracy": 0.95155170851432
+        },
+        "no_recursion": {
+          "queries": 70958,
+          "accuracy_sum": 61724.93333333565,
+          "esr_count": 42496,
+          "oracle_accuracy": 0.984390995657169
+        },
+        "all_recursion": {
+          "queries": 70958,
+          "accuracy_sum": 63774.453210678934,
+          "esr_count": 49370,
+          "oracle_accuracy": 0.9847733280996622
+        }
+      },
+      "32590": {
+        "current": {
+          "queries": 70708,
+          "accuracy_sum": 61689.88383838649,
+          "esr_count": 42740,
+          "oracle_accuracy": 0.9870848733131052
+        },
+        "legacy_generator": {
+          "queries": 70708,
+          "accuracy_sum": 59368.74520202094,
+          "esr_count": 33879,
+          "oracle_accuracy": 0.945761926618858
+        },
+        "no_recursion": {
+          "queries": 70708,
+          "accuracy_sum": 62980.14891775288,
+          "esr_count": 44275,
+          "oracle_accuracy": 0.9870131007870137
+        },
+        "all_recursion": {
+          "queries": 70708,
+          "accuracy_sum": 61284.42034632174,
+          "esr_count": 41827,
+          "oracle_accuracy": 0.9871263998081444
+        }
+      },
+      "328840": {
+        "current": {
+          "queries": 69731,
+          "accuracy_sum": 55893.47808857636,
+          "esr_count": 39106,
+          "oracle_accuracy": 0.9289843407545463
+        },
+        "legacy_generator": {
+          "queries": 69731,
+          "accuracy_sum": 54087.1234154674,
+          "esr_count": 31501,
+          "oracle_accuracy": 0.9531910262754788
+        },
+        "no_recursion": {
+          "queries": 69731,
+          "accuracy_sum": 48910.207287152145,
+          "esr_count": 25286,
+          "oracle_accuracy": 0.7700869371585621
+        },
+        "all_recursion": {
+          "queries": 69731,
+          "accuracy_sum": 55893.47808857636,
+          "esr_count": 39106,
+          "oracle_accuracy": 0.9289843407545463
+        }
+      },
+      "34927": {
+        "current": {
+          "queries": 68384,
+          "accuracy_sum": 56480.28300865539,
+          "esr_count": 34282,
+          "oracle_accuracy": 0.9889102915604263
+        },
+        "legacy_generator": {
+          "queries": 68384,
+          "accuracy_sum": 52180.06356698591,
+          "esr_count": 23619,
+          "oracle_accuracy": 0.8860836774429064
+        },
+        "no_recursion": {
+          "queries": 68384,
+          "accuracy_sum": 55137.983585855174,
+          "esr_count": 31707,
+          "oracle_accuracy": 0.9686869557303948
+        },
+        "all_recursion": {
+          "queries": 68384,
+          "accuracy_sum": 57065.539646465426,
+          "esr_count": 36666,
+          "oracle_accuracy": 0.9889500530195255
+        }
+      },
+      "398465": {
+        "current": {
+          "queries": 68802,
+          "accuracy_sum": 60223.6579337302,
+          "esr_count": 45315,
+          "oracle_accuracy": 0.9942172360001826
+        },
+        "legacy_generator": {
+          "queries": 68802,
+          "accuracy_sum": 50437.681385273645,
+          "esr_count": 19005,
+          "oracle_accuracy": 0.9178986502469089
+        },
+        "no_recursion": {
+          "queries": 68802,
+          "accuracy_sum": 60765.49253246646,
+          "esr_count": 47535,
+          "oracle_accuracy": 0.993872682754915
+        },
+        "all_recursion": {
+          "queries": 68802,
+          "accuracy_sum": 60847.813716839184,
+          "esr_count": 47316,
+          "oracle_accuracy": 0.9943474526081171
+        }
+      },
+      "49544": {
+        "current": {
+          "queries": 70301,
+          "accuracy_sum": 60366.07658730442,
+          "esr_count": 38446,
+          "oracle_accuracy": 0.9751331385945375
+        },
+        "legacy_generator": {
+          "queries": 70301,
+          "accuracy_sum": 55083.480796975695,
+          "esr_count": 23237,
+          "oracle_accuracy": 0.9020070848516245
+        },
+        "no_recursion": {
+          "queries": 70301,
+          "accuracy_sum": 61648.92528860389,
+          "esr_count": 42423,
+          "oracle_accuracy": 0.9739943577598795
+        },
+        "all_recursion": {
+          "queries": 70301,
+          "accuracy_sum": 60564.287021315555,
+          "esr_count": 38985,
+          "oracle_accuracy": 0.9761173932096079
+        }
+      },
+      "58057": {
+        "current": {
+          "queries": 66772,
+          "accuracy_sum": 50895.50667387665,
+          "esr_count": 27664,
+          "oracle_accuracy": 0.9778589601158023
+        },
+        "legacy_generator": {
+          "queries": 66772,
+          "accuracy_sum": 46953.150677094935,
+          "esr_count": 19255,
+          "oracle_accuracy": 0.8549213327689116
+        },
+        "no_recursion": {
+          "queries": 66772,
+          "accuracy_sum": 52923.78283660708,
+          "esr_count": 33998,
+          "oracle_accuracy": 0.9851601217911173
+        },
+        "all_recursion": {
+          "queries": 66772,
+          "accuracy_sum": 49475.048515366274,
+          "esr_count": 23871,
+          "oracle_accuracy": 0.977902124059628
+        }
+      }
+    },
+    "20260601": {
+      "16276": {
+        "current": {
+          "queries": 70086,
+          "accuracy_sum": 55181.283225114974,
+          "esr_count": 18716,
+          "oracle_accuracy": 0.9625331643834629
+        },
+        "legacy_generator": {
+          "queries": 70086,
+          "accuracy_sum": 52703.5887085154,
+          "esr_count": 15129,
+          "oracle_accuracy": 0.8668348732269399
+        },
+        "no_recursion": {
+          "queries": 70086,
+          "accuracy_sum": 55267.191378073614,
+          "esr_count": 19337,
+          "oracle_accuracy": 0.962255731455788
+        },
+        "all_recursion": {
+          "queries": 70086,
+          "accuracy_sum": 55356.10440116254,
+          "esr_count": 18896,
+          "oracle_accuracy": 0.9626721180762644
+        }
+      },
+      "16552": {
+        "current": {
+          "queries": 68219,
+          "accuracy_sum": 57388.728354974424,
+          "esr_count": 39162,
+          "oracle_accuracy": 0.985725739256659
+        },
+        "legacy_generator": {
+          "queries": 68219,
+          "accuracy_sum": 51977.41933620795,
+          "esr_count": 25697,
+          "oracle_accuracy": 0.9138044365308624
+        },
+        "no_recursion": {
+          "queries": 68219,
+          "accuracy_sum": 58645.255491727046,
+          "esr_count": 42963,
+          "oracle_accuracy": 0.9854183608486057
+        },
+        "all_recursion": {
+          "queries": 68219,
+          "accuracy_sum": 57492.08507325499,
+          "esr_count": 39704,
+          "oracle_accuracy": 0.9858941802044268
+        }
+      },
+      "19529": {
+        "current": {
+          "queries": 66996,
+          "accuracy_sum": 52418.20512264951,
+          "esr_count": 32844,
+          "oracle_accuracy": 0.9922025152456827
+        },
+        "legacy_generator": {
+          "queries": 66996,
+          "accuracy_sum": 38766.866540399904,
+          "esr_count": 6322,
+          "oracle_accuracy": 0.7450243783137543
+        },
+        "no_recursion": {
+          "queries": 66996,
+          "accuracy_sum": 40965.99915639303,
+          "esr_count": 3343,
+          "oracle_accuracy": 0.6399657551501132
+        },
+        "all_recursion": {
+          "queries": 66996,
+          "accuracy_sum": 52418.20512264951,
+          "esr_count": 32844,
+          "oracle_accuracy": 0.9922025152456827
+        }
+      },
+      "199524": {
+        "current": {
+          "queries": 71497,
+          "accuracy_sum": 62908.82925131116,
+          "esr_count": 41676,
+          "oracle_accuracy": 0.9829490166602315
+        },
+        "legacy_generator": {
+          "queries": 71497,
+          "accuracy_sum": 58117.58542290576,
+          "esr_count": 30325,
+          "oracle_accuracy": 0.9545341845340788
+        },
+        "no_recursion": {
+          "queries": 71497,
+          "accuracy_sum": 62963.1417388197,
+          "esr_count": 43396,
+          "oracle_accuracy": 0.9825515015201394
+        },
+        "all_recursion": {
+          "queries": 71497,
+          "accuracy_sum": 63990.352641806196,
+          "esr_count": 47015,
+          "oracle_accuracy": 0.983186143028523
+        }
+      },
+      "32590": {
+        "current": {
+          "queries": 70917,
+          "accuracy_sum": 62364.52857975709,
+          "esr_count": 45449,
+          "oracle_accuracy": 0.9874199426549495
+        },
+        "legacy_generator": {
+          "queries": 70917,
+          "accuracy_sum": 60266.450865800434,
+          "esr_count": 36854,
+          "oracle_accuracy": 0.9552058856799516
+        },
+        "no_recursion": {
+          "queries": 70917,
+          "accuracy_sum": 60139.76911977295,
+          "esr_count": 36148,
+          "oracle_accuracy": 0.987341738500854
+        },
+        "all_recursion": {
+          "queries": 70917,
+          "accuracy_sum": 63604.29311799825,
+          "esr_count": 46565,
+          "oracle_accuracy": 0.9874550608380432
+        }
+      },
+      "328840": {
+        "current": {
+          "queries": 69972,
+          "accuracy_sum": 59245.74597624423,
+          "esr_count": 46193,
+          "oracle_accuracy": 0.9268641028394677
+        },
+        "legacy_generator": {
+          "queries": 69972,
+          "accuracy_sum": 54636.35573037533,
+          "esr_count": 29733,
+          "oracle_accuracy": 0.9495165598310922
+        },
+        "no_recursion": {
+          "queries": 69972,
+          "accuracy_sum": 46475.658921627546,
+          "esr_count": 23238,
+          "oracle_accuracy": 0.7080303592822172
+        },
+        "all_recursion": {
+          "queries": 69972,
+          "accuracy_sum": 59245.74597624423,
+          "esr_count": 46193,
+          "oracle_accuracy": 0.9268641028394677
+        }
+      },
+      "34927": {
+        "current": {
+          "queries": 68354,
+          "accuracy_sum": 57539.682178933974,
+          "esr_count": 38150,
+          "oracle_accuracy": 0.9878603455629125
+        },
+        "legacy_generator": {
+          "queries": 68354,
+          "accuracy_sum": 51262.495557217786,
+          "esr_count": 19578,
+          "oracle_accuracy": 0.8809016362467204
+        },
+        "no_recursion": {
+          "queries": 68354,
+          "accuracy_sum": 52920.36920856678,
+          "esr_count": 27867,
+          "oracle_accuracy": 0.9732985944996624
+        },
+        "all_recursion": {
+          "queries": 68354,
+          "accuracy_sum": 56802.56900876947,
+          "esr_count": 34459,
+          "oracle_accuracy": 0.987889030267329
+        }
+      },
+      "398465": {
+        "current": {
+          "queries": 69095,
+          "accuracy_sum": 57293.94541846715,
+          "esr_count": 36311,
+          "oracle_accuracy": 0.9940493211189395
+        },
+        "legacy_generator": {
+          "queries": 69095,
+          "accuracy_sum": 55085.11980519012,
+          "esr_count": 32244,
+          "oracle_accuracy": 0.9212202452089437
+        },
+        "no_recursion": {
+          "queries": 69095,
+          "accuracy_sum": 58052.793117990645,
+          "esr_count": 39058,
+          "oracle_accuracy": 0.9931186306115805
+        },
+        "all_recursion": {
+          "queries": 69095,
+          "accuracy_sum": 59089.83475690702,
+          "esr_count": 41764,
+          "oracle_accuracy": 0.9942194890924938
+        }
+      },
+      "49544": {
+        "current": {
+          "queries": 70436,
+          "accuracy_sum": 61085.776839830454,
+          "esr_count": 40348,
+          "oracle_accuracy": 0.975803611901627
+        },
+        "legacy_generator": {
+          "queries": 70436,
+          "accuracy_sum": 55847.67914584986,
+          "esr_count": 25447,
+          "oracle_accuracy": 0.915353455660325
+        },
+        "no_recursion": {
+          "queries": 70436,
+          "accuracy_sum": 59812.394441673256,
+          "esr_count": 37291,
+          "oracle_accuracy": 0.9750507035272628
+        },
+        "all_recursion": {
+          "queries": 70436,
+          "accuracy_sum": 62101.19188312044,
+          "esr_count": 43835,
+          "oracle_accuracy": 0.9760643968808085
+        }
+      },
+      "58057": {
+        "current": {
+          "queries": 66925,
+          "accuracy_sum": 50146.16258741204,
+          "esr_count": 24093,
+          "oracle_accuracy": 0.9783454143499518
+        },
+        "legacy_generator": {
+          "queries": 66925,
+          "accuracy_sum": 48704.49032633599,
+          "esr_count": 22876,
+          "oracle_accuracy": 0.8514443646253679
+        },
+        "no_recursion": {
+          "queries": 66925,
+          "accuracy_sum": 52951.32409812235,
+          "esr_count": 33063,
+          "oracle_accuracy": 0.9846788657322882
+        },
+        "all_recursion": {
+          "queries": 66925,
+          "accuracy_sum": 51117.643287268555,
+          "esr_count": 26205,
+          "oracle_accuracy": 0.9784515329024651
+        }
+      }
+    }
+  },
+  "by_source": {
+    "16552": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 339252,
+          "accuracy_pct": 85.89790901359791,
+          "esr_pct": 62.027342506455376,
+          "oracle_accuracy_pct": 98.66918083675216
+        },
+        "legacy_generator": {
+          "queries": 339252,
+          "accuracy_pct": 77.99949653393529,
+          "esr_pct": 41.386933606876305,
+          "oracle_accuracy_pct": 90.73941116519954
+        },
+        "no_recursion": {
+          "queries": 339252,
+          "accuracy_pct": 86.7723820223713,
+          "esr_pct": 63.45990591065049,
+          "oracle_accuracy_pct": 98.63135395195766
+        },
+        "all_recursion": {
+          "queries": 339252,
+          "accuracy_pct": 86.68788753950784,
+          "esr_pct": 63.62497494487873,
+          "oracle_accuracy_pct": 98.68734220548023
+        }
+      }
+    },
+    "19529": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 341170,
+          "accuracy_pct": 81.22156846776467,
+          "esr_pct": 52.64003282820881,
+          "oracle_accuracy_pct": 99.40371948400195
+        },
+        "legacy_generator": {
+          "queries": 341170,
+          "accuracy_pct": 65.02332800768687,
+          "esr_pct": 16.0172348096257,
+          "oracle_accuracy_pct": 90.09958238131252
+        },
+        "no_recursion": {
+          "queries": 341170,
+          "accuracy_pct": 68.45430178997937,
+          "esr_pct": 20.84825746695196,
+          "oracle_accuracy_pct": 71.06531451484653
+        },
+        "all_recursion": {
+          "queries": 341170,
+          "accuracy_pct": 81.22156846776467,
+          "esr_pct": 52.64003282820881,
+          "oracle_accuracy_pct": 99.40371948400195
+        }
+      }
+    },
+    "199524": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 352843,
+          "accuracy_pct": 89.43216074397395,
+          "esr_pct": 65.5416148258574,
+          "oracle_accuracy_pct": 98.54820065160818
+        },
+        "legacy_generator": {
+          "queries": 352843,
+          "accuracy_pct": 83.80096123312336,
+          "esr_pct": 49.454006456129214,
+          "oracle_accuracy_pct": 95.33874579354074
+        },
+        "no_recursion": {
+          "queries": 352843,
+          "accuracy_pct": 88.4667001068523,
+          "esr_pct": 62.900213409363374,
+          "oracle_accuracy_pct": 98.52775244079626
+        },
+        "all_recursion": {
+          "queries": 352843,
+          "accuracy_pct": 89.24009506093023,
+          "esr_pct": 65.63117307130933,
+          "oracle_accuracy_pct": 98.58021416227926
+        }
+      }
+    },
+    "32590": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 352899,
+          "accuracy_pct": 88.07194167491295,
+          "esr_pct": 61.069881184134836,
+          "oracle_accuracy_pct": 98.71580749253386
+        },
+        "legacy_generator": {
+          "queries": 352899,
+          "accuracy_pct": 85.16348018116578,
+          "esr_pct": 51.772320125588344,
+          "oracle_accuracy_pct": 95.02358040088353
+        },
+        "no_recursion": {
+          "queries": 352899,
+          "accuracy_pct": 88.1546803753668,
+          "esr_pct": 59.591837891294674,
+          "oracle_accuracy_pct": 98.70498365593409
+        },
+        "all_recursion": {
+          "queries": 352899,
+          "accuracy_pct": 87.39692777121253,
+          "esr_pct": 57.90636981119244,
+          "oracle_accuracy_pct": 98.72993935805941
+        }
+      }
+    },
+    "328840": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 347686,
+          "accuracy_pct": 80.65512207104025,
+          "esr_pct": 54.34875145965037,
+          "oracle_accuracy_pct": 94.31558383450803
+        },
+        "legacy_generator": {
+          "queries": 347686,
+          "accuracy_pct": 72.39881708364828,
+          "esr_pct": 30.941711774417147,
+          "oracle_accuracy_pct": 91.67577736202207
+        },
+        "no_recursion": {
+          "queries": 347686,
+          "accuracy_pct": 64.69896098887983,
+          "esr_pct": 28.660918184798927,
+          "oracle_accuracy_pct": 71.07700346201236
+        },
+        "all_recursion": {
+          "queries": 347686,
+          "accuracy_pct": 80.65512207104025,
+          "esr_pct": 54.34875145965037,
+          "oracle_accuracy_pct": 94.31558383450803
+        }
+      }
+    },
+    "34927": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 340802,
+          "accuracy_pct": 83.4517157690674,
+          "esr_pct": 52.80896238871838,
+          "oracle_accuracy_pct": 98.90202298137291
+        },
+        "legacy_generator": {
+          "queries": 340802,
+          "accuracy_pct": 77.34346896269139,
+          "esr_pct": 36.05495272915065,
+          "oracle_accuracy_pct": 88.52674992263042
+        },
+        "no_recursion": {
+          "queries": 340802,
+          "accuracy_pct": 81.58700583790666,
+          "esr_pct": 48.20834384774737,
+          "oracle_accuracy_pct": 97.30286629595881
+        },
+        "all_recursion": {
+          "queries": 340802,
+          "accuracy_pct": 83.4015895253906,
+          "esr_pct": 51.94834537356002,
+          "oracle_accuracy_pct": 98.90536237959553
+        }
+      }
+    },
+    "398465": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 341553,
+          "accuracy_pct": 82.94739217282594,
+          "esr_pct": 51.54895433505195,
+          "oracle_accuracy_pct": 99.40990363222083
+        },
+        "legacy_generator": {
+          "queries": 341553,
+          "accuracy_pct": 74.52288345529774,
+          "esr_pct": 31.305536768817724,
+          "oracle_accuracy_pct": 90.81250976704493
+        },
+        "no_recursion": {
+          "queries": 341553,
+          "accuracy_pct": 85.29441566674636,
+          "esr_pct": 58.66293078965783,
+          "oracle_accuracy_pct": 99.37297906845863
+        },
+        "all_recursion": {
+          "queries": 341553,
+          "accuracy_pct": 83.85805176733717,
+          "esr_pct": 54.940228895661875,
+          "oracle_accuracy_pct": 99.42781525049163
+        }
+      }
+    },
+    "42473": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401"
+      ],
+      "variants": {
+        "current": {
+          "queries": 205556,
+          "accuracy_pct": 82.48572998873185,
+          "esr_pct": 54.783124793243694,
+          "oracle_accuracy_pct": 97.81792058322662
+        },
+        "legacy_generator": {
+          "queries": 205556,
+          "accuracy_pct": 77.05362589504571,
+          "esr_pct": 39.60040086399813,
+          "oracle_accuracy_pct": 88.2835665375742
+        },
+        "no_recursion": {
+          "queries": 205556,
+          "accuracy_pct": 82.15798908626726,
+          "esr_pct": 53.37183054739341,
+          "oracle_accuracy_pct": 97.76710789912933
+        },
+        "all_recursion": {
+          "queries": 205556,
+          "accuracy_pct": 82.27227515014849,
+          "esr_pct": 54.251396213197374,
+          "oracle_accuracy_pct": 97.90244793644193
+        }
+      }
+    },
+    "49544": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 350525,
+          "accuracy_pct": 87.1615634427031,
+          "esr_pct": 58.98951572641038,
+          "oracle_accuracy_pct": 97.64202018412821
+        },
+        "legacy_generator": {
+          "queries": 350525,
+          "accuracy_pct": 79.1539879689315,
+          "esr_pct": 35.44740032807931,
+          "oracle_accuracy_pct": 90.92373020081395
+        },
+        "no_recursion": {
+          "queries": 350525,
+          "accuracy_pct": 86.64760935203542,
+          "esr_pct": 58.18101419299622,
+          "oracle_accuracy_pct": 97.56409648011527
+        },
+        "all_recursion": {
+          "queries": 350525,
+          "accuracy_pct": 86.85610711947326,
+          "esr_pct": 58.420084159475074,
+          "oracle_accuracy_pct": 97.68633057897709
+        }
+      }
+    },
+    "58057": {
+      "dates": [
+        "20260201",
+        "20260301",
+        "20260401",
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 332961,
+          "accuracy_pct": 76.12853583176268,
+          "esr_pct": 40.699661521919985,
+          "oracle_accuracy_pct": 97.83826832441189
+        },
+        "legacy_generator": {
+          "queries": 332961,
+          "accuracy_pct": 71.7508911466202,
+          "esr_pct": 31.46044131294656,
+          "oracle_accuracy_pct": 86.20350814558964
+        },
+        "no_recursion": {
+          "queries": 332961,
+          "accuracy_pct": 79.62183180940565,
+          "esr_pct": 50.700832830271416,
+          "oracle_accuracy_pct": 98.54096261704696
+        },
+        "all_recursion": {
+          "queries": 332961,
+          "accuracy_pct": 76.4695462342204,
+          "esr_pct": 41.12103219295953,
+          "oracle_accuracy_pct": 97.84554711499409
+        }
+      }
+    },
+    "16276": {
+      "dates": [
+        "20260501",
+        "20260601"
+      ],
+      "variants": {
+        "current": {
+          "queries": 140087,
+          "accuracy_pct": 78.8028750207891,
+          "esr_pct": 27.028917743973388,
+          "oracle_accuracy_pct": 96.21851159858643
+        },
+        "legacy_generator": {
+          "queries": 140087,
+          "accuracy_pct": 76.50283036971683,
+          "esr_pct": 25.66476546717397,
+          "oracle_accuracy_pct": 86.895115268385
+        },
+        "no_recursion": {
+          "queries": 140087,
+          "accuracy_pct": 77.85665990639444,
+          "esr_pct": 24.22137671589798,
+          "oracle_accuracy_pct": 96.19412278544506
+        },
+        "all_recursion": {
+          "queries": 140087,
+          "accuracy_pct": 78.99303997048008,
+          "esr_pct": 27.379414221162563,
+          "oracle_accuracy_pct": 96.21637146285057
+        }
+      }
+    }
+  }
+}

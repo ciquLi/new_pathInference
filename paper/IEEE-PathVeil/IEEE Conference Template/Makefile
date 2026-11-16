@@ -1,7 +1,9 @@
 .PHONY: all clean
 
 PAPER := pathveil
-FIGURES := figures/fig1_scenario.pdf figures/fig2_overview.pdf
+FIGURES := figures/fig1_scenario.pdf figures/fig2_overview.pdf figures/fig_eval_stage.pdf \
+           figures/fig_query_jaccard_distribution.pdf figures/fig_ablation_recursion.pdf \
+           figures/fig_ablation_generator.pdf
 FIGURE_SVGS := figures/fig1_scenario.svg figures/fig2_overview.svg
 FIGURE_PREVIEWS := figures/fig1_scenario_preview.png figures/fig2_overview_preview.png
 METHOD_SOURCES := $(wildcard sections/*.tex algorithms/*.tex tables/*.tex)

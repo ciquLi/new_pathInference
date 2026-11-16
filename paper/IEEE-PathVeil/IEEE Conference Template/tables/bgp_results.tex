@@ -1,16 +1,33 @@
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{PathVeil inference on the fixed BGP query sets. Jaccard uses the per-query rounding in \eqref{eq:jaccard}. AS mean weights the ten sources equally; pair mean and exact agreement weight all queries equally.}
+\caption{End-to-end BGP path inference across five snapshots.}
 \label{tab:bgp_results}
-\small
-\setlength{\tabcolsep}{7pt}
-\begin{tabular}{@{}lrrrrrr@{}}
+\footnotesize
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llrrrr@{}}
 \toprule
-Snapshot & Sources & Queries & Admitted paths & AS mean (\%) & Pair mean (\%) & Exact (\%)\\
+Date & Method & Accuracy & ESR & Queries & Coverage\\
 \midrule
-2026-02-01 & 10 & 685,820 & 37,916 & 82.52 & 82.56 & 52.90\\
-2026-03-01 & 10 & 685,765 & 33,300 & 85.01 & 85.06 & 58.27\\
-2026-04-01 & 10 & 688,302 & 32,761 & 83.41 & 83.45 & 54.76\\
+\multirow{3}{*}{Feb.} & KnownPath & 71.78\% & 17.55\% & 685,820 & 99.81\%\\
+ & PathRadar & 68.93\% & 26.84\% & 685,820 & 99.76\%\\
+ & \textbf{\sys} & \textbf{84.52\%} & \textbf{56.64\%} & 685,820 & 99.73\%\\
+\midrule
+\multirow{3}{*}{Mar.} & KnownPath & 70.52\% & 13.99\% & 685,765 & 99.82\%\\
+ & PathRadar & 67.86\% & 25.26\% & 685,765 & 99.80\%\\
+ & \textbf{\sys} & \textbf{84.30\%} & \textbf{56.14\%} & 685,765 & 99.73\%\\
+\midrule
+\multirow{3}{*}{Apr.} & KnownPath & 71.42\% & 17.06\% & 688,302 & 99.81\%\\
+ & PathRadar & 69.99\% & 28.05\% & 688,302 & 99.76\%\\
+ & \textbf{\sys} & \textbf{83.17\%} & \textbf{54.18\%} & 688,302 & 99.63\%\\
+\midrule
+\multirow{3}{*}{May} & KnownPath & 70.58\% & 14.61\% & 692,950 & 99.77\%\\
+ & PathRadar & 71.00\% & 28.96\% & 692,950 & 99.75\%\\
+ & \textbf{\sys} & \textbf{83.14\%} & \textbf{52.71\%} & 692,950 & 99.64\%\\
+\midrule
+\multirow{3}{*}{Jun.} & KnownPath & 71.06\% & 15.65\% & 692,497 & 99.73\%\\
+ & PathRadar & 70.08\% & 26.82\% & 692,497 & 99.76\%\\
+ & \textbf{\sys} & \textbf{83.12\%} & \textbf{52.41\%} & 692,497 & 99.58\%\\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular*}
+\end{table}

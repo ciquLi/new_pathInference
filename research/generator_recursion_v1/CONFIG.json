@@ -1,0 +1,29 @@
+{
+  "name": "generator_recursion_v1",
+  "baseline_manifest": "docs/releases/pats-v1.0-21x5.json",
+  "code_manifest": "docs/releases/pathInference-v1.0-21x5.json",
+  "dates": {
+    "20260201": "runs/20260201/pats_rho_v1/run_3e92673fd15d85e4",
+    "20260301": "runs/20260301/pats_rho_v1/run_e3f6274a5f3c9ec8",
+    "20260401": "runs/20260401/pats_rho_v1/run_ab7ab2f546f7279d",
+    "20260501": "runs/20260501/pats_rho_v1/run_834f604486bd8597",
+    "20260601": "runs/20260601/pats_rho_v1/run_e3376ed94b5612d8"
+  },
+  "variants": {
+    "current": {"generator": "PATS", "recursion": "conditional"},
+    "legacy_generator": {"generator": "high_frequency", "recursion": "conditional"},
+    "no_recursion": {"generator": "PATS", "recursion": "none"},
+    "all_recursion": {"generator": "PATS", "recursion": "all"}
+  },
+  "recursion_width": 5,
+  "low_root_limit": 21,
+  "cpu_slots": 2,
+  "cpu_affinity": [6, 7],
+  "gpu_workers": 1,
+  "source_order": ["19529", "328840", "16552", "32590", "34927", "42473", "49544", "58057", "199524", "398465", "16276"],
+  "seed": 20261015,
+  "minimum_free_disk_gib": 25,
+  "candidate_capacity": 200,
+  "preserve_results_models_augmentation": true,
+  "final_labels_used_for_tuning": false
+}

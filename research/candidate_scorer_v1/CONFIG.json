@@ -1,0 +1,18 @@
+{
+  "name": "candidate_scorer_v1",
+  "date": "20260201",
+  "baseline": "runs/20260201/pats_rho_v1/run_3e92673fd15d85e4",
+  "sources": ["19529", "328840", "16552"],
+  "cpu_affinity": [6, 7],
+  "threads": 2,
+  "seed": 20261015,
+  "feature_schema": "frozen255_on_prediction_candidates_v1",
+  "target": "cached_GMPI_candidate_jaccard_to_admitted_augmentation",
+  "max_rounds": 500,
+  "early_stopping_rounds": 40,
+  "learning_rate": 0.04,
+  "num_leaves": 15,
+  "min_data_in_leaf": 30,
+  "batch_queries": 512,
+  "test_labels_used_for_tuning": false
+}

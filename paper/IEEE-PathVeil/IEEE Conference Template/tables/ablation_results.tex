@@ -1,0 +1,33 @@
+\begin{table}[t]
+\centering
+\caption{Recursive exploration ablation (query-weighted \%).}
+\label{tab:ablation_recursion}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llrrr@{}}
+\toprule
+Date & Expansion & Oracle ACC & Accuracy & ESR\\
+\midrule
+\multirow{3}{*}{Feb.} & Conditional & 98.70 & \textbf{84.52} & \textbf{56.64}\\
+ & None & 93.12 & 80.39 & 48.44\\
+ & All & 98.72 & 84.02 & 54.74\\
+\midrule
+\multirow{3}{*}{Mar.} & Conditional & 98.12 & \textbf{84.30} & \textbf{56.14}\\
+ & None & 92.63 & 81.84 & 51.69\\
+ & All & 98.15 & 83.89 & 54.95\\
+\midrule
+\multirow{3}{*}{Apr.} & Conditional & 97.95 & 83.17 & 54.18\\
+ & None & 92.40 & 81.63 & 51.53\\
+ & All & 97.97 & \textbf{83.46} & \textbf{54.63}\\
+\midrule
+\multirow{3}{*}{May} & Conditional & 97.79 & 83.14 & 52.71\\
+ & None & 93.81 & 82.20 & 50.83\\
+ & All & 97.80 & \textbf{83.30} & \textbf{53.51}\\
+\midrule
+\multirow{3}{*}{Jun.} & Conditional & 97.73 & 83.12 & 52.41\\
+ & None & 92.00 & 79.16 & 44.15\\
+ & All & 97.74 & \textbf{83.93} & \textbf{54.51}\\
+\bottomrule
+\end{tabular*}
+\end{table}

@@ -1,0 +1,21 @@
+{
+  "name": "gmpi_confidence_v1",
+  "date": "20260201",
+  "baseline": "runs/20260201/pats_rho_v1/run_3e92673fd15d85e4",
+  "frozen_candidate_run": "runs/20260201/candidate_scorer_v1",
+  "source_snapshot": "runs/20260201/candidate_confidence_v2/SNAPSHOT.json",
+  "sources": ["19529", "328840", "16552", "32590", "34927", "42473", "49544", "58057", "199524", "398465"],
+  "variants": ["smooth_l1", "query_cross_entropy"],
+  "changed_factor": "training loss only",
+  "label_temperature": 0.1,
+  "device": "cuda",
+  "cpu_threads": 2,
+  "gpu_workers": 1,
+  "seed": 20261015,
+  "paired_initialization": "require equal state_dict hash before optimizer steps",
+  "hyperparameters": "inherit each source's historical frozen GMPI configuration",
+  "validation": "unchanged pair-disjoint weak-label top1 Jaccard",
+  "freeze_all_models_before_prediction": true,
+  "freeze_all_predictions_before_final_evaluation": true,
+  "final_labels_used_for_tuning": false
+}

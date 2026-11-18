@@ -18,27 +18,31 @@
 \maketitle
 
 \begin{abstract}
-Learning-based AS path inference uses observed routes to learn the
-routing preferences of a source autonomous system (AS). However, public
-measurements cover sources unevenly, leaving some sources without the
-paths needed to train an individual model. This paper presents \sys,
-a framework for constructing source-specific training paths from other
-networks' observations and public interconnection information. Its core
-method, prefix-anchored tail stitching, learns likely source prefixes,
-explores routing choices beyond the first hop, and joins the selected
-prefixes to observed forward path segments. A complete-path model
-selects an augmented training library, while the retained prefix tree
-constrains candidate generation during both training and inference.
-A path likelihood estimator based on GMPI learns from the library and
-ranks the generated candidates. We evaluate \sys on five monthly BGP
-snapshots, each containing ten target sources and more than 685,000
-source--destination queries. Target-originated path labels are withheld
-from construction and training; inherited graph features have incomplete
-origin-level provenance. In this setting, \sys achieves
-83.12--84.52\% mean AS-set Jaccard similarity, compared with
-70.52--71.78\% for KnownPath. Component studies show that prefix-tree
-generation improves final accuracy by 6.45--7.96 percentage points over
-the prior generator with the same augmented training library.
+Interdomain routing is shaped by autonomous systems (ASes) that select
+paths according to local policy. Knowing an AS-level path helps operators
+understand transit dependencies, diagnose cross-domain reachability, and
+compare connectivity to remote services. Yet source-side route measurements
+are unavailable for many networks. Traceroute requires a probe in the source
+network, while public BGP observations cover source ASes unevenly. Existing
+inference methods therefore face a source-cold-start problem: heuristic
+methods cannot fully capture source-specific routing preferences, whereas
+learning-based methods require source-originated paths for training. This
+paper presents \sys, a framework that constructs source-specific training
+paths from observations of other networks and public interconnection
+evidence. \sys estimates source prefixes that reflect likely early-hop
+choices and recursively explores supported continuations to build a prefix
+tree. It then joins selected prefixes with observed forward segments and
+scores complete paths, admitting paths that are plausible and representative
+as training evidence. The resulting library trains a generative and
+measurable path inference model; prefix-tree constraints guide candidate
+generation, and a path-likelihood estimator ranks the candidates. Across
+five monthly BGP snapshots with ten target sources and more than 685,000
+source--destination queries per snapshot, \sys achieves 83.12--84.52\%
+mean AS-set Jaccard accuracy and improves over the strongest baseline by
+11.75--13.78 percentage points. Ablations show that prefix-tree-constrained
+generation improves final accuracy by 6.45--7.96 percentage points over the
+prior generator under the same augmented training library.
+
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -49,15 +53,15 @@ public routing evidence
 \section{Introduction}
 \label{sec:introduction}
 
-The Internet consists of autonomous systems (ASes) that select routes
-according to their own routing policies. Knowing the ASes along a route
-helps operators examine transit dependencies and compare connectivity
-to remote networks~\cite{li2024internet}. For example, an operator
-considering alternative service locations may need to know which
-intermediary networks lie between its users and each destination.
-The relevant route starts at the users' network. A measurement from
-another AS may follow a different path, and a measurement in the reverse
-direction need not reveal the forward route.
+Interdomain routes determine which autonomous systems (ASes) carry traffic
+between a source network and a remote service. An AS-level path therefore
+helps operators understand transit dependencies, diagnose cross-domain
+reachability, and compare connectivity to remote services or alternative
+service locations~\cite{li2024internet}. The relevant path starts at the
+user's network: two users contacting the same destination may traverse
+different ASes because each source applies its own routing policy. A path
+observed from another network, or in the reverse direction, does not by
+itself reveal the forward path from the user.
 
 \begin{figure}[t]
 \centering
@@ -69,91 +73,94 @@ proof that the source forwards along it.}
 \label{fig:motivation}
 \end{figure}
 
-Obtaining such observations requires measurement access. Traceroute
-depends on a probe in, or suitable access to, the source network;
-distributed platforms extend coverage but cannot provide a probe in
-every AS~\cite{tracerouteJacobson,RIPEAtlas}. Public BGP collectors expose
-advertised routes from participating networks, which also provide uneven
-source coverage~\cite{RouteViews,RIPERIS}. AS path inference therefore
-uses available observations and topology to estimate unmeasured routes.
-Policy-based methods search under routing constraints, and
-stitching-based methods reuse observed path
-segments~\cite{qiu2005path,probinfer,11044440}. Learning-based methods
-such as GMPI and PA-GMPI train an individual model for each source to
-capture routing preferences that coarse policy rules cannot fully
-describe~\cite{li2023realizing,li2024realizing}.
+Obtaining source-specific paths directly requires measurement access.
+Traceroute needs a probe in, or suitable access to, the source network;
+distributed platforms extend coverage but cannot place a probe in every
+AS, and nonresponding hops and IP-to-AS mapping affect the result
+~\cite{tracerouteJacobson,ParisTraceroute,RIPEAtlas,mao2003AStraceroute}.
+Public BGP collectors expose advertised paths from participating networks,
+but their source coverage is also uneven~\cite{RouteViews,RIPERIS}.
+AS path inference uses these incomplete observations to estimate routes.
+Heuristic methods search under routing constraints or reuse observed
+segments~\cite{qiu2005path,probinfer,11044440}; they provide useful
+structural constraints but cannot fully capture the routing preferences of
+an individual source. Learning-based methods such as GMPI and PA-GMPI
+model those preferences from observed routes~\cite{li2023realizing,li2024realizing},
+but their source-specific training procedures require paths originating
+from the source.
 
-The source-specific approach introduces a data requirement: training
-and personalization depend on paths already observed from the source.
-In PA-GMPI, for example, observed source paths identify the convergence
-points used for personalized candidate generation. When those paths are
-unavailable, transferring model parameters alone does not supply the
-source's training labels or local path knowledge. We study this
-\emph{source cold start}: constructing a source-specific inference model
-without using observations originating from its target source as path
-inputs. Observations from other sources remain available.
+This dependency creates a source-cold-start setting. Consider a source AS
+$s$ for which no source-originated paths are available, while paths from
+other origins and public interconnection information remain accessible.
+The goal is to construct a source-specific training library that reflects
+how $s$ is likely to leave its network and that contains complete,
+credible routes to remote destinations. The library can then support a
+learning-based path inferer for queries $(s,d)$ without using the withheld
+paths from $s$ during construction or training. Figure~\ref{fig:motivation}
+shows the basic opportunity: an observed forward segment $(a,b,d)$ can be
+reused if a supported prefix $(s,n,a)$ connects the source to that segment.
+The prefix preserves source-dependent choices, while the observed tail
+provides routing evidence beyond the source. The resulting path is useful
+only if the connection and the complete route are sufficiently credible.
 
-Figure~\ref{fig:motivation} illustrates our starting point. An observation
-from another AS contains the forward segment $(a,b,d)$. If the short
-prefix $(s,n,a)$ can be inferred, the segment can be reused to construct
-$(s,n,a,b,d)$. Much of the constructed route then preserves an observed
-routing choice. The unresolved part is the connection from $s$ to the
-segment and whether the resulting route is suitable as training evidence
-for $s$. Repeating this construction across destinations could provide
-the source-rooted paths required by a learning-based inferer.
-
-This approach must address three connected problems. First, the
-connection to observed segments is source dependent. A well-observed
-neighbor may already supply useful tails, whereas a source with few
-neighbors can hide many routing choices beyond its first hop. Exploring
-only immediate neighbors may miss these choices; expanding every branch
-also admits additional alternatives that require assessment. Second,
-legal joins are not equally useful training paths. A route may satisfy
-topological and commercial constraints without agreeing with the
-source's observed routing behavior. Selection must consider the complete
-path, including its destination context. Third, selecting training paths
-and generating query candidates are related decisions. A library
-dominated by a few branches can suppress other selected exits if the
-generator reconstructs its source knowledge from that library alone.
+Constructing such a library raises three challenges. First, the source's
+egress neighbors and exploration depth must be selected together. A source
+with well-observed neighbors may need only a few direct branches; a source
+with weakly observed neighbors may require exploration beyond them; and a
+source with a nearly single observed neighbor requires further exploration
+to expose downstream alternatives. Expanding too little misses source
+choices, whereas expanding every branch can introduce unsupported or
+redundant alternatives. Second, paths must be both constructible and
+trustworthy. Existing routes contain valuable real segments, which makes
+prefix--tail stitching natural, but a topologically legal join does not
+prove that the source would select the resulting route. Construction must
+therefore be coupled with complete-path scoring and selection that retain
+reliable and representative paths. Third, the source's configuration is
+not directly visible. The method must combine heterogeneous public
+sources---BGP paths, AS relationships, PeeringDB attributes, and graph
+features---and represent them consistently at both the AS and path levels
+without treating missing evidence as a confirmed relationship.
 
 We present \sys, a framework built around \emph{prefix-anchored tail
-stitching (\pats)}. It first learns likely neighbors from public routing
-and interconnection evidence, then explores supported continuations to
-form a source-specific prefix tree. Exploration depends on both source
-topology and the availability of observed tails. The method joins the
-selected prefixes to forward observed segments and evaluates each
-complete path using prefix reliability, segment support, and
-destination-conditioned observations from other training sources.
-A source-relative score threshold admits the training library.
+stitching (\pats)}. It first uses public routing and interconnection
+evidence to estimate likely source prefixes and to identify whether
+supported continuations warrant recursive exploration. These decisions
+form a source-specific prefix tree. The method then joins selected prefixes
+to forward segments observed from other origins, evaluates complete paths
+using prefix reliability, segment support, and destination-conditioned
+evidence, and admits the paths that pass a source-relative quality
+criterion. The admitted paths form the augmented training library.
 
-\sys retains the selected tree separately from the admitted library.
-The tree constrains early routing choices during both training and query
-candidate generation, including branches that are sparsely represented
-in the library. The library supplies surrogate route labels for a
-source-specific path likelihood estimator. We reuse GMPI's scoring
-architecture and learning objective, so the new design concerns how
-source-specific learning evidence and candidate routes are constructed.
+The retained prefix tree and the admitted library serve complementary
+roles. The library provides surrogate source-rooted route labels for the
+path-likelihood estimator, while the tree constrains early routing choices
+during candidate generation and prevents sparse but selected branches from
+being discarded merely because the admitted library is uneven. The final
+candidate paths are scored by the generative and measurable path inference
+model, whose likelihood estimator and learning objective are inherited from
+GMPI; PathVeil's contribution is the construction of source-specific
+evidence and the constraints supplied to generation.
 
 The contributions of this paper are as follows:
 \begin{itemize}
-\item We formulate source-cold-start AS path inference through the
-construction of source-specific training evidence from other networks'
-observations. The formulation separates background evidence, upstream
-supervision, augmented training paths, and held-out evaluation labels.
-\item We design \pats to connect learned source prefixes to observed
-tails and admit complete paths for training. A retained prefix tree
-constrains candidate generation independently of the admitted library's
-branch frequencies.
+\item We formulate source-cold-start AS path inference as the construction
+of source-specific training evidence from other networks' observations,
+while separating public evidence, upstream supervision, augmented paths,
+and held-out evaluation labels.
+\item We design \pats to select source egress prefixes, explore supported
+continuations, and join them with observed tails. Complete-path scoring
+admits reliable and representative paths, while the retained prefix tree
+preserves the selected source branches during candidate generation.
 \item We evaluate \sys on five monthly BGP snapshots with target-origin
-path labels withheld. The evaluation separates neighbor coverage,
-complete-path support, and final route agreement. \sys achieves
-83.12--84.52\% mean AS-set Jaccard similarity, and generator ablations
-quantify the benefit of preserving the selected prefix tree.
+path labels withheld. The evaluation separately measures neighbor coverage,
+complete-path support, and final route agreement, and component studies
+quantify the benefit of recursive exploration and prefix-tree-constrained
+generation.
 \end{itemize}
 
-Section~\ref{sec:background} reviews the routing evidence and related
-inference methods. Section~\ref{sec:problem} defines the problem, and
-Section~\ref{sec:method} presents \sys. Sections~\ref{sec:evaluation}
+Section~\ref{sec:background} reviews routing evidence and related
+inference methods. Section~\ref{sec:problem} defines the source-cold-start
+setting, and Section~\ref{sec:method} presents \sys. Sections~\ref{sec:evaluation}
 and~\ref{sec:discussion} report the evaluation and discuss its limits.
 
 \section{Background and Related Work}

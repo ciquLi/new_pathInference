@@ -9,10 +9,21 @@ X.~Li, C.~Wang, Y.~Yang, C.~Hou, B.~Hou, and Z.~Cai, ``Internet inter-domain
 V.~Jacobson, ``Traceroute.'' \url{ftp://ftp.ee.lbl.gov/traceroute.tar.gz.},
   1988.
 
+\bibitem{ParisTraceroute}
+B.~Augustin, X.~Cuvellier, B.~Orgogozo, F.~Viger, T.~Friedman, M.~Latapy,
+  C.~Magnien, and R.~Teixeira, ``Avoiding traceroute anomalies with paris
+  traceroute,'' in {\em Proceedings of Internet Measurement Conference}, (New
+  York, NY, USA), pp.~153--158, ACM, 2006.
+
 \bibitem{RIPEAtlas}
 {RIPE NCC}, ``{RIPE Atlas}: User-defined measurements.''
   \url{https://atlas.ripe.net/docs/getting-started/user-defined-measurements/}.
 \newblock Accessed: 2026-10-24.
+
+\bibitem{mao2003AStraceroute}
+Z.~M. Mao, J.~Rexford, J.~Wang, and R.~H. Katz, ``Towards an accurate
+  {AS}-level traceroute tool,'' in {\em Proceedings of the ACM SIGCOMM 2003
+  Conference}, pp.~365--378, ACM, 2003.
 
 \bibitem{RouteViews}
 {University of Oregon}, ``{Route Views Project}.''
@@ -72,12 +83,6 @@ CAIDA, ``{AS} {R}ank.'' \url{http://as-rank.caida.org/}, 2023.
 L.~Gao, ``On inferring autonomous system relationships in the internet,'' {\em
   IEEE/ACM Trans. Netw.}, vol.~9, no.~6, pp.~733--745, 2001.
 
-\bibitem{ParisTraceroute}
-B.~Augustin, X.~Cuvellier, B.~Orgogozo, F.~Viger, T.~Friedman, M.~Latapy,
-  C.~Magnien, and R.~Teixeira, ``Avoiding traceroute anomalies with paris
-  traceroute,'' in {\em Proceedings of Internet Measurement Conference}, (New
-  York, NY, USA), pp.~153--158, ACM, 2006.
-
 \bibitem{scamper2010}
 M.~Luckie, ``Scamper: A scalable and extensible packet prober for active
   measurement of the internet,'' in {\em Proceedings of the 10th ACM SIGCOMM
@@ -87,11 +92,6 @@ M.~Luckie, ``Scamper: A scalable and extensible packet prober for active
 {RIPE NCC}, ``{RIPE Atlas}: Measurement result format, version 5000.''
   \url{https://atlas.ripe.net/docs/apis/measurement-result-format/version-5000/}.
 \newblock Accessed: 2026-10-24.
-
-\bibitem{mao2003AStraceroute}
-Z.~M. Mao, J.~Rexford, J.~Wang, and R.~H. Katz, ``Towards an accurate
-  {AS}-level traceroute tool,'' in {\em Proceedings of the ACM SIGCOMM 2003
-  Conference}, pp.~365--378, ACM, 2003.
 
 \bibitem{madhyastha2006iplane}
 H.~V. Madhyastha, T.~Isdal, M.~Piatek, C.~Dixon, T.~Anderson, A.~Krishnamurthy,

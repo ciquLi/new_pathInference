@@ -1,0 +1,29 @@
+{
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "PathVeil (Makefile)",
+      "tools": ["pathveil-make"]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pathveil-make",
+      "command": "make",
+      "args": ["-C", "%DIR%", "pathveil.pdf"]
+    }
+  ],
+  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.latex.autoClean.run": "never",
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.fls",
+    "*.log",
+    "*.out",
+    "*.fdb_latexmk",
+    "*.synctex.gz"
+  ]
+}

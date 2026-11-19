@@ -1,9 +1,31 @@
 \begin{thebibliography}{10}
 
+\bibitem{rfc4271}
+Y.~Rekhter, T.~Li, and S.~Hares, ``A border gateway protocol 4 ({BGP-4}),'' RFC
+  4271, RFC Editor, Jan. 2006.
+
 \bibitem{li2024internet}
 X.~Li, C.~Wang, Y.~Yang, C.~Hou, B.~Hou, and Z.~Cai, ``Internet inter-domain
   path inferring: Methods, applications, and future directions,'' {\em
   Computers, Materials and Continua}, vol.~81, no.~1, pp.~53--78, 2024.
+
+\bibitem{Testart2020ADA}
+C.~Testart and D.~D. Clark, ``A data-driven approach to understanding the state
+  of internet routing security,'' in {\em Proceeding of the Research Conference
+  on Communication, Information and Internet Policy}, 2020.
+
+\bibitem{jin2019zooming}
+Y.~Jin, R.~Sundararajan, G.~Ananthanarayanan, J.~Jiang, V.~Padmanabhan,
+  M.~Schroder, M.~Calder, A.~Krishnamurthy, M.~Liu, T.~Cui, {\em et~al.},
+  ``Zooming in on wide-area latencies to a global cloud provider.,'' in {\em
+  Proceedings of the ACM Special Interest Group on Data Communication},
+  pp.~104--116, ACM, 2019.
+
+\bibitem{krishnan2009moving}
+R.~Krishnan, H.~V. Madhyastha, S.~Srinivasan, S.~Jain, A.~Krishnamurthy,
+  T.~Anderson, and J.~Gao, ``Moving beyond end-to-end path information to
+  optimize cdn performance,'' in {\em Proceedings of the Internet Measurement
+  Conference}, pp.~190--201, 2009.
 
 \bibitem{tracerouteJacobson}
 V.~Jacobson, ``Traceroute.'' \url{ftp://ftp.ee.lbl.gov/traceroute.tar.gz.},
@@ -36,20 +58,59 @@ Z.~M. Mao, J.~Rexford, J.~Wang, and R.~H. Katz, ``Towards an accurate
   2026.
 \newblock Accessed: 2026-07-30.
 
+\bibitem{MaoASLevelPathInference}
+Z.~M. Mao, L.~Qiu, J.~Wang, and Y.~Zhang, ``On as-level path inference,'' {\em
+  SIGMETRICS Performance Evaluation Review}, vol.~33, p.~339–349, jun 2005.
+
 \bibitem{qiu2005path}
 J.~Qiu and L.~Gao, ``{AS} path inference by exploiting known {AS} paths,'' in
   {\em Proceedings of the IEEE Global Telecommunications Conference}, pp.~1--5,
   IEEE, 2006.
+
+\bibitem{madhyastha2006iplane}
+H.~V. Madhyastha, T.~Isdal, M.~Piatek, C.~Dixon, T.~Anderson, A.~Krishnamurthy,
+  and A.~Venkataramani, ``i{P}lane: An information plane for distributed
+  services,'' in {\em Proceedings of the USENIX Symposium on Operating Systems
+  Design and Implementation}, pp.~367--380, USENIX, 2006.
+
+\bibitem{madhyastha2009iplane}
+H.~V. Madhyastha, E.~Katz-Bassett, T.~E. Anderson, A.~Krishnamurthy, and
+  A.~Venkataramani, ``i{P}lane nano: Path prediction for peer-to-peer
+  applications.,'' in {\em Proceedings of the USENIX Symposium on Networked
+  Systems Design and Implementation}, vol.~9, pp.~137--152, USENIX, 2009.
+
+\bibitem{lee2011scalable}
+D.~Lee, K.~Jang, C.~Lee, G.~Iannaccone, and S.~Moon, ``Scalable and systematic
+  internet-wide path and delay estimation from existing measurements,'' {\em
+  Computer Networks}, vol.~55, p.~838–855, feb 2011.
+
+\bibitem{11044440}
+Z.~Jin, X.~Shi, Q.~Ma, L.~Sun, Z.~Wang, X.~Yin, and J.~Wu, ``Which way to go?
+  inferring fine-grained as paths with pathradar,'' in {\em IEEE INFOCOM 2025 -
+  IEEE Conference on Computer Communications}, pp.~1--10, 2025.
+
+\bibitem{cunha2016sibyl}
+{\'I}.~Cunha, P.~Marchetta, M.~Calder, Y.-C. Chiu, B.~V. Machado,
+  A.~Pescap{\`e}, V.~Giotsas, H.~V. Madhyastha, and E.~Katz-Bassett, ``Sibyl: A
+  practical internet route oracle,'' in {\em Proceedings of the USENIX
+  Symposium on Networked Systems Design and Implementation}, pp.~325--344,
+  USENIX, 2016.
 
 \bibitem{probinfer}
 X.~Li, Z.~Cai, B.~Hou, N.~Liu, F.~Liu, and J.~Cheng, ``Probinfer:
   Probability-based {AS} path inference from multigraph perspective,'' {\em
   Computer Networks}, vol.~180, p.~107377, 2020.
 
-\bibitem{11044440}
-Z.~Jin, X.~Shi, Q.~Ma, L.~Sun, Z.~Wang, X.~Yin, and J.~Wu, ``Which way to go?
-  inferring fine-grained as paths with pathradar,'' in {\em IEEE INFOCOM 2025 -
-  IEEE Conference on Computer Communications}, pp.~1--10, 2025.
+\bibitem{singh2021predictroute}
+R.~Singh, D.~Tench, P.~Gill, and A.~McGregor, ``{PredictRoute}: A network path
+  prediction toolkit,'' {\em Proceedings of the ACM on Measurement and Analysis
+  of Computing Systems}, vol.~5, no.~2, 2021.
+
+\bibitem{wang2022routeinfer}
+T.~Wu, J.~H. Wang, J.~Wang, and S.~Zhuang, ``Routeinfer: Inferring interdomain
+  paths by capturing isp routing behavior diversity and generality,'' in {\em
+  Proceedings of the International Conference on Passive and Active
+  Measurement}, (Berlin, Heidelberg), pp.~216--244, Springer, 2022.
 
 \bibitem{li2023realizing}
 X.~Li, T.~Zhou, Z.~Cai, and J.~Su, ``Realizing fine-grained inference of {AS}
@@ -61,10 +122,6 @@ X.~Li, C.~Wang, T.~Yang, A.~Shen, Z.~Qiu, B.~Hou, and Z.~Cai, ``Realizing
   personalized and adaptive inference of {AS} paths with a generative and
   measurable process,'' {\em IEEE Transactions on Networking}, vol.~33, no.~2,
   pp.~729--744, 2025.
-
-\bibitem{rfc4271}
-Y.~Rekhter, T.~Li, and S.~Hares, ``A border gateway protocol 4 ({BGP-4}),'' RFC
-  4271, RFC Editor, Jan. 2006.
 
 \bibitem{caidaASRelationships}
 {CAIDA}, ``{AS Relationships}.''
@@ -92,29 +149,6 @@ M.~Luckie, ``Scamper: A scalable and extensible packet prober for active
 {RIPE NCC}, ``{RIPE Atlas}: Measurement result format, version 5000.''
   \url{https://atlas.ripe.net/docs/apis/measurement-result-format/version-5000/}.
 \newblock Accessed: 2026-10-24.
-
-\bibitem{madhyastha2006iplane}
-H.~V. Madhyastha, T.~Isdal, M.~Piatek, C.~Dixon, T.~Anderson, A.~Krishnamurthy,
-  and A.~Venkataramani, ``i{P}lane: An information plane for distributed
-  services,'' in {\em Proceedings of the USENIX Symposium on Operating Systems
-  Design and Implementation}, pp.~367--380, USENIX, 2006.
-
-\bibitem{madhyastha2009iplane}
-H.~V. Madhyastha, E.~Katz-Bassett, T.~E. Anderson, A.~Krishnamurthy, and
-  A.~Venkataramani, ``i{P}lane nano: Path prediction for peer-to-peer
-  applications.,'' in {\em Proceedings of the USENIX Symposium on Networked
-  Systems Design and Implementation}, vol.~9, pp.~137--152, USENIX, 2009.
-
-\bibitem{singh2021predictroute}
-R.~Singh, D.~Tench, P.~Gill, and A.~McGregor, ``{PredictRoute}: A network path
-  prediction toolkit,'' {\em Proceedings of the ACM on Measurement and Analysis
-  of Computing Systems}, vol.~5, no.~2, 2021.
-
-\bibitem{wang2022routeinfer}
-T.~Wu, J.~H. Wang, J.~Wang, and S.~Zhuang, ``Routeinfer: Inferring interdomain
-  paths by capturing isp routing behavior diversity and generality,'' in {\em
-  Proceedings of the International Conference on Passive and Active
-  Measurement}, (Berlin, Heidelberg), pp.~216--244, Springer, 2022.
 
 \bibitem{schomp2020akamai}
 K.~Schomp, O.~Bhardwaj, E.~Kurdoglu, M.~Muhaimen, and R.~K. Sitaraman,

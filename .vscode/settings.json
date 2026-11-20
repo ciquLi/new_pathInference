@@ -3,15 +3,22 @@
   "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.recipes": [
     {
-      "name": "PathVeil (Makefile)",
-      "tools": ["pathveil-make"]
+      "name": "PathVeil (latexmk)",
+      "tools": ["pathveil-latexmk"]
     }
   ],
   "latex-workshop.latex.tools": [
     {
-      "name": "pathveil-make",
-      "command": "make",
-      "args": ["-C", "%DIR%", "pathveil.pdf"]
+      "name": "pathveil-latexmk",
+      "command": "latexmk",
+      "args": [
+        "-cd",
+        "-pdf",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "%DOC%"
+      ]
     }
   ],
   "latex-workshop.latex.outDir": "%DIR%",

@@ -88,49 +88,57 @@ destination pair cannot rely on direct measurement alone.
 These limitations have motivated two broad families of AS path inference
 methods. Heuristic and policy-based methods use known AS paths, topology,
 commercial constraints, or measured segments to construct feasible
-routes~\cite{MaoASLevelPathInference,qiu2005path,madhyastha2006iplane,madhyastha2009iplane,lee2011scalable,11044440}.
-They provide useful structural constraints and can reuse real path
-segments, but their source-side choices remain weakly observed when no
-anchor connects the target source to those segments. Data-driven and
-probabilistic methods learn route preferences or candidate likelihoods
-from collected observations~\cite{cunha2016sibyl,probinfer,singh2021predictroute,wang2022routeinfer,li2023realizing,li2024realizing}.
-GMPI and PA-GMPI use source-specific training procedures to model the
-preferences of an AS, which improves personalization but also makes
-their training evidence a direct resource requirement.
+routes~\cite{MaoASLevelPathInference,qiu2005path,madhyastha2006iplane,madhyastha2009iplane,lee2011scalable,pathradar2025}.
+These methods provide useful structural constraints and can reuse real
+path segments, but their limitations depend on how candidates are built.
+Graph- and policy-based methods can enumerate routes allowed by public
+topology and commercial rules without observing which route the target
+source prefers. Stitching methods preserve observed segments, but still
+need evidence that the source-side prefix is a defensible connection to
+the stitched segment. Their performance therefore depends on the
+completeness of the topology, policy, and segment evidence available to
+the method.
 
-This dependency creates a source-cold-start setting. Consider a source AS
-$s$ for which no source-originated paths are available, while paths from
-other origins and public interconnection information remain accessible.
-A path observed from another origin cannot simply be relabeled as an
-$s\rightarrow d$ path: it reflects the other origin's route choices and
-may not be exported to, or selected by, $s$~\cite{rfc4271}. It can still
-provide useful downstream evidence. Figure~\ref{fig:motivation} shows the
-basic opportunity: an observed forward segment $(a,b,d)$ can be reused
-when a supported prefix $(s,n,a)$ connects the target source to that
-segment. The prefix supplies an inferred source-side connection, while
-the observed tail preserves routing decisions beyond the anchor. Our goal
-is to construct a source-specific training library of such complete
-candidate routes without using the withheld paths from $s$ during
-construction or training.
+Data-driven and probabilistic methods address these limitations by
+learning from collected observations. Depending on their inputs and
+models, they build route oracles from historical paths, represent AS
+paths as probabilistic multigraphs, combine control- and data-plane
+histories, or model diversity in ISP routing behavior
+~\cite{cunha2016sibyl,probinfer,singh2021predictroute,wang2022routeinfer}.
+These approaches reduce reliance on hand-written routing rules and can
+rank multiple feasible candidates from observed evidence. GMPI combines
+heuristic path generation with a neural likelihood estimator and trains
+a source-specific model for each AS~\cite{li2023realizing}. PA-GMPI
+extends this design with prefix-grained inference, personalized path
+generation, and adaptive training warm-starting~\cite{li2024realizing}.
+Their source-specific training procedures improve personalization while
+making paths and local knowledge originating from the source a direct
+resource requirement.
 
-Constructing such a library raises three coupled challenges. First, the
-source's egress neighbors and exploration depth must be selected together.
-A source with well-observed neighbors may need only a few direct branches,
-whereas a source with weak or concentrated first-hop evidence may require
-exploration beyond those neighbors. Expanding too little misses
-source-side alternatives; expanding every branch can introduce unsupported
-or redundant prefixes. Second, paths must be constructible and useful as
-training evidence. Observed routes contain real downstream segments, but
-a topologically legal prefix--tail join does not establish that the
-source would select the resulting complete route. Construction therefore
-needs complete-path scoring and source-relative admission. Third, the
-training library and the query candidate space must remain consistent. A
-selected branch should not disappear from candidate generation merely
-because few admitted paths happen to use it, while an admitted path must
-still be generated from a prefix allowed for the source. These decisions
-require public BGP paths, AS relationships, PeeringDB attributes, and
-graph features to be combined without treating missing evidence as a
-confirmed relationship.
+Source-specific path observations are unevenly available because public
+measurement vantage points cover ASes unevenly~\cite{RouteViews,RIPERIS}.
+For a large fraction of ASes, public data contain no path whose origin is
+that AS, so the observations required by source-specific training are
+absent. This source-coverage gap creates a source-cold-start setting.
+A natural solution is to use paths observed from other origins and public
+interconnection information to construct a source-specific training
+library. Under BGP, an AS learns routes from its neighbors and selects
+among the routes advertised to it according to local policy~\cite{rfc4271}.
+Although paths originating from the target source are unavailable, we can
+approximate this route-learning process from evidence available elsewhere.
+Figure~\ref{fig:motivation} makes the construction concrete. The target
+source $s$ is connected to the publicly observed tail $a\rightarrow b
+\rightarrow d$ through the inferred prefix $s\rightarrow n\rightarrow a$.
+This example raises three questions. First, which neighbor $n$ should be
+treated as a plausible forwarding choice for $s$, and when should the
+method explore beyond that first hop? Second, once a prefix reaches an
+anchor such as $a$, which observed forward tail can be safely attached to
+it? The tail must match the anchor and satisfy path, loop, and commercial
+constraints. Third, how should the complete candidate
+$s\rightarrow n\rightarrow a\rightarrow b\rightarrow d$ be assessed?
+The assessment must combine support for the inferred prefix and its
+transitions with evidence for the observed tail and the destination
+context.
 
 We present \sys, a framework built around \emph{prefix-anchored tail
 stitching (\pats)}. It first ranks likely source neighbors from public
@@ -235,7 +243,7 @@ scoring architecture and objective.
 
 PathRadar adapts policy-based and stitching-based inference to routing
 complexity and observation adequacy, with progressive learning for
-prefix-specific and multiple-path inference~\cite{11044440}. Its use
+prefix-specific and multiple-path inference~\cite{pathradar2025}. Its use
 of different inference strategies under heterogeneous observation
 conditions is related to our exploration policy. \sys uses a learned
 prefix tree to define the source's candidate space and constructs a
